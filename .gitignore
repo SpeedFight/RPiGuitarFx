@@ -1,5 +1,7 @@
 #libs
 lib/*
+!lib/libraryList.txt
+
 
 # Prerequisites
 *.d

@@ -1,0 +1,4 @@
+List of libs to put here
+
+1)	rotaryEncoder
+	https://github.com/F6HQZ/rotary-encoder-lib-for-raspberry-pi
