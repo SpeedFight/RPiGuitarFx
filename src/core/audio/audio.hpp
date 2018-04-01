@@ -22,6 +22,7 @@ class Audio: public JackCpp::AudioIO {
 		virtual int audioCallback(jack_nframes_t nframes, audioBufVector inBufs, audioBufVector outBufs);
 
 		Audio(FXList *fxList);
+		~Audio();
 
 	private:
 		FXList *fxList;
