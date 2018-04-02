@@ -10,11 +10,37 @@
 
 #include "config.hpp"
 
+/*
+ * defined controllers
+ * 4 potentiometers (encoder)
+ * 4 buttons (each encoder is also button)
+ * 2 buttons as footswitch
+ */
 
 
 class IController{
-	int
-	virtual ~IController() {};
+public:
+	virtual int getValue(void) {return 0;};
+	virtual ~IController(void) {};
+};
+
+class IDetector{
+public:
+	virtual void pollForEvents(void) {};
+	virtual int getValue(ControllerInput controllerInput) = 0;
+	virtual ~IDetector() {};
+};
+
+class IButton: public IController{
+public:
+	virtual int getValue(void) = 0;
+	virtual ~IButton(void) {};
+};
+
+class IPotentiometer: public IController{
+public:
+	virtual int getValue(void) = 0;
+	virtual ~IPotentiometer(void) {};
 };
 
 

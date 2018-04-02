@@ -15,6 +15,20 @@
 #include <thread>
 #include <list>
 
+enum ControllerInput{
+	pot1,
+	pot2,
+	pot3,
+	pot4,
+	pot5,
+	pot6,
+	btn1,
+	btn2,
+	btn3,
+	btn4,
+	foot1,
+	foot2
+};
 
 
 #endif /* CONFIG_HPP_ */

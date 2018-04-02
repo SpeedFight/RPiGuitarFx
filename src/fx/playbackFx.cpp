@@ -13,7 +13,6 @@ void PlaybackFx::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVecto
 
 
 	for(unsigned int i = 0; i < MIN(inBufs.size(), outBufs.size()); i++){
-		std::cout<<i<<std::endl;
 		for(unsigned int j = 0; j < nframes; j++)
 			outBufs[i][j] = inBufs[i][j];	// A simple example: copy the input to the output.
 	}

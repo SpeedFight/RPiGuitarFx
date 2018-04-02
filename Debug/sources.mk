@@ -25,6 +25,7 @@ C_DEPS :=
 SUBDIRS := \
 lib/rotaryEncoder \
 src/core/audio \
+src/core/controllers \
 src/fx \
 src \
 

@@ -8,21 +8,23 @@
 #include "config.hpp"
 #include "audio.hpp"
 #include "effect.hpp"
+#include "controller.hpp"
+#include "keyboard.hpp"
 
-
-using namespace std;
+#include <ncursesw/ncurses.h>
 
 int main( int argc, char * argv[] )
 {
-	unique_ptr<FXList> fxList(new FXList());
+	std::unique_ptr<Keyboard> keys(new Keyboard());
+	std::thread inputKeys(&Keyboard::pollForEvents, keys.get());
 
-	fxList->getFXList()->push_back(shared_ptr<IFX>(new PlaybackFx()));
 
-	unique_ptr<Audio> input = unique_ptr<Audio>(new Audio(fxList.get()));
-
-	sleep(5);		// sleep to allow the callback to run for 50 seconds.
-	fxList.reset();
-	input.reset();
-
+//	std::unique_ptr<FXList> fxList(new FXList());
+//	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new PlaybackFx()));
+//	std::unique_ptr<Audio> input = std::unique_ptr<Audio>(new Audio(fxList.get()));
+	sleep(50);		// sleep to allow the callback to run for 50 seconds.
+//	fxList.reset();
+//	input.reset();
+	keys.reset();
     return 0;
 }

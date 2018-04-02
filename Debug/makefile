@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include src/fx/subdir.mk
+-include src/core/controllers/subdir.mk
 -include src/core/audio/subdir.mk
 -include src/subdir.mk
 -include lib/rotaryEncoder/subdir.mk
@@ -47,7 +48,7 @@ all: RPiGuitarFX
 RPiGuitarFX: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ -L/usr/local/lib/ -o "RPiGuitarFX" $(OBJS) $(USER_OBJS) $(LIBS)  `pkg-config --cflags --libs gtk+-3.0 jack` -I/usr/local/include/  -ljackcpp
+	g++ -L/usr/local/lib/ -pthread -o "RPiGuitarFX" $(OBJS) $(USER_OBJS) $(LIBS)  `pkg-config --cflags --libs gtk+-3.0 jack` -I/usr/local/include/  -ljackcpp
 	@echo 'Finished building target: $@'
 	@echo ' '
 
