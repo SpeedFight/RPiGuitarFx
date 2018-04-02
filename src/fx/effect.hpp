@@ -8,10 +8,8 @@
 #ifndef EFFECT_HPP_
 #define EFFECT_HPP_
 
+#include "config.hpp"
 #include <jackaudioio.hpp>
-#include <list>
-#include <memory>
-#include <iostream>
 
 class IFX{
 public:

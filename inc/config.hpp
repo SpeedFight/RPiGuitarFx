@@ -8,7 +8,12 @@
 #ifndef CONFIG_HPP_
 #define CONFIG_HPP_
 
-
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
+#include <memory>
+#include <thread>
+#include <list>
 
 
 

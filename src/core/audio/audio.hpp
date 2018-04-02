@@ -8,11 +8,9 @@
 #ifndef AUDIO_HPP_
 #define AUDIO_HPP_
 
-#include <jackaudioio.hpp>
-#include <iostream>
-#include <stdlib.h>
-#include <unistd.h>
+#include "config.hpp"
 #include "effect.hpp"
+#include <jackaudioio.hpp>
 
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 

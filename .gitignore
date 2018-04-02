@@ -1,7 +1,11 @@
-#libs
+#not include build binary
+Debug/RPiGuitarFX
+
+#external libs
 lib/*
 !lib/libraryList.txt
 
+######initial config bellow
 
 # Prerequisites
 *.d

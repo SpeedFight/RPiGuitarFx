@@ -6,11 +6,9 @@
  */
 
 #include "config.hpp"
-
 #include "audio.hpp"
 #include "effect.hpp"
-#include <memory>
-#include <iostream>
+
 
 using namespace std;
 
