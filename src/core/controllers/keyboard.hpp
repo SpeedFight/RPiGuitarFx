@@ -37,25 +37,8 @@ public:
 	virtual int getValue(ControllerInput controllerInput);
 	virtual ~Keyboard() {};
 private:
+	static gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 	std::array<int,12> controllerValues;
-	const static char pot1up = 'q';
-	const static char pot1btn = 'a';
-	const static char pot1down = 'z';
-
-	const static char pot2up = 'w';
-	const static char pot2btn = 's';
-	const static char pot2down = 'x';
-
-	const static char pot3up = 'e';
-	const static char pot3btn = 'd';
-	const static char pot3down = 'c';
-
-	const static char pot4up = 'r';
-	const static char pot4btn = 'f';
-	const static char pot4down = 'v';
-
-	const static char foot1 = '1';
-	const static char foot2 = '2';
 };
 
 

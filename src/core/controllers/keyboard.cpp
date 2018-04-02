@@ -6,50 +6,64 @@
  */
 
 #include "keyboard.hpp"
+#include <gdk/gdkkeysyms.h>
 
-#include <ncursesw/ncurses.h>
+
 
 	Keyboard::Keyboard(){
 
 		controllerValues.fill(0);
+		GtkWidget *window;
+
+		gtk_init(0,0);
+
+		window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+		g_signal_connect (G_OBJECT (window), "destroy", G_CALLBACK (gtk_main_quit), NULL);
+		g_signal_connect (G_OBJECT (window), "key_press_event", G_CALLBACK (on_key_press), this);
+		gtk_widget_show(window);
+
+		gtk_main ();
+
+
 	}
+
+	gboolean Keyboard::on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data){
+		int *values = reinterpret_cast<Keyboard*>(user_data)->controllerValues.data();
+		switch (event->keyval) {
+			case GDK_KEY_q: values[ControllerInput::pot1]+=1; break;
+			case GDK_KEY_z: --values[ControllerInput::pot1]; break;
+
+			case GDK_KEY_w: ++values[ControllerInput::pot2]; break;
+			case GDK_KEY_x: --values[ControllerInput::pot2]; break;
+
+			case GDK_KEY_e: ++values[ControllerInput::pot3]; break;
+			case GDK_KEY_c: --values[ControllerInput::pot3]; break;
+
+			case GDK_KEY_r: ++values[ControllerInput::pot4]; break;
+			case GDK_KEY_v: --values[ControllerInput::pot4]; break;
+
+			case GDK_KEY_a: ++values[ControllerInput::btn1]; break;
+			case GDK_KEY_s: ++values[ControllerInput::btn2]; break;
+			case GDK_KEY_d: ++values[ControllerInput::btn3]; break;
+			case GDK_KEY_f: ++values[ControllerInput::btn4]; break;
+			case GDK_KEY_1: ++values[ControllerInput::foot1]; break;
+			case GDK_KEY_2: ++values[ControllerInput::foot2]; break;
+			default: break;
+			}
+		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
+		std::cout<<"pot2val: "<<values[ControllerInput::pot2]<<std::endl;
+		std::cout<<"pot3val: "<<values[ControllerInput::pot3]<<std::endl;
+		std::cout<<"pot4val: "<<values[ControllerInput::pot4]<<std::endl;
+		std::cout<<"btn1val: "<<values[ControllerInput::btn1]<<std::endl;
+		std::cout<<"btn2val: "<<values[ControllerInput::btn2]<<std::endl;
+		std::cout<<"btn3val: "<<values[ControllerInput::btn3]<<std::endl;
+		std::cout<<"btn4val: "<<values[ControllerInput::btn4]<<std::endl;
+		std::cout<<"foot1val: "<<values[ControllerInput::foot1]<<std::endl;
+		std::cout<<"foot2val: "<<values[ControllerInput::foot2]<<std::endl;
+		}
 
 	void Keyboard::pollForEvents(){
 
-		char input = ' ';
-		while(1){
-
-
-			std::this_thread::sleep_for(std::chrono::milliseconds(25));
-
-			//while(!(input = getchar()))
-			std::cout<<"input: ";
-				input = getchar();
-				std::cout<<input;
-			switch (input) {
-				case pot1up: controllerValues[ControllerInput::pot1]+=1; break;
-				case pot1down: --controllerValues[ControllerInput::pot1]; break;
-
-				case pot2up: ++controllerValues[ControllerInput::pot2]; break;
-				case pot2down: --controllerValues[ControllerInput::pot2]; break;
-
-				case pot3up: ++controllerValues[ControllerInput::pot3]; break;
-				case pot3down: --controllerValues[ControllerInput::pot3]; break;
-
-				case pot4up: ++controllerValues[ControllerInput::pot4]; break;
-				case pot4down: --controllerValues[ControllerInput::pot4]; break;
-
-				case pot1btn: ++controllerValues[ControllerInput::btn1]; break;
-				case pot2btn: ++controllerValues[ControllerInput::btn2]; break;
-				case pot3btn: ++controllerValues[ControllerInput::btn3]; break;
-				case pot4btn: ++controllerValues[ControllerInput::btn4]; break;
-				case foot1: ++controllerValues[ControllerInput::foot1]; break;
-				case foot2: ++controllerValues[ControllerInput::foot2]; break;
-				default: break;
-			}
-			std::cout<<controllerValues[0]<<std::endl;
-		}
-		return;
 	}
 
 	int Keyboard::getValue(ControllerInput controllerInput){

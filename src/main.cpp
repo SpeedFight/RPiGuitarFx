@@ -11,12 +11,12 @@
 #include "controller.hpp"
 #include "keyboard.hpp"
 
-#include <ncursesw/ncurses.h>
+//#include <ncursesw/ncurses.h>
 
 int main( int argc, char * argv[] )
 {
 	std::unique_ptr<Keyboard> keys(new Keyboard());
-	std::thread inputKeys(&Keyboard::pollForEvents, keys.get());
+	//std::thread inputKeys(&Keyboard::pollForEvents, keys.get());
 
 
 //	std::unique_ptr<FXList> fxList(new FXList());
