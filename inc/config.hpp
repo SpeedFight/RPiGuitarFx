@@ -23,6 +23,8 @@ enum ControllerInput{
 	pot4,
 	pot5,
 	pot6,
+	pot7,
+	pot8,
 	btn1,
 	btn2,
 	btn3,

@@ -30,7 +30,7 @@
 	gboolean Keyboard::on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data){
 		int *values = reinterpret_cast<Keyboard*>(user_data)->controllerValues.data();
 		switch (event->keyval) {
-			case GDK_KEY_q: values[ControllerInput::pot1]+=1; break;
+			case GDK_KEY_q: ++values[ControllerInput::pot1]; break;
 			case GDK_KEY_z: --values[ControllerInput::pot1]; break;
 
 			case GDK_KEY_w: ++values[ControllerInput::pot2]; break;
@@ -54,6 +54,10 @@
 		std::cout<<"pot2val: "<<values[ControllerInput::pot2]<<std::endl;
 		std::cout<<"pot3val: "<<values[ControllerInput::pot3]<<std::endl;
 		std::cout<<"pot4val: "<<values[ControllerInput::pot4]<<std::endl;
+		std::cout<<"pot5val: "<<values[ControllerInput::pot5]<<std::endl;
+		std::cout<<"pot6val: "<<values[ControllerInput::pot6]<<std::endl;
+		std::cout<<"pot7val: "<<values[ControllerInput::pot7]<<std::endl;
+		std::cout<<"pot8val: "<<values[ControllerInput::pot8]<<std::endl;
 		std::cout<<"btn1val: "<<values[ControllerInput::btn1]<<std::endl;
 		std::cout<<"btn2val: "<<values[ControllerInput::btn2]<<std::endl;
 		std::cout<<"btn3val: "<<values[ControllerInput::btn3]<<std::endl;
