@@ -39,3 +39,4 @@ lib/*
 *.exe
 *.out
 *.app
+/Debug/

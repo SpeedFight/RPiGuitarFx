@@ -30,7 +30,8 @@ enum ControllerInput{
 	btn3,
 	btn4,
 	foot1,
-	foot2
+	foot2,
+	foot3
 };
 
 

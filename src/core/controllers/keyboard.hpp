@@ -37,8 +37,13 @@ public:
 	virtual int getValue(ControllerInput controllerInput);
 	virtual ~Keyboard() {};
 private:
-	static gboolean on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data);
-	std::array<int,12> controllerValues;
+	static gboolean isQ, isA, isZ, isW, isS, isX, isE, isD, isC, isR, isF, isV, is1, is2, is3;
+	static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+	static gboolean on_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+
+	std::array<int,13> controllerValues;
+
+
 };
 
 
