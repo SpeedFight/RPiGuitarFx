@@ -14,7 +14,10 @@
 #include <memory>
 #include <thread>
 #include <list>
+#include <string>
 #include <gtk/gtk.h>
+#include <cmath>
+
 
 enum ControllerInput{
 	pot1,
