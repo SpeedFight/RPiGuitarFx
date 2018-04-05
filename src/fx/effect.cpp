@@ -25,16 +25,17 @@ std::string *Setting::getName(){
 }
 
 void Setting::update(){
-
+	std::cout<<"update przed pobraniem wsk"<<std::endl;
 	actualValue += *valueFromController;
-	valueFromController = 0;
+	*valueFromController = 0;
+	std::cout<<"update po pobraniu wsk"<<std::endl;
 
 	if(actualValue < minValue){
 		actualValue = minValue;
 	}else if(actualValue > maxValue){
 		actualValue = maxValue;
 	}
-	//std::cout<<"update"<<std::endl;
+
 	//std::cout<<"wartosc aktualna: "<<actualValue<<" wartośc z ptr do controlera"<<*valueFromController<<std::endl;
 }
 

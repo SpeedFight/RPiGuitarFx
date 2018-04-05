@@ -20,7 +20,7 @@ const std::string SimpleOverdriveFx::nameFx("Simple overdrive");
 						sign = 0;
 					}
 
-					outBufs[0][i] = sign * (1-exp(-abs(q)));
+					outBufs[0][i] = sign * (1-exp(-abs(q)))/1.5;
 		}
 		std::cout<<"wartosc pot1: "<<settings[ControllerInput::pot1].getValue()<<std::endl;
 

@@ -29,6 +29,10 @@ Audio::Audio(FXList *newFxList) : JackCpp::AudioIO("RPiGuitarFX", 1,1), fxList(n
 	connectToPhysical(0,0);		// connects this client out port 0 to physical destination port 0
 	connectFromPhysical(0,0);	// connects this client in port 0 to physical source port 0
 
+	//stereo
+	//connectToPhysical(1,1);		// connects this client out port 0 to physical destination port 0
+	//connectFromPhysical(1,1);	// connects this client in port 0 to physical source port 0
+
 #ifdef DEBUG_INFO
 	// port connection status
 	std::cout << std::endl;
