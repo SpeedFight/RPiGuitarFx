@@ -14,7 +14,7 @@
 
 class Setting{
 public:
-	Setting(std::string newName, int *controllerValue, int initValue, int newMaxValue, int newMinValue );
+	Setting(std::string newName, int *controllerValue, int initValue, int newMinValue, int newMaxValue);
 	std::string *getName();
 	void update();
 	int getValue();
@@ -22,7 +22,7 @@ public:
 private:
 	std::string name;
 	int *valueFromController;
-	int value;
+	int actualValue;
 	const int maxValue;
 	const int minValue;
 
@@ -30,14 +30,17 @@ private:
 
 class IFX{
 public:
+	IFX(IDetector *newUserInput);
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs) {};
 	virtual ~IFX() {};
 
-	virtual const std::string *getName() {};
-	virtual void setSettings(int *settings) {};
-	virtual std::vector<Setting> *getSettings() {};
+	virtual const std::string *getName() = 0;
+	void updateSettings();
+	std::vector<Setting> *getSettings();
+
 protected:
-	std::vector<Setting> settings(8);
+	IDetector *userInput;
+	std::vector<Setting> settings;
 
 };
 

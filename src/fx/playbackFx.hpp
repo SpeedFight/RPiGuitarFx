@@ -13,11 +13,11 @@
 class PlaybackFx: public IFX{
 public:
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs);
+	PlaybackFx(IDetector *newUserInput);
 	~PlaybackFx();
 
-	virtual const std::string *getName();
-	virtual void setSettings(int *settings);
-	virtual int *getSettings();
+	const std::string *getName();
+	std::vector<Setting> *getSettings();
 
 
 private:

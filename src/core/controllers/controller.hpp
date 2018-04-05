@@ -27,7 +27,7 @@ public:
 class IDetector{
 public:
 	virtual void pollForEvents(void) {};
-	virtual int getValue(ControllerInput controllerInput) = 0;
+	virtual int *getInputHandler(ControllerInput controllerInput) = 0;
 	virtual ~IDetector() {};
 };
 

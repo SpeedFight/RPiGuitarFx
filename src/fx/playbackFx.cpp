@@ -21,18 +21,21 @@ void PlaybackFx::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVecto
 			outBufs[i][j] = inBufs[i][j];
 	}
 }
+PlaybackFx::PlaybackFx(IDetector *newUserInput):
+		IFX(newUserInput)
+		{
+	;
+}
+
+
 PlaybackFx::~PlaybackFx() {};
 
 const std::string *PlaybackFx::getName(){
 	return &PlaybackFx::nameFx;
 }
 
-void PlaybackFx::setSettings(int *settings){
-	//no settings in this FX
-}
+std::vector<Setting> *PlaybackFx::getSettings(){
 
-int *PlaybackFx::getSettings(){
-	//no settings in this FX
 }
 
 
