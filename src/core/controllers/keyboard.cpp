@@ -10,7 +10,6 @@
 
 gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::isS, Keyboard::isX, Keyboard::isE, Keyboard::isD, Keyboard::isC, Keyboard::isR, Keyboard::isF, Keyboard::isV, Keyboard::is1, Keyboard::is2, Keyboard::is3;
 
-
 	Keyboard::Keyboard(){
 		isQ= isA= isZ= isW= isS= isX= isE= isD= isC= isR= isF= isV= is1= is2= is3 = FALSE;
 
@@ -18,18 +17,14 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 		GtkWidget *window;
 
 		gtk_init(0,0);
-
 		window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 		g_signal_connect (G_OBJECT (window), "destroy", G_CALLBACK (gtk_main_quit), NULL);
 		g_signal_connect (G_OBJECT (window), "key-press-event", G_CALLBACK (on_key_press), this);
 		g_signal_connect (G_OBJECT (window), "key-release-event", G_CALLBACK (on_key_release), this);
 		gtk_widget_show(window);
-
-		//gtk_main ();
 	}
 
-	gboolean Keyboard::on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
-	{
+	gboolean Keyboard::on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data){
 		int *values = reinterpret_cast<Keyboard*>(user_data)->controllerValues.data();
 		switch (event->keyval) {
 			case GDK_KEY_q: Keyboard::isQ = TRUE; break;
@@ -118,7 +113,7 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 			}
 		}
 
-		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
+//		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
 //		std::cout<<"pot2val: "<<values[ControllerInput::pot2]<<std::endl;
 //		std::cout<<"pot3val: "<<values[ControllerInput::pot3]<<std::endl;
 //		std::cout<<"pot4val: "<<values[ControllerInput::pot4]<<std::endl;
@@ -162,7 +157,7 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 			default: break;
 		}
 
-		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
+//		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
 //		std::cout<<"pot2val: "<<values[ControllerInput::pot2]<<std::endl;
 //		std::cout<<"pot3val: "<<values[ControllerInput::pot3]<<std::endl;
 //		std::cout<<"pot4val: "<<values[ControllerInput::pot4]<<std::endl;
@@ -186,6 +181,5 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 	}
 
 	int *Keyboard::getInputHandler(ControllerInput controllerInput){
-
 		return &controllerValues[controllerInput];
 	}
