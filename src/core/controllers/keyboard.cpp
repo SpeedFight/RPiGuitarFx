@@ -39,13 +39,13 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 			case GDK_KEY_r: Keyboard::isR = TRUE; break;
 			case GDK_KEY_v: Keyboard::isV = TRUE; break;
 
-			case GDK_KEY_a:	Keyboard::isA = TRUE; break;
-			case GDK_KEY_s: Keyboard::isS = TRUE; break;
-			case GDK_KEY_d: Keyboard::isD = TRUE; break;
-			case GDK_KEY_f: Keyboard::isF = TRUE; break;
-			case GDK_KEY_1: Keyboard::is1 = TRUE; ++values[ControllerInput::foot1]; break;
-			case GDK_KEY_2: Keyboard::is2 = TRUE; ++values[ControllerInput::foot2]; break;
-			case GDK_KEY_3: Keyboard::is3 = TRUE; ++values[ControllerInput::foot3]; break;
+			case GDK_KEY_a:	Keyboard::isA = TRUE; values[ControllerInput::btn1] = 1; break;
+			case GDK_KEY_s: Keyboard::isS = TRUE; values[ControllerInput::btn2] = 1; break;
+			case GDK_KEY_d: Keyboard::isD = TRUE; values[ControllerInput::btn3] = 1; break;
+			case GDK_KEY_f: Keyboard::isF = TRUE; values[ControllerInput::btn4] = 1; break;
+			case GDK_KEY_1: Keyboard::is1 = TRUE; values[ControllerInput::foot1] = 1; break;
+			case GDK_KEY_2: Keyboard::is2 = TRUE; values[ControllerInput::foot2] = 1; break;
+			case GDK_KEY_3: Keyboard::is3 = TRUE; values[ControllerInput::foot3] = 1; break;
 			default: break;
 		}
 
@@ -54,8 +54,6 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 				++values[ControllerInput::pot5];
 			}else if(isZ){
 				--values[ControllerInput::pot5];
-			}else{
-				++values[ControllerInput::btn1];
 			}
 		}else{
 			if(isQ){
@@ -70,8 +68,6 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 				++values[ControllerInput::pot6];
 			}else if(isX){
 				--values[ControllerInput::pot6];
-			}else{
-				++values[ControllerInput::btn2];
 			}
 		}else{
 			if(isW){
@@ -86,8 +82,6 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 				++values[ControllerInput::pot7];
 			}else if(isC){
 				--values[ControllerInput::pot7];
-			}else{
-				++values[ControllerInput::btn3];
 			}
 		}else{
 			if(isE){
@@ -102,8 +96,6 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 				++values[ControllerInput::pot8];
 			}else if(isV){
 				--values[ControllerInput::pot8];
-			}else{
-				++values[ControllerInput::btn4];
 			}
 		}else{
 			if(isR){
@@ -113,21 +105,21 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 			}
 		}
 
-//		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
-//		std::cout<<"pot2val: "<<values[ControllerInput::pot2]<<std::endl;
-//		std::cout<<"pot3val: "<<values[ControllerInput::pot3]<<std::endl;
-//		std::cout<<"pot4val: "<<values[ControllerInput::pot4]<<std::endl;
-//		std::cout<<"pot5val: "<<values[ControllerInput::pot5]<<std::endl;
-//		std::cout<<"pot6val: "<<values[ControllerInput::pot6]<<std::endl;
-//		std::cout<<"pot7val: "<<values[ControllerInput::pot7]<<std::endl;
-//		std::cout<<"pot8val: "<<values[ControllerInput::pot8]<<std::endl;
-//		std::cout<<"btn1val: "<<values[ControllerInput::btn1]<<std::endl;
-//		std::cout<<"btn2val: "<<values[ControllerInput::btn2]<<std::endl;
-//		std::cout<<"btn3val: "<<values[ControllerInput::btn3]<<std::endl;
-//		std::cout<<"btn4val: "<<values[ControllerInput::btn4]<<std::endl;
-//		std::cout<<"foot1val: "<<values[ControllerInput::foot1]<<std::endl;
-//		std::cout<<"foot2val: "<<values[ControllerInput::foot2]<<std::endl;
-//		std::cout<<"foot3val: "<<values[ControllerInput::foot3]<<std::endl;
+		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
+		std::cout<<"pot2val: "<<values[ControllerInput::pot2]<<std::endl;
+		std::cout<<"pot3val: "<<values[ControllerInput::pot3]<<std::endl;
+		std::cout<<"pot4val: "<<values[ControllerInput::pot4]<<std::endl;
+		std::cout<<"pot5val: "<<values[ControllerInput::pot5]<<std::endl;
+		std::cout<<"pot6val: "<<values[ControllerInput::pot6]<<std::endl;
+		std::cout<<"pot7val: "<<values[ControllerInput::pot7]<<std::endl;
+		std::cout<<"pot8val: "<<values[ControllerInput::pot8]<<std::endl;
+		std::cout<<"btn1val: "<<values[ControllerInput::btn1]<<std::endl;
+		std::cout<<"btn2val: "<<values[ControllerInput::btn2]<<std::endl;
+		std::cout<<"btn3val: "<<values[ControllerInput::btn3]<<std::endl;
+		std::cout<<"btn4val: "<<values[ControllerInput::btn4]<<std::endl;
+		std::cout<<"foot1val: "<<values[ControllerInput::foot1]<<std::endl;
+		std::cout<<"foot2val: "<<values[ControllerInput::foot2]<<std::endl;
+		std::cout<<"foot3val: "<<values[ControllerInput::foot3]<<std::endl;
 
 		return GDK_EVENT_PROPAGATE;
 	}
@@ -147,31 +139,31 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 			case GDK_KEY_r: Keyboard::isR = FALSE; break;
 			case GDK_KEY_v: Keyboard::isV = FALSE; break;
 
-			case GDK_KEY_a:	Keyboard::isA = FALSE; break;
-			case GDK_KEY_s: Keyboard::isS = FALSE; break;
-			case GDK_KEY_d: Keyboard::isD = FALSE; break;
-			case GDK_KEY_f: Keyboard::isF = FALSE; break;
-			case GDK_KEY_1: Keyboard::is1 = FALSE; break;
-			case GDK_KEY_2: Keyboard::is2 = FALSE; break;
-			case GDK_KEY_3: Keyboard::is3 = FALSE; break;
+			case GDK_KEY_a:	Keyboard::isA = FALSE; values[ControllerInput::btn1] = 0; break;
+			case GDK_KEY_s: Keyboard::isS = FALSE; values[ControllerInput::btn2] = 0; break;
+			case GDK_KEY_d: Keyboard::isD = FALSE; values[ControllerInput::btn3] = 0; break;
+			case GDK_KEY_f: Keyboard::isF = FALSE; values[ControllerInput::btn4] = 0; break;
+			case GDK_KEY_1: Keyboard::is1 = FALSE; values[ControllerInput::foot1] = 0; break;
+			case GDK_KEY_2: Keyboard::is2 = FALSE; values[ControllerInput::foot2] = 0; break;
+			case GDK_KEY_3: Keyboard::is3 = FALSE; values[ControllerInput::foot3] = 0; break;
 			default: break;
 		}
 
-//		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
-//		std::cout<<"pot2val: "<<values[ControllerInput::pot2]<<std::endl;
-//		std::cout<<"pot3val: "<<values[ControllerInput::pot3]<<std::endl;
-//		std::cout<<"pot4val: "<<values[ControllerInput::pot4]<<std::endl;
-//		std::cout<<"pot5val: "<<values[ControllerInput::pot5]<<std::endl;
-//		std::cout<<"pot6val: "<<values[ControllerInput::pot6]<<std::endl;
-//		std::cout<<"pot7val: "<<values[ControllerInput::pot7]<<std::endl;
-//		std::cout<<"pot8val: "<<values[ControllerInput::pot8]<<std::endl;
-//		std::cout<<"btn1val: "<<values[ControllerInput::btn1]<<std::endl;
-//		std::cout<<"btn2val: "<<values[ControllerInput::btn2]<<std::endl;
-//		std::cout<<"btn3val: "<<values[ControllerInput::btn3]<<std::endl;
-//		std::cout<<"btn4val: "<<values[ControllerInput::btn4]<<std::endl;
-//		std::cout<<"foot1val: "<<values[ControllerInput::foot1]<<std::endl;
-//		std::cout<<"foot2val: "<<values[ControllerInput::foot2]<<std::endl;
-//		std::cout<<"foot3val: "<<values[ControllerInput::foot3]<<std::endl;
+		std::cout<<"pot1val: "<<values[ControllerInput::pot1]<<std::endl;
+		std::cout<<"pot2val: "<<values[ControllerInput::pot2]<<std::endl;
+		std::cout<<"pot3val: "<<values[ControllerInput::pot3]<<std::endl;
+		std::cout<<"pot4val: "<<values[ControllerInput::pot4]<<std::endl;
+		std::cout<<"pot5val: "<<values[ControllerInput::pot5]<<std::endl;
+		std::cout<<"pot6val: "<<values[ControllerInput::pot6]<<std::endl;
+		std::cout<<"pot7val: "<<values[ControllerInput::pot7]<<std::endl;
+		std::cout<<"pot8val: "<<values[ControllerInput::pot8]<<std::endl;
+		std::cout<<"btn1val: "<<values[ControllerInput::btn1]<<std::endl;
+		std::cout<<"btn2val: "<<values[ControllerInput::btn2]<<std::endl;
+		std::cout<<"btn3val: "<<values[ControllerInput::btn3]<<std::endl;
+		std::cout<<"btn4val: "<<values[ControllerInput::btn4]<<std::endl;
+		std::cout<<"foot1val: "<<values[ControllerInput::foot1]<<std::endl;
+		std::cout<<"foot2val: "<<values[ControllerInput::foot2]<<std::endl;
+		std::cout<<"foot3val: "<<values[ControllerInput::foot3]<<std::endl;
 
 		return GDK_EVENT_PROPAGATE;
 	}

@@ -10,7 +10,7 @@
 const std::string SimpleOverdriveFx::nameFx("Simple overdrive");
 
 void SimpleOverdriveFx::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs){
-	float pot2 = settings[ControllerInput::pot1].getValue();
+	float pot2 = settings.front().getValue() * 1;
 
 	for(unsigned int i = 0; i <= nframes; ++i){
 		float q = inBufs[0][i] * pot2;
@@ -18,10 +18,11 @@ void SimpleOverdriveFx::process(jack_nframes_t nframes, JackCpp::AudioIO::audioB
 			if (q > 0){
 				sign = 1;
 			}else{
-				sign = 0;
+				sign = -1;
 			}
-		outBufs[0][i] = sign * (1-exp(-abs(q)))/1.5;
+		outBufs[0][i] = sign * (1-exp(-abs(q)));
 	}
+	std::cout<<"pot2 fx: "<<pot2<<std::endl;
 }
 
 SimpleOverdriveFx::SimpleOverdriveFx(IDetector *newUserInput):

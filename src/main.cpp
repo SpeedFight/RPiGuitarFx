@@ -17,10 +17,7 @@
 
 void poolForInput(FXList *ptr){
 	while(1){
-	 //ptr->getFXList()->front().get()->updateSettings();
-//	 (ptr->getFXList())[0][0].get()->updateSettings();
-//	 (ptr->getFXList())[0][0].get()->updateSettings();
-	 ptr->getFXList()->begin()[0]->updateSettings();
+	 ptr->getFXList()->front().get()->updateSettings();
 	 std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 }
@@ -36,8 +33,6 @@ int main( int argc, char * argv[] )
 {
 	std::unique_ptr<Keyboard> keys(new Keyboard());
 
-
-
 	std::unique_ptr<FXList> fxList(new FXList());
 	//fxList->getFXList()->push_back(std::shared_ptr<IFX>(new PlaybackFx(keys.get())));
 	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new SimpleOverdriveFx(keys.get())));
@@ -49,7 +44,6 @@ int main( int argc, char * argv[] )
 	std::unique_ptr<Audio> input = std::unique_ptr<Audio>(new Audio(fxList.get()));
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
-	//sleep(60*5);
 	fxList.reset();
 	//input.reset();
 	keys.reset();

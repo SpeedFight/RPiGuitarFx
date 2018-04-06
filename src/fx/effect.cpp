@@ -24,7 +24,7 @@ std::string *Setting::getName(){
 	return &name;
 }
 
-void Setting::update(){
+void Setting::updatePotentiometers(){
 	actualValue += *valueFromController;
 	*valueFromController = 0;
 
@@ -52,7 +52,7 @@ IFX::IFX(IDetector *newUserInput):
 
 void IFX::updateSettings(){
 	for(auto &controller : settings){
-		controller.update();
+		controller.updatePotentiometers();
 	}
 }
 
@@ -60,6 +60,13 @@ void IFX::updateSettings(){
 /*
  * FXList
  */
+
+FXList::FXList()
+		{
+	futureFX.reserve(DEFAULT_RESERVED_FX_LIST_SIZE);
+	actualFX.reserve(DEFAULT_RESERVED_FX_LIST_SIZE);
+}
+
 const std::vector<std::shared_ptr<IFX>> *FXList::getCurrentFXList(){
 	return &actualFX;
 }

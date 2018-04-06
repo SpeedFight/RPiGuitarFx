@@ -18,6 +18,8 @@
 #include <gtk/gtk.h>
 #include <cmath>
 
+const unsigned int DEFAULT_RESERVED_FX_LIST_SIZE = 8;
+
 
 enum ControllerInput{
 	pot1,

@@ -16,7 +16,7 @@ class Setting{
 public:
 	Setting(std::string newName, int *controllerValue, int initValue, int newMinValue, int newMaxValue);
 	std::string *getName();
-	void update();
+	void updatePotentiometers();
 	int getValue();
 
 private:
@@ -47,7 +47,7 @@ protected:
 class FXList{
 
 public:
-	//FXList();
+	FXList();
 	const std::vector<std::shared_ptr<IFX>>  *getCurrentFXList();
 	std::vector<std::shared_ptr<IFX>>  *getFXList();
 	void updateFX();
