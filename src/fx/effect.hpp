@@ -48,13 +48,13 @@ class FXList{
 
 public:
 	//FXList();
-	const std::list<std::shared_ptr<IFX>>  *getCurrentFXList();
-	std::list<std::shared_ptr<IFX>>  *getFXList();
+	const std::vector<std::shared_ptr<IFX>>  *getCurrentFXList();
+	std::vector<std::shared_ptr<IFX>>  *getFXList();
 	void updateFX();
 
 private:
-	std::list<std::shared_ptr<IFX>> futureFX;
-	std::list<std::shared_ptr<IFX>> actualFX;
+	std::vector<std::shared_ptr<IFX>> futureFX;
+	std::vector<std::shared_ptr<IFX>> actualFX;
 };
 
 

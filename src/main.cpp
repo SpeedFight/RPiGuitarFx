@@ -17,10 +17,20 @@
 
 void poolForInput(FXList *ptr){
 	while(1){
-	 ptr->getFXList()->front().get()->updateSettings();
+	 //ptr->getFXList()->front().get()->updateSettings();
+//	 (ptr->getFXList())[0][0].get()->updateSettings();
+//	 (ptr->getFXList())[0][0].get()->updateSettings();
+	 ptr->getFXList()->begin()[0]->updateSettings();
 	 std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 }
+/*	TODO
+ * 1) DONE zamienic liste na vector
+ * 2) dodać klase do zarzadzania vectorem z efektami
+ * 3) dodać mechanizm który wybiera efekt przyjmujący dane z potencjometrow
+ * 4) testowy interfejs w konsoli
+ * 4) gui -> gtk3
+ */
 
 int main( int argc, char * argv[] )
 {

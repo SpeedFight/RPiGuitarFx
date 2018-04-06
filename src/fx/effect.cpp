@@ -60,11 +60,11 @@ void IFX::updateSettings(){
 /*
  * FXList
  */
-const std::list<std::shared_ptr<IFX>> *FXList::getCurrentFXList(){
+const std::vector<std::shared_ptr<IFX>> *FXList::getCurrentFXList(){
 	return &actualFX;
 }
 
-std::list<std::shared_ptr<IFX>>  *FXList::getFXList(){
+std::vector<std::shared_ptr<IFX>>  *FXList::getFXList(){
 	return &futureFX;
 }
 
