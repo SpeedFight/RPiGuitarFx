@@ -79,6 +79,28 @@ void FXList::updateFX(){
 	actualFX = futureFX;
 }
 
+void FXList::addFx(IFX *newFx){
+	addFx(newFx, futureFX.size());
+}
+
+void FXList::addFx(IFX *newFx, int newFxIndex){
+
+	if(newFx == NULL){
+		//TODO error handling
+		return;
+	}
+
+	if(newFxIndex < 0){
+		newFxIndex = 0;
+	}
+
+	if(newFxIndex > futureFX.size()){
+		newFxIndex = futureFX.size();
+	}
+
+	futureFX.insert(futureFX.begin() + newFxIndex, std::shared_ptr<IFX>(newFx));
+}
+
 void FXList::moveFx(int fxToMoveIndex,int destinationIndex){
 
 	if(fxToMoveIndex < 0){

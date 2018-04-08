@@ -51,8 +51,12 @@ public:
 	const std::vector<std::shared_ptr<IFX>>  *getCurrentFXList();
 	std::vector<std::shared_ptr<IFX>>  *getFXList();
 	void updateFX();
+
+	void addFx(IFX *newFx);
+	void addFx(IFX *newFx, int newFxIndex);
 	void moveFx(int fxToMoveIndex, int destinationIndex);
 	void removeFx(unsigned int fxToRemoveIndex);
+
 
 private:
 	std::vector<std::shared_ptr<IFX>> futureFX;
