@@ -17,9 +17,8 @@
 
 void poolForInput(FXList *ptr){
 	while(1){
-	 //ptr->getFXList()->front().get()->updateSettings();
-		ptr->updateFXParameters(1);
-	 std::this_thread::sleep_for (std::chrono::milliseconds(100));
+	ptr->updateFXParameters(1);
+	std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 }
 

@@ -33,7 +33,6 @@ void Setting::updatePotentiometers(){
 	}else if(actualValue > maxValue){
 		actualValue = maxValue;
 	}
-
 }
 
 int Setting::getValue(){
@@ -47,7 +46,6 @@ int Setting::getValue(){
 IFX::IFX(IDetector *newUserInput):
 		userInput(newUserInput)
 		{
-
 }
 
 void IFX::updateSettings(){
@@ -56,6 +54,9 @@ void IFX::updateSettings(){
 	}
 }
 
+std::vector<Setting> *IFX::getSettings(){
+	return &settings;
+}
 
 /*
  * FXList
