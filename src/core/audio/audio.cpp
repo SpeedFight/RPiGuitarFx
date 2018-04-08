@@ -62,7 +62,7 @@ int Audio::audioCallback(jack_nframes_t nframes, audioBufVector inBufs, audioBuf
 }
 
 Audio::~Audio(){
-	disconnectInPort(0);	// Disconnecting ports.
+	disconnectInPort(0);	// Disconnecting ports.W
 	disconnectOutPort(1);
 	close();	// stop client.
 }

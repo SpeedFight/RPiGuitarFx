@@ -21,6 +21,16 @@ void poolForInput(FXList *ptr){
 	 std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 }
+
+//tmpo help function
+void printList(FXList *list){
+	std::cout<<"lista: "<<std::endl;
+	for(auto element : *(list->getFXList())){
+		std::cout<< *(element->getName()) << std::endl;
+	}
+	std::cout<<std::endl;
+}
+
 /*	TODO
  * 1) DONE zamienic liste na vector
  * 2) dodać klase do zarzadzania vectorem z efektami
@@ -34,18 +44,18 @@ int main( int argc, char * argv[] )
 	std::unique_ptr<Keyboard> keys(new Keyboard());
 
 	std::unique_ptr<FXList> fxList(new FXList());
-	//fxList->getFXList()->push_back(std::shared_ptr<IFX>(new PlaybackFx(keys.get())));
+	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new PlaybackFx(keys.get())));
+	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new SimpleOverdriveFx(keys.get())));
+	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new SimpleOverdriveFx(keys.get())));
 	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new SimpleOverdriveFx(keys.get())));
 
 	std::thread guiThread(&Keyboard::pollForEvents, keys.get());
 	std::thread pollForInput(poolForInput, fxList.get());
-
-
 	std::unique_ptr<Audio> input = std::unique_ptr<Audio>(new Audio(fxList.get()));
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
 	fxList.reset();
-	//input.reset();
+	input.reset();
 	keys.reset();
     return 0;
 }
