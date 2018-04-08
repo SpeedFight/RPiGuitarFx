@@ -57,7 +57,7 @@ int Audio::audioCallback(jack_nframes_t nframes, audioBufVector inBufs, audioBuf
 			for (auto& fxs : *fxList->getCurrentFXList()){
 				fxs->process(nframes, inBufs, outBufs);
 			}
-			fxList->updateFX();
+			fxList->updateFXList();
 			return 0;
 }
 

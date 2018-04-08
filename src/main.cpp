@@ -17,7 +17,8 @@
 
 void poolForInput(FXList *ptr){
 	while(1){
-	 ptr->getFXList()->front().get()->updateSettings();
+	 //ptr->getFXList()->front().get()->updateSettings();
+		ptr->updateFXParameters(1);
 	 std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 }
@@ -44,17 +45,9 @@ int main( int argc, char * argv[] )
 	std::unique_ptr<Keyboard> keys(new Keyboard());
 
 	std::unique_ptr<FXList> fxList(new FXList());
-//	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new PlaybackFx(keys.get())));
-//	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new SimpleOverdriveFx(keys.get())));
-//	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new SimpleOverdriveFx(keys.get())));
-//	fxList->getFXList()->push_back(std::shared_ptr<IFX>(new SimpleOverdriveFx(keys.get())));
 
-	fxList->addFx(new PlaybackFx(keys.get()));
-	fxList->addFx(new SimpleOverdriveFx(keys.get()));
-	fxList->addFx(new SimpleOverdriveFx(keys.get()));
-	fxList->addFx(new PlaybackFx(keys.get()), 3);
-	fxList->addFx(new SimpleOverdriveFx(keys.get()), 4);
-
+	fxList->addFX(new PlaybackFx(keys.get()));
+	fxList->addFX(new SimpleOverdriveFx(keys.get()));
 
 	std::thread guiThread(&Keyboard::pollForEvents, keys.get());
 	std::thread pollForInput(poolForInput, fxList.get());

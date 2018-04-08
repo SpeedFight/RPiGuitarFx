@@ -75,15 +75,28 @@ std::vector<std::shared_ptr<IFX>>  *FXList::getFXList(){
 	return &futureFX;
 }
 
-void FXList::updateFX(){
+void FXList::updateFXList(){
 	actualFX = futureFX;
 }
 
-void FXList::addFx(IFX *newFx){
-	addFx(newFx, futureFX.size());
+void FXList::updateFXParameters(int indxOfFxToUpdate){
+
+	if(indxOfFxToUpdate < 0){
+		indxOfFxToUpdate = 0;
+	}
+
+	if(indxOfFxToUpdate > futureFX.size()){
+		indxOfFxToUpdate = futureFX.size();
+	}
+
+	futureFX.at(indxOfFxToUpdate)->updateSettings();
 }
 
-void FXList::addFx(IFX *newFx, int newFxIndex){
+void FXList::addFX(IFX *newFx){
+	addFX(newFx, futureFX.size());
+}
+
+void FXList::addFX(IFX *newFx, int newFxIndex){
 
 	if(newFx == NULL){
 		//TODO error handling
@@ -101,7 +114,7 @@ void FXList::addFx(IFX *newFx, int newFxIndex){
 	futureFX.insert(futureFX.begin() + newFxIndex, std::shared_ptr<IFX>(newFx));
 }
 
-void FXList::moveFx(int fxToMoveIndex,int destinationIndex){
+void FXList::moveFX(int fxToMoveIndex,int destinationIndex){
 
 	if(fxToMoveIndex < 0){
 		//TODO error handling
@@ -132,7 +145,7 @@ void FXList::moveFx(int fxToMoveIndex,int destinationIndex){
 	futureFX.erase(futureFX.begin()+fxToMoveIndex);
 }
 
-void FXList::removeFx(unsigned int fxToRemoveIndex){
+void FXList::removeFX(unsigned int fxToRemoveIndex){
 	futureFX.erase(futureFX.begin()+fxToRemoveIndex);
 }
 
