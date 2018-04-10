@@ -10,7 +10,7 @@
 #define UI_FILE "glade/mainFxWindow.ui"
 
 ViewGtk::ViewGtk(int argc, char * argv[]){
-	  auto app = Gtk::Application::create(argc, argv, "org.gtkmm.examples.base", Gio::APPLICATION_NON_UNIQUE);
+	  auto app = Gtk::Application::create(argc, argv, "org.gtkmm", Gio::APPLICATION_NON_UNIQUE);
 
 	  Gtk::Window window;
 

@@ -15,9 +15,9 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 		isQ= isA= isZ= isW= isS= isX= isE= isD= isC= isR= isF= isV= is1= is2= is3 = FALSE;
 
 		controllerValues.fill(0);
-
 		app = Gtk::Application::create(argc, argv, "org.gtkmm.examples.base", Gio::APPLICATION_NON_UNIQUE);
 
+		app->hold();
 		window.reset(new Gtk::Window());
 		window->set_title("keyboard input");
 		window->set_default_size(250, 50);
