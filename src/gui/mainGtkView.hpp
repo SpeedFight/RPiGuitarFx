@@ -9,6 +9,7 @@
 #define MAINGTKVIEW_HPP_
 
 #include "config.hpp"
+#include <gtkmm.h>
 
 class ViewGtk{
 public:
