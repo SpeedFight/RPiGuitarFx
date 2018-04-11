@@ -44,7 +44,7 @@ private:
 	bool on_key_press(GdkEventKey* event);
 	bool on_key_release(GdkEventKey* event);
 
-	std::array<int,13> controllerValues;
+	std::array<int,15> controllerValues;
 	Glib::RefPtr<Gtk::Application> app;
 	std::unique_ptr<Gtk::Window> window;
 

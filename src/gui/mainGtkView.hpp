@@ -14,9 +14,13 @@
 class ViewGtk{
 public:
 	ViewGtk(int argc, char * argv[]);
+	void poolForView();
 
 private:
 	GtkWidget *buildMainWindow();
+
+	Glib::RefPtr<Gtk::Application> app;
+	std::unique_ptr<Gtk::Window> mainWindow;
 };
 
 

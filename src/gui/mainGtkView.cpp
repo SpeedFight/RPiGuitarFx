@@ -10,18 +10,20 @@
 #define UI_FILE "glade/mainFxWindow.ui"
 
 ViewGtk::ViewGtk(int argc, char * argv[]){
-	  auto app = Gtk::Application::create(argc, argv, "org.gtkmm", Gio::APPLICATION_NON_UNIQUE);
+	app = Gtk::Application::create(argc, argv, "RPiGFX.view", Gio::APPLICATION_NON_UNIQUE);
 
-	  Gtk::Window window;
-
-	  window.set_title("gtkmm");
-	  window.set_default_size(200, 200);
-
-	  app->run(window);
+	mainWindow.reset(new Gtk::Window());
+	mainWindow->set_title("RPiGFX");
+	mainWindow->set_default_size(200, 200);
 }
 
 GtkWidget *ViewGtk::buildMainWindow(){
 
+}
+
+void ViewGtk::poolForView(){
+	mainWindow->show();
+	app->run(*mainWindow);
 }
 
 

@@ -17,6 +17,8 @@
 #include <string>
 #include <cmath>
 
+//#define GTK_KEYBOARD_LOOP
+
 const unsigned int DEFAULT_RESERVED_FX_LIST_SIZE = 8;
 
 

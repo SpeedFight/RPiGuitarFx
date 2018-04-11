@@ -50,12 +50,14 @@ int main( int argc, char * argv[] )
 	fxList->addFX(new PlaybackFx(keys.get()));
 	fxList->addFX(new SimpleOverdriveFx(keys.get()));
 
-	std::thread guiThread(&Keyboard::pollForEvents, keys.get());
-	std::thread pollForInput(poolForInput, fxList.get());
+
 	std::unique_ptr<Audio> input = std::unique_ptr<Audio>(new Audio(fxList.get()));
 
 	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
 
+	std::thread keyboardInputThread(&Keyboard::pollForEvents, keys.get());
+	std::thread guiThread(&ViewGtk::poolForView, view.get());
+	std::thread pollForInputThread(poolForInput, fxList.get());
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
 	view.reset();

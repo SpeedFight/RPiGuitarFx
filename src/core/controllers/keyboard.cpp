@@ -15,7 +15,7 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 		isQ= isA= isZ= isW= isS= isX= isE= isD= isC= isR= isF= isV= is1= is2= is3 = FALSE;
 
 		controllerValues.fill(0);
-		app = Gtk::Application::create(argc, argv, "org.gtkmm.examples.base", Gio::APPLICATION_NON_UNIQUE);
+		app = Gtk::Application::create(argc, argv, "RPiGFX.keyboard", Gio::APPLICATION_NON_UNIQUE);
 
 		app->hold();
 		window.reset(new Gtk::Window());
@@ -23,6 +23,7 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 		window->set_default_size(250, 50);
 		window->signal_key_press_event().connect(sigc::mem_fun(*this, &Keyboard::on_key_press));
 		window->signal_key_release_event().connect(sigc::mem_fun(*this, &Keyboard::on_key_release));
+		window->show();
 	}
 
 	bool Keyboard::on_key_press(GdkEventKey* event){
@@ -168,7 +169,9 @@ gboolean Keyboard::isQ, Keyboard::isA, Keyboard::isZ, Keyboard::isW, Keyboard::i
 	}
 
 	void Keyboard::pollForEvents(){
-		app->run(*window);
+#ifdef GTK_KEYBOARD_LOOP
+		app->run();
+#endif
 	}
 
 	int *Keyboard::getInputHandler(ControllerInput controllerInput){
