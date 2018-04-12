@@ -9,6 +9,7 @@
 #define MAINGTKVIEW_HPP_
 
 #include "config.hpp"
+#include "fxGtkView.hpp"
 #include <gtkmm.h>
 
 class ViewGtk{
@@ -17,21 +18,8 @@ public:
 	void poolForView();
 
 private:
-
-	Gtk::Widget *buildValueFxWindow();
-	Gtk::Widget *buildFxWindow();
-	Gtk::Widget *buildMainWindow();
-
-
-
 	Glib::RefPtr<Gtk::Application> app;
 	std::unique_ptr<Gtk::Window> mainWindow;
-
-//	Gtk::Box vBox;
-//	Gtk::Label fxNameLabel;
 };
-
-
-
 
 #endif /* MAINGTKVIEW_HPP_ */

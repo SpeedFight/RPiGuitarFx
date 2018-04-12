@@ -19,16 +19,18 @@
 	 *  	- dynamiczna ilosc potencjometrow
 	 */
 
-
-class FxGtkView: public Gtk::Widget{
+class FxGtkView: public Gtk::Box{
 public:
 	FxGtkView();
 	void changeView();
+	virtual ~FxGtkView();
 
 private:
+	std::string fxName;
+	std::vector<std::string> fxValuesNames;
+	std::vector<double> fxValues;
 
+	Gtk::Widget *buildValueFxWidget();
 };
-
-
 
 #endif /* FXGTKVIEW_HPP_ */
