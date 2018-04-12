@@ -10,7 +10,6 @@
 FxGtkView::FxGtkView():
 	Gtk::Box(Gtk::ORIENTATION_VERTICAL, 10)
 {
-	Gtk::Box *vBox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 10));
 	Gtk::Frame *fxNameFrame = Gtk::manage(new Gtk::Frame());
 	Gtk::Label *fxNameLabel = Gtk::manage(new Gtk::Label("Simple overdrive"));
 
@@ -18,7 +17,8 @@ FxGtkView::FxGtkView():
 	gridFxValues->set_row_spacing(10);
 	gridFxValues->set_column_spacing(100);
 
-	gridFxValues->attach(*buildValueFxWidget(), 0, 0, 2, 1);
+	FxSetting *set1 = Gtk::manage(new FxSetting());
+	gridFxValues->attach(*set1, 0, 0, 2, 1);
 	gridFxValues->attach(*buildValueFxWidget(), 1, 0, 2, 1);
 	gridFxValues->attach(*buildValueFxWidget(), 2, 0, 2, 1);
 	gridFxValues->attach(*buildValueFxWidget(), 0, 1, 2, 1);
@@ -28,10 +28,8 @@ FxGtkView::FxGtkView():
 	//fxNameFrame->set_shadow_type(Gtk::SHADOW_IN);
 	//fxNameFrame->override_background_color(Gdk::RGBA("green"));
 	fxNameFrame->add(*fxNameLabel);
-	vBox->pack_start(*fxNameFrame, Gtk::PACK_SHRINK);
-	vBox->pack_start(*gridFxValues, Gtk::PACK_SHRINK);
-
-	pack_start(*vBox);
+	pack_start(*fxNameFrame, Gtk::PACK_SHRINK);
+	pack_start(*gridFxValues, Gtk::PACK_SHRINK);
 }
 
 Gtk::Widget *FxGtkView::buildValueFxWidget(){
@@ -51,8 +49,22 @@ Gtk::Widget *FxGtkView::buildValueFxWidget(){
 	return vBoxFx;
 }
 
-FxGtkView::~FxGtkView(){
+FxGtkView::~FxGtkView() {}
 
+/*
+ * FxSetting
+ */
+
+FxGtkView::FxSetting::FxSetting():
+	Gtk::Box(Gtk::ORIENTATION_VERTICAL, 10),
+	adjustment(Gtk::Adjustment::create(0.0, 0.0, 101.0, 0.1, 1.0, 1.0)),
+	fxValueLabel(Gtk::manage(new Gtk::Label("Gain"))),
+	fxValueScale(Gtk::manage(new Gtk::Scale(adjustment)))
+{
+	pack_start(*fxValueLabel, Gtk::PACK_SHRINK);
+	pack_start(*fxValueScale, Gtk::PACK_SHRINK);
+
+	fxValueScale->set_value(50);
 }
 
-
+FxGtkView::FxSetting::~FxSetting() {}
