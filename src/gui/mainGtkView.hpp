@@ -17,10 +17,18 @@ public:
 	void poolForView();
 
 private:
-	GtkWidget *buildMainWindow();
+
+	Gtk::Widget *buildValueFxWindow();
+	Gtk::Widget *buildFxWindow();
+	Gtk::Widget *buildMainWindow();
+
+
 
 	Glib::RefPtr<Gtk::Application> app;
 	std::unique_ptr<Gtk::Window> mainWindow;
+
+//	Gtk::Box vBox;
+//	Gtk::Label fxNameLabel;
 };
 
 

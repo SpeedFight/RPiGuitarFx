@@ -61,8 +61,8 @@ int main( int argc, char * argv[] )
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
 	view.reset();
-	fxList.reset();
 	input.reset();
+	fxList.reset();
 	keys.reset();
     return 0;
 }
