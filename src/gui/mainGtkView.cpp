@@ -42,10 +42,12 @@ Gtk::Widget *ViewGtk::buildValueFxWindow(){
 
 	Glib::RefPtr<Gtk::Adjustment> m_adjustment;
 	m_adjustment = Gtk::Adjustment::create(0.0, 0.0, 101.0, 0.1, 1.0, 1.0);
-	Gtk::Scale *fxValueScale = Gtk::manage(new Gtk::Scale(m_adjustment, Gtk::ORIENTATION_HORIZONTAL));
+	Gtk::Scale *fxValueScale = Gtk::manage(new Gtk::Scale(m_adjustment));
 
 	vBoxFx->pack_start(*fxValueLabel, Gtk::PACK_SHRINK);
 	vBoxFx->pack_start(*fxValueScale, Gtk::PACK_SHRINK);
+
+	fxValueScale->set_value(50);
 
 	return vBoxFx;
 }
@@ -55,7 +57,7 @@ Gtk::Widget *ViewGtk::buildFxWindow(){
 	Gtk::Label *fxNameLabel = Gtk::manage(new Gtk::Label("Simple overdrive"));
 
 	Gtk::Grid *gridFxValues = Gtk::manage(new Gtk::Grid());
-	gridFxValues->set_row_spacing(60);
+	gridFxValues->set_row_spacing(10);
 	gridFxValues->set_column_spacing(100);
 
 	gridFxValues->attach(*buildValueFxWindow(), 0, 0, 2, 1);
