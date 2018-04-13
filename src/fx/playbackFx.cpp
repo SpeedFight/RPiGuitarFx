@@ -28,7 +28,7 @@ PlaybackFx::PlaybackFx(IDetector *newUserInput):
 }
 
 
-PlaybackFx::~PlaybackFx() {};
+PlaybackFx::~PlaybackFx() {}
 
 const std::string *PlaybackFx::getName(){
 	return &PlaybackFx::nameFx;

@@ -72,7 +72,6 @@
 								</option>
 								<option id="gnu.cpp.link.option.libs.2021514882" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
 									<listOptionValue builtIn="false" value="jackcpp"/>
-									<listOptionValue builtIn="false" value="ncurses"/>
 								</option>
 								<option id="gnu.cpp.link.option.pthread.405416647" name="Support for pthread (-pthread)" superClass="gnu.cpp.link.option.pthread" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1923142757" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
