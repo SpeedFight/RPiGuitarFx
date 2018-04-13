@@ -12,14 +12,12 @@
 
 class SimpleOverdriveFx: public IFX{
 public:
-
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs);
 	SimpleOverdriveFx(IDetector *newUserInput);
 	~SimpleOverdriveFx();
 
 	const std::string *getName();
 	std::vector<Setting> *getSettings();
-
 
 private:
 	 static const std::string nameFx;

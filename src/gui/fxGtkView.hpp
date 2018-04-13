@@ -11,36 +11,28 @@
 #include "config.hpp"
 #include <gtkmm.h>
 
-	/*
-	 * TODO
-	 *  1) funkcje do ustawiania wyswietlanych wartosci dla efektow
-	 *  	- zmiany nazw
-	 *  	- zmiany wartosci
-	 *  	- dynamiczna ilosc potencjometrow
-	 */
-
 class FxGtkView: public Gtk::Box{
 public:
-	FxGtkView();
+	FxGtkView(std::string fxName);
 	void changeView();
 	virtual ~FxGtkView();
 
-private:
-	std::string fxName;
-//	std::vector<std::string> fxValuesNames;
-//	std::vector<double> fxValues;
-	Gtk::Widget *buildValueFxWidget();
+	Gtk::Grid *gridFxValues;
+	Gtk::Frame *fxNameFrame;
+	Gtk::Label *fxNameLabel;
+
+protected:
 
 	class FxSetting: public Gtk::Box{
 	public:
-		//FxSetting(double initVal, double min, double max, double stepIncrement);
-		FxSetting();
+		FxSetting(std::string valueName, double initVal, double min, double max, double stepIncrement);
 		virtual ~FxSetting();
-	private:
-		Glib::RefPtr<Gtk::Adjustment> adjustment;
+
 		Gtk::Label *fxValueLabel;
 		Gtk::Scale *fxValueScale;
 	};
+
+	std::vector<FxSetting> fxValues;
 };
 
 #endif /* FXGTKVIEW_HPP_ */

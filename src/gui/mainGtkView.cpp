@@ -17,7 +17,7 @@ ViewGtk::ViewGtk(int argc, char * argv[]){
 	mainWindow->set_title("RPiGFX");
 	mainWindow->set_default_size(200, 200);
 
-	FxGtkView *fxBox = Gtk::manage(new FxGtkView());
+	FxGtkView *fxBox = Gtk::manage(new FxGtkView("simple fx"));
 	mainWindow->add(*fxBox);
 
 	mainWindow->show_all_children();
