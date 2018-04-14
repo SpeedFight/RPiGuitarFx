@@ -13,15 +13,15 @@ FxGtkView::FxGtkView(std::string fxName):
 	fxNameFrame(Gtk::manage(new Gtk::Frame())),
 	fxNameLabel(Gtk::manage(new Gtk::Label(fxName)))
 {
-	gridFxValues->set_row_spacing(10);
-	gridFxValues->set_column_spacing(100);
+	gridFxValues->set_row_spacing(40);
+	gridFxValues->set_column_spacing(200);
 
 	//fxNameFrame->set_shadow_type(Gtk::SHADOW_IN);
 	//fxNameFrame->override_background_color(Gdk::RGBA("green"));
 
 	fxNameFrame->add(*fxNameLabel);
-	pack_start(*fxNameFrame, Gtk::PACK_SHRINK);
-	pack_start(*gridFxValues, Gtk::PACK_SHRINK);
+	pack_start(*fxNameFrame, Gtk::PACK_EXPAND_PADDING);
+	pack_start(*gridFxValues, Gtk::PACK_EXPAND_PADDING);
 
 	/*
 	 * fill setting grid
@@ -54,8 +54,8 @@ FxGtkView::FxSetting::FxSetting(std::string valueName, double initVal, double mi
 	fxValueLabel(Gtk::manage(new Gtk::Label(valueName))),
 	fxValueScale(Gtk::manage(new Gtk::Scale(Gtk::Adjustment::create(initVal, min, max, stepIncrement, 10, 0))))
 {
-	pack_start(*fxValueLabel, Gtk::PACK_SHRINK);
-	pack_start(*fxValueScale, Gtk::PACK_SHRINK);
+	pack_start(*fxValueLabel, Gtk::PACK_EXPAND_WIDGET);
+	pack_start(*fxValueScale, Gtk::PACK_EXPAND_WIDGET);
 }
 
 FxGtkView::FxSetting::~FxSetting() {}

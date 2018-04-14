@@ -20,6 +20,8 @@ public:
 private:
 	Glib::RefPtr<Gtk::Application> app;
 	std::unique_ptr<Gtk::Window> mainWindow;
+
+	Gtk::Widget *mainViewWidget();
 };
 
 #endif /* MAINGTKVIEW_HPP_ */
