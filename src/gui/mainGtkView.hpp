@@ -10,6 +10,7 @@
 
 #include "config.hpp"
 #include "fxGtkView.hpp"
+#include "fxGtkList.hpp"
 #include <gtkmm.h>
 
 class ViewGtk{
@@ -21,7 +22,7 @@ private:
 	Glib::RefPtr<Gtk::Application> app;
 	std::unique_ptr<Gtk::Window> mainWindow;
 
-	Gtk::Widget *mainViewWidget();
+	Gtk::Widget *mainViewWidget(FxGtkList* fxGtkList, FxGtkView *fxGtkView);
 };
 
 #endif /* MAINGTKVIEW_HPP_ */
