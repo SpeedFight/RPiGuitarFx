@@ -35,9 +35,9 @@ protected:
 class Keyboard: public IDetector{
 public:
 	Keyboard(int argc, char * argv[]);
-	virtual void pollForEvents(void);
-	virtual int *getInputHandler(ControllerInput controllerInput);
-	virtual ~Keyboard() {};
+	void pollForEvents(void);
+	int *getInputHandler(ControllerInput controllerInput);
+	~Keyboard() {};
 
 private:
 	static gboolean isQ, isA, isZ, isW, isS, isX, isE, isD, isC, isR, isF, isV, is1, is2, is3;

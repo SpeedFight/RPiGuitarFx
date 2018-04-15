@@ -13,18 +13,24 @@ FxGtkList::FxGtkList()
   m_refTreeModel = Gtk::ListStore::create(m_Columns);
   set_model(m_refTreeModel);
 
+  //dummy pointer to controller
+  std::unique_ptr<DummyController> dummyController(new DummyController(0, NULL));
+
   //Fill the TreeView's model
   Gtk::TreeModel::Row row = *(m_refTreeModel->append());
   row[m_Columns.m_col_id] = 1;
   row[m_Columns.m_col_name] = "right-click on this";
+  row[m_Columns.m_col_fx] = std::shared_ptr<SimpleOverdriveFx>(new SimpleOverdriveFx(dummyController.get()));
 
   row = *(m_refTreeModel->append());
   row[m_Columns.m_col_id] = 2;
   row[m_Columns.m_col_name] = "or this";
+  row[m_Columns.m_col_fx] = std::shared_ptr<SimpleOverdriveFx>(new SimpleOverdriveFx(dummyController.get()));
 
   row = *(m_refTreeModel->append());
   row[m_Columns.m_col_id] = 3;
   row[m_Columns.m_col_name] = "or this, for a popup context menu";
+  row[m_Columns.m_col_fx] = std::shared_ptr<SimpleOverdriveFx>(new SimpleOverdriveFx(dummyController.get()));
 
   //Add the TreeView's view columns:
   append_column("ID", m_Columns.m_col_id);

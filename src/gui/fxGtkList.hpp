@@ -10,6 +10,10 @@
 
 #include "config.hpp"
 #include <gtkmm.h>
+#include "effectsList.hpp"
+#include "effect.hpp"
+#include "dummyController.hpp"
+#include <cstddef>
 
 class FxGtkList : public Gtk::TreeView
 {
@@ -36,6 +40,7 @@ protected:
 
     Gtk::TreeModelColumn<unsigned int> m_col_id;
     Gtk::TreeModelColumn<Glib::ustring> m_col_name;
+    Gtk::TreeModelColumn<std::shared_ptr<SimpleOverdriveFx>> m_col_fx;
   };
 
   ModelColumns m_Columns;
