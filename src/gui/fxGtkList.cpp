@@ -36,6 +36,22 @@ FxGtkList::FxGtkList()
   append_column("ID", m_Columns.m_col_id);
   append_column("Name", m_Columns.m_col_name);
 
+  /*
+   * dostep do danych z kolumny
+   * path -> 0
+   * path -> 0:1  rodzic 0, dziecko 1 itd...
+   */
+  auto it = m_refTreeModel->get_iter("0");
+  int id = (*it)[m_Columns.m_col_id];
+  std::cout << "  Selected ID=" << id << std::endl;
+
+  /*
+   * select row
+   */
+  Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = get_selection();
+  refTreeSelection->select(it);
+
+
   //Fill popup menu:
   auto item = Gtk::manage(new Gtk::MenuItem("_Edit", true));
   item->signal_activate().connect(
