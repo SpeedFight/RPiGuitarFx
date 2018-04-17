@@ -36,19 +36,19 @@ protected:
   public:
 
     ModelColumns()
-    { add(m_col_id); add(m_col_name); add(m_col_fx);}
+    { add(idColumn); add(nameColumna); add(fxColumn);}
 
-    Gtk::TreeModelColumn<unsigned int> m_col_id;
-    Gtk::TreeModelColumn<Glib::ustring> m_col_name;
-    Gtk::TreeModelColumn<std::shared_ptr<IFX>> m_col_fx;
+    Gtk::TreeModelColumn<unsigned int> idColumn;
+    Gtk::TreeModelColumn<Glib::ustring> nameColumna;
+    Gtk::TreeModelColumn<std::shared_ptr<IFX>> fxColumn;
   };
 
-  ModelColumns m_Columns;
+  ModelColumns columnsModel;
 
   //The Tree model:
-  Glib::RefPtr<Gtk::ListStore> m_refTreeModel;
+  Glib::RefPtr<Gtk::ListStore> treeModel;
 
-  Gtk::Menu m_Menu_Popup;
+  Gtk::Menu menuPopup;
 };
 
 
