@@ -8,7 +8,7 @@
 #ifndef ADAPTER_HPP_
 #define ADAPTER_HPP_
 
-
+#include "config.hpp"
 
 
 
