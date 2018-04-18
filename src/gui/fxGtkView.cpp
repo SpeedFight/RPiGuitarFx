@@ -7,11 +7,11 @@
 
 #include "fxGtkView.hpp"
 
-FxGtkView::FxGtkView(std::string fxName):
+FxGtkView::FxGtkView():
 	Gtk::Box(Gtk::ORIENTATION_VERTICAL, 10),
 	gridFxValues(Gtk::manage(new Gtk::Grid())),
 	fxNameFrame(Gtk::manage(new Gtk::Frame())),
-	fxNameLabel(Gtk::manage(new Gtk::Label(fxName)))
+	fxNameLabel(Gtk::manage(new Gtk::Label()))
 {
 	gridFxValues->set_row_spacing(40);
 	gridFxValues->set_column_spacing(200);
@@ -27,20 +27,20 @@ FxGtkView::FxGtkView(std::string fxName):
 	 * fill setting grid
 	 */
 
-	FxSetting *set1, *set2, *set3, *set4, *set5, *set6;
-	set1 = Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1));
-	set2 = Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1));
-	set3 = Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1));
-	set4 = Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1));
-	set5 = Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1));
-	set6 = Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1));
+	//FxSetting *set1, *set2, *set3, *set4, *set5, *set6;
+	fxSettings[0].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[1].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[2].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[3].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[4].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[5].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
 
-	gridFxValues->attach(*set1, 0, 0, 2, 1);
-	gridFxValues->attach(*set2, 1, 0, 2, 1);
-	gridFxValues->attach(*set3, 2, 0, 2, 1);
-	gridFxValues->attach(*set4, 0, 1, 2, 1);
-	gridFxValues->attach(*set5, 1, 1, 2, 1);
-	gridFxValues->attach(*set6, 2, 1, 2, 1);
+	gridFxValues->attach(*fxSettings[0].get(), 0, 0, 2, 1);
+	gridFxValues->attach(*fxSettings[1].get(), 1, 0, 2, 1);
+	gridFxValues->attach(*fxSettings[2].get(), 2, 0, 2, 1);
+	gridFxValues->attach(*fxSettings[3].get(), 0, 1, 2, 1);
+	gridFxValues->attach(*fxSettings[4].get(), 1, 1, 2, 1);
+	gridFxValues->attach(*fxSettings[5].get(), 2, 1, 2, 1);
 }
 
 FxGtkView::~FxGtkView() {}

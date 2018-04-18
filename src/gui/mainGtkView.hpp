@@ -22,6 +22,15 @@ private:
 	Glib::RefPtr<Gtk::Application> app;
 	std::unique_ptr<Gtk::Window> mainWindow;
 
+	FxGtkView *fxBox;
+	FxGtkList *fxlist;
+
+	Gtk::Box *mainWindowBox;
+	Gtk::Box *fxViewBox;
+	Gtk::Grid *lowePartMainWindowBox;
+	Gtk::Label *title;
+	Gtk::ScrolledWindow *scrollForFxList;
+
 	Gtk::Widget *mainViewWidget(FxGtkList* fxGtkList, FxGtkView *fxGtkView);
 };
 

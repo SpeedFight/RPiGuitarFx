@@ -12,16 +12,16 @@
 #include <gtkmm.h>
 
 class FxGtkView: public Gtk::Box{
+
+
 public:
-	FxGtkView(std::string fxName);
+	FxGtkView();
 	void changeView();
 	virtual ~FxGtkView();
 
 	Gtk::Grid *gridFxValues;
 	Gtk::Frame *fxNameFrame;
 	Gtk::Label *fxNameLabel;
-
-protected:
 
 	class FxSetting: public Gtk::Box{
 	public:
@@ -30,9 +30,12 @@ protected:
 
 		Gtk::Label *fxValueLabel;
 		Gtk::Scale *fxValueScale;
-	};
+		};
 
+	std::array<std::unique_ptr<FxSetting>, 5> fxSettings;
+//	FxSetting *set1, *set2, *set3, *set4, *set5, *set6;
 	std::vector<FxSetting> fxValues;
 };
+
 
 #endif /* FXGTKVIEW_HPP_ */

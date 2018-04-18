@@ -17,8 +17,8 @@ ViewGtk::ViewGtk(int argc, char * argv[]){
 	mainWindow->set_title("RPiGFX");
 	mainWindow->set_default_size(800, 600);
 
-	FxGtkView *fxBox = Gtk::manage(new FxGtkView("simple fx"));
-	FxGtkList *fxlist = Gtk::manage(new FxGtkList());
+	fxBox = Gtk::manage(new FxGtkView());
+	fxlist = Gtk::manage(new FxGtkList());
 
 	mainWindow->add(*mainViewWidget(fxlist, fxBox));
 
@@ -28,10 +28,11 @@ ViewGtk::ViewGtk(int argc, char * argv[]){
 }
 
 Gtk::Widget *ViewGtk::mainViewWidget(FxGtkList* fxGtkList, FxGtkView *fxGtkView){
-	Gtk::Box *mainWindowBox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 10));
-	Gtk::Grid *lowePartMainWindowBox = Gtk::manage(new Gtk::Grid());
-	Gtk::Label *title = Gtk::manage(new Gtk::Label("RPiGuitarFx"));
-	Gtk::ScrolledWindow *scrollForFxList = Gtk::manage(new Gtk::ScrolledWindow());
+	mainWindowBox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 10));
+	lowePartMainWindowBox = Gtk::manage(new Gtk::Grid());
+	title = Gtk::manage(new Gtk::Label("RPiGuitarFx"));
+	scrollForFxList = Gtk::manage(new Gtk::ScrolledWindow());
+	fxViewBox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 10));
 
 	lowePartMainWindowBox->set_row_spacing(100);
 	lowePartMainWindowBox->set_column_spacing(100);
@@ -42,8 +43,10 @@ Gtk::Widget *ViewGtk::mainViewWidget(FxGtkList* fxGtkList, FxGtkView *fxGtkView)
 	scrollForFxList->add(*fxGtkList);
 	scrollForFxList->set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_ALWAYS);
 
+	fxViewBox->pack_start(*fxGtkView, Gtk::PACK_EXPAND_WIDGET);
+
 	lowePartMainWindowBox->attach(*scrollForFxList, 	0, 0, 2, 7);
-	lowePartMainWindowBox->attach(*fxGtkView, 		3, 0, 6, 7);
+	lowePartMainWindowBox->attach(*fxViewBox, 		3, 0, 6, 7);
 
 	return mainWindowBox;
 }
@@ -52,5 +55,4 @@ void ViewGtk::poolForView(){
 	mainWindow->show();
 	app->run(*mainWindow);
 }
-
 
