@@ -39,6 +39,14 @@ int Setting::getValue(){
 	return actualValue;
 }
 
+int Setting::getMaxValue(){
+	return maxValue;
+}
+
+int Setting::getMinValue(){
+	return minValue;
+}
+
 /*
  * IFX
  */

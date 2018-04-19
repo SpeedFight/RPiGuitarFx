@@ -27,6 +27,7 @@ public:
 	public:
 		FxSetting(std::string valueName, double initVal, double min, double max, double stepIncrement);
 		virtual ~FxSetting();
+		void setFxSetting(std::string valueName, double initVal, double min, double max, double stepIncrement);
 
 		Gtk::Label *fxValueLabel;
 		Gtk::Scale *fxValueScale;

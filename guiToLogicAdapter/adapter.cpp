@@ -32,10 +32,26 @@ void Adapter::setNewFxGuiBox(FXList *fxList, int indxOfFxToUpdate){
 
 	fxGtkView->fxNameLabel->set_text(*fx->getName());
 
-
-	//TODO
+	//set settings in gui
+	int num = 0;
 	for(auto fxSetting : *(fx->getSettings())){
-
+		auto fxBox = fxGtkView->fxSettings[num++].get();
+		fxBox->show();
+		fxBox->setFxSetting(*fxSetting.getName(), fxSetting.getValue(), fxSetting.getMinValue(), fxSetting.getMaxValue(), 0.1);
 	}
 
+	//hide unused settings in gui
+	for(auto guiFxSetting = fxGtkView->fxSettings.begin() + num; guiFxSetting != fxGtkView->fxSettings.end(); ++num){
+		guiFxSetting->get()->hide();
+	}
+
+}
+
+void Adapter::updateFxGuiBox(FXList *fxList, int indxOfFxToUpdate){
+	auto fx = fxList->getCurrentFXList()->at(indxOfFxToUpdate).get();
+
+	int num = 0;
+	for(auto fxSetting : *(fx->getSettings())){
+		fxGtkView->fxSettings[num].get()->fxValueScale->set_value(fxSetting.getValue());
+	}
 }

@@ -23,6 +23,7 @@ public:
 	Adapter(FxGtkList *newFxGtkList, FxGtkView *newFxGtkView);
 	void updateFxGuiList(FXList *fxList);
 	void setNewFxGuiBox(FXList *fxList, int indxOfFxToUpdate);
+	void updateFxGuiBox(FXList *fxList, int indxOfFxToUpdate);
 
 private:
 	FxGtkList *fxGtkList; //gui list of fx

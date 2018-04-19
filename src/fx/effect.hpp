@@ -18,6 +18,8 @@ public:
 	std::string *getName();
 	void updatePotentiometers();
 	int getValue();
+	int getMaxValue();
+	int getMinValue();
 
 private:
 	std::string name;

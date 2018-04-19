@@ -58,4 +58,10 @@ FxGtkView::FxSetting::FxSetting(std::string valueName, double initVal, double mi
 	pack_start(*fxValueScale, Gtk::PACK_EXPAND_WIDGET);
 }
 
+void FxGtkView::FxSetting::setFxSetting(std::string valueName, double initVal, double min, double max, double stepIncrement)
+{
+	fxValueLabel->set_text(valueName);
+	fxValueScale = Gtk::manage(new Gtk::Scale(Gtk::Adjustment::create(initVal, min, max, stepIncrement, 10, 0)));
+}
+
 FxGtkView::FxSetting::~FxSetting() {}
