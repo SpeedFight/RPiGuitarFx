@@ -17,7 +17,8 @@ class ViewGtk{
 public:
 	ViewGtk(int argc, char * argv[]);
 	void poolForView();
-
+	FxGtkView *getFxGtkView();
+	FxGtkList *getFxGtkList();
 private:
 	Glib::RefPtr<Gtk::Application> app;
 	std::unique_ptr<Gtk::Window> mainWindow;

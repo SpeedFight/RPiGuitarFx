@@ -28,12 +28,12 @@ FxGtkView::FxGtkView():
 	 */
 
 	//FxSetting *set1, *set2, *set3, *set4, *set5, *set6;
-	fxSettings[0].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
-	fxSettings[1].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
-	fxSettings[2].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
-	fxSettings[3].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
-	fxSettings[4].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
-	fxSettings[5].reset(Gtk::manage(new FxSetting("gain", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[0].reset(Gtk::manage(new FxSetting("", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[1].reset(Gtk::manage(new FxSetting("", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[2].reset(Gtk::manage(new FxSetting("", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[3].reset(Gtk::manage(new FxSetting("", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[4].reset(Gtk::manage(new FxSetting("", 0.0, 0.0, 100.0, 0.1)));
+	fxSettings[5].reset(Gtk::manage(new FxSetting("", 0.0, 0.0, 100.0, 0.1)));
 
 	gridFxValues->attach(*fxSettings[0].get(), 0, 0, 2, 1);
 	gridFxValues->attach(*fxSettings[1].get(), 1, 0, 2, 1);

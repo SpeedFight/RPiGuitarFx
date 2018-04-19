@@ -37,14 +37,15 @@ void Adapter::setNewFxGuiBox(FXList *fxList, int indxOfFxToUpdate){
 	for(auto fxSetting : *(fx->getSettings())){
 		auto fxBox = fxGtkView->fxSettings[num++].get();
 		fxBox->show();
-		fxBox->setFxSetting(*fxSetting.getName(), fxSetting.getValue(), fxSetting.getMinValue(), fxSetting.getMaxValue(), 0.1);
+		fxBox->fxValueLabel->set_text(*fxSetting.getName());
+		fxBox->fxValueScale->set_range(fxSetting.getMinValue(), fxSetting.getMaxValue());
+		fxBox->fxValueScale->set_value(fxSetting.getValue());
 	}
 
 	//hide unused settings in gui
-	for(auto guiFxSetting = fxGtkView->fxSettings.begin() + num; guiFxSetting != fxGtkView->fxSettings.end(); ++num){
-		guiFxSetting->get()->hide();
+	for(; num <= fxGtkView->fxSettings.size(); ++num){
+		fxGtkView->fxSettings[num]->hide();
 	}
-
 }
 
 void Adapter::updateFxGuiBox(FXList *fxList, int indxOfFxToUpdate){

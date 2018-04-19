@@ -56,3 +56,12 @@ void ViewGtk::poolForView(){
 	app->run(*mainWindow);
 }
 
+FxGtkView *ViewGtk::getFxGtkView(){
+	return fxBox;
+}
+
+FxGtkList *ViewGtk::getFxGtkList(){
+	return fxlist;
+}
+
+

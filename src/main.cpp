@@ -15,9 +15,15 @@
 
 #include "mainGtkView.hpp"
 
-void poolForInput(FXList *ptr){
+#include "adapter.hpp"
+
+void poolForInput(FXList *fxList, Adapter *adapter){
+	adapter->updateFxGuiList(fxList);
+	adapter->setNewFxGuiBox(fxList, 1);
+
 	while(1){
-	ptr->updateFXParameters(1);
+	fxList->updateFXParameters(1);
+	adapter->updateFxGuiBox(fxList, 1);
 	std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 }
@@ -49,15 +55,20 @@ int main( int argc, char * argv[] )
 	fxList->addFX(new SimpleOverdriveFx(keys.get()));
 
 
-	std::unique_ptr<Audio> input = std::unique_ptr<Audio>(new Audio(fxList.get()));
-
+	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
+	std::unique_ptr<Adapter> adapter(new Adapter(view->getFxGtkList(), view->getFxGtkView()));
 
-	std::thread keyboardInputThread(&Keyboard::pollForEvents, keys.get());
 	std::thread guiThread(&ViewGtk::poolForView, view.get());
-	std::thread pollForInputThread(poolForInput, fxList.get());
+	std::thread keyboardInputThread(&Keyboard::pollForEvents, keys.get());
+	std::thread pollForInputThread(poolForInput, fxList.get(), adapter.get());
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
+
+	guiThread.~thread();
+	keyboardInputThread.~thread();
+	pollForInputThread.~thread();
+
 	view.reset();
 	input.reset();
 	fxList.reset();
