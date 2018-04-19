@@ -20,14 +20,19 @@
 
 class Adapter{
 public:
-	Adapter(FxGtkList *newFxGtkList, FxGtkView *newFxGtkView);
-	void updateFxGuiList(FXList *fxList);
-	void setNewFxGuiBox(FXList *fxList, int indxOfFxToUpdate);
-	void updateFxGuiBox(FXList *fxList, int indxOfFxToUpdate);
+	Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView);
+	void setNewFxList(FXList *newFxList);
+	void updateFxGuiList();
+	void setNewFxGuiBox(int indxOfFxToUpdate);
+	void updateFxGuiBox(int indxOfFxToUpdate);
+	void selectFxInList(int indxOfFxToSelect);
+	void handleUserInput();
 
 private:
 	FxGtkList *fxGtkList; //gui list of fx
 	FxGtkView *fxGtkView; //gui box where is all effect options
+	FXList *fxList; //class contain also some other specific options for fx's
+	IDetector *userInput; //
 
 };
 

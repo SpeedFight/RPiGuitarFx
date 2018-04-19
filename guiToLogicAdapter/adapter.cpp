@@ -7,14 +7,20 @@
 
 #include "adapter.hpp"
 
-Adapter::Adapter(FxGtkList *newFxGtkList, FxGtkView *newFxGtkView):
+Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView):
+	fxList(newFxList),
 	fxGtkList(newFxGtkList),
-	fxGtkView(newFxGtkView)
+	fxGtkView(newFxGtkView),
+	userInput(newUserInput)
 	{
 
 }
 
-void Adapter::updateFxGuiList(FXList *fxList){
+void Adapter::setNewFxList(FXList *newFxList){
+	fxList = newFxList;
+}
+
+void Adapter::updateFxGuiList(){
 	static Gtk::TreeModel::Row row;
 	int id = 1;
 
@@ -27,7 +33,7 @@ void Adapter::updateFxGuiList(FXList *fxList){
 	}
 }
 
-void Adapter::setNewFxGuiBox(FXList *fxList, int indxOfFxToUpdate){
+void Adapter::setNewFxGuiBox(int indxOfFxToUpdate){
 	auto fx = fxList->getCurrentFXList()->at(indxOfFxToUpdate).get();
 
 	fxGtkView->fxNameLabel->set_text(*fx->getName());
@@ -48,11 +54,22 @@ void Adapter::setNewFxGuiBox(FXList *fxList, int indxOfFxToUpdate){
 	}
 }
 
-void Adapter::updateFxGuiBox(FXList *fxList, int indxOfFxToUpdate){
+void Adapter::updateFxGuiBox(int indxOfFxToUpdate){
 	auto fx = fxList->getCurrentFXList()->at(indxOfFxToUpdate).get();
 
 	int num = 0;
 	for(auto fxSetting : *(fx->getSettings())){
 		fxGtkView->fxSettings[num].get()->fxValueScale->set_value(fxSetting.getValue());
 	}
+}
+
+void Adapter::selectFxInList(int indxOfFxToSelect){
+	auto it = fxGtkList->treeModel->get_iter(std::to_string(indxOfFxToSelect));
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = fxGtkList->get_selection();
+	refTreeSelection->unselect_all();
+	refTreeSelection->select(it);
+}
+
+void Adapter::handleUserInput(){
+
 }

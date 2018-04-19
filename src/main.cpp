@@ -18,12 +18,13 @@
 #include "adapter.hpp"
 
 void poolForInput(FXList *fxList, Adapter *adapter){
-	adapter->updateFxGuiList(fxList);
-	adapter->setNewFxGuiBox(fxList, 1);
+	adapter->updateFxGuiList();
+	adapter->setNewFxGuiBox(1);
+	adapter->selectFxInList(1);
 
 	while(1){
 	fxList->updateFXParameters(1);
-	adapter->updateFxGuiBox(fxList, 1);
+	adapter->updateFxGuiBox(1);
 	std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 }
@@ -57,7 +58,7 @@ int main( int argc, char * argv[] )
 
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
-	std::unique_ptr<Adapter> adapter(new Adapter(view->getFxGtkList(), view->getFxGtkView()));
+	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), keys.get(), view->getFxGtkList(), view->getFxGtkView()));
 
 	std::thread guiThread(&ViewGtk::poolForView, view.get());
 	std::thread keyboardInputThread(&Keyboard::pollForEvents, keys.get());
