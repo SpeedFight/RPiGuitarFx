@@ -29,11 +29,14 @@ public:
 	void handleUserInput();
 
 private:
+	FXList *fxList; //class contain also some other specific options for fx's
 	FxGtkList *fxGtkList; //gui list of fx
 	FxGtkView *fxGtkView; //gui box where is all effect options
-	FXList *fxList; //class contain also some other specific options for fx's
 	IDetector *userInput; //
+	int selectedFxNum;
 
+	void setSelectedFxNum(int newSelectedFxNum);
+	void addToSelectedFxNum(int diff);
 };
 
 

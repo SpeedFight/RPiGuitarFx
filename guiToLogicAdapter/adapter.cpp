@@ -11,7 +11,8 @@ Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtk
 	fxList(newFxList),
 	fxGtkList(newFxGtkList),
 	fxGtkView(newFxGtkView),
-	userInput(newUserInput)
+	userInput(newUserInput),
+	selectedFxNum(0)
 	{
 
 }
@@ -70,6 +71,53 @@ void Adapter::selectFxInList(int indxOfFxToSelect){
 	refTreeSelection->select(it);
 }
 
-void Adapter::handleUserInput(){
+void Adapter::setSelectedFxNum(int newSelectedFxNum){
 
+	if(newSelectedFxNum > fxList->getCurrentFXList()->size() - 1){
+		newSelectedFxNum = fxList->getCurrentFXList()->size() - 1;
+
+	}else if(newSelectedFxNum < 0){
+		newSelectedFxNum = 0;
+	}
 }
+
+void Adapter::addToSelectedFxNum(int diff){
+
+	selectedFxNum += diff;
+	if(selectedFxNum < 0){
+		selectedFxNum = 0;
+
+	}else if (selectedFxNum > fxList->getCurrentFXList()->size() - 1){
+		selectedFxNum = fxList->getCurrentFXList()->size() - 1;
+	}
+}
+
+void Adapter::handleUserInput(){
+	userInput->getInputHandler(ControllerInput::pot1);
+
+	updateFxGuiList();
+	setNewFxGuiBox(selectedFxNum);
+	selectFxInList(selectedFxNum);
+
+	while(1){
+		std::this_thread::sleep_for (std::chrono::milliseconds(100));
+
+		int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
+		int *pot5 = userInput->getInputHandler(ControllerInput::pot5);
+		int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
+		addToSelectedFxNum(-(*pot1));
+
+		if(*pot1 != 0){
+		selectFxInList(selectedFxNum);
+		setNewFxGuiBox(selectedFxNum);
+
+		*pot1 = 0;
+		*pot5 = 0;
+		}
+
+		fxList->updateFXParameters(selectedFxNum);
+		updateFxGuiBox(selectedFxNum);
+	}
+}
+
+
