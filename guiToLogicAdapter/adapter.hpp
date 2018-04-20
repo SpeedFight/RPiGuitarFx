@@ -20,13 +20,13 @@
 
 class Adapter{
 public:
-	Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView);
+	Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView, int argc, char * argv[]);
 	void setNewFxList(FXList *newFxList);
 	void updateFxGuiList();
 	void setNewFxGuiBox(int indxOfFxToUpdate);
 	void updateFxGuiBox(int indxOfFxToUpdate);
 	void selectFxInList(int indxOfFxToSelect);
-	void handleUserInput(int argc, char * argv[]);
+	void handleUserInput();
 
 private:
 	FXList *fxList; //class contain also some other specific options for fx's
@@ -34,6 +34,7 @@ private:
 	FxGtkView *fxGtkView; //gui box where is all effect options
 	IDetector *userInput; //
 	int selectedFxNum;
+	std::unique_ptr<DialogWindowFxList> fxListDialog; //dialog to manipulate fx list
 
 	void setSelectedFxNum(int newSelectedFxNum);
 	void addToSelectedFxNum(int diff);

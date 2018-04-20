@@ -20,9 +20,7 @@ DialogWindowFxList::DialogWindowFxList(int argc, char * argv[]):
 	set_position(Gtk::WIN_POS_CENTER);
 	add(*setWidget());
 
-	show();
 	show_all();
-	show_all_children();
 	hide();
 }
 
@@ -47,6 +45,15 @@ Gtk::Widget *DialogWindowFxList::setWidget(){
 	title->add(*buttonBox);
 
 	return title;
+}
+
+
+void DialogWindowFxList::showDialog(){
+	show();
+}
+
+void DialogWindowFxList::hideDialog(){
+	hide();
 }
 
 

@@ -7,12 +7,13 @@
 
 #include "adapter.hpp"
 
-Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView):
+Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView, int argc, char * argv[]):
 	fxList(newFxList),
 	fxGtkList(newFxGtkList),
 	fxGtkView(newFxGtkView),
 	userInput(newUserInput),
-	selectedFxNum(0)
+	selectedFxNum(0),
+	fxListDialog(new DialogWindowFxList(argc, argv))
 	{
 
 }
@@ -92,7 +93,7 @@ void Adapter::addToSelectedFxNum(int diff){
 	}
 }
 
-void Adapter::handleUserInput(int argc, char * argv[]){
+void Adapter::handleUserInput(){
 	userInput->getInputHandler(ControllerInput::pot1);
 
 	updateFxGuiList();
@@ -100,8 +101,11 @@ void Adapter::handleUserInput(int argc, char * argv[]){
 	selectFxInList(selectedFxNum);
 
 
-	DialogWindowFxList dialog(argc, argv);
 	//dialog show, hide itp...
+
+	fxListDialog->showDialog();
+	fxListDialog->buttons.at(DialogWindowBtn::addNextBtn).get()->override_background_color(Gdk::RGBA(fxDialogListColor::selectedButtonCollor));
+	//TODO fnc to set focus
 
 	while(1){
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
@@ -114,15 +118,11 @@ void Adapter::handleUserInput(int argc, char * argv[]){
 		if(*pot1 != 0){
 		selectFxInList(selectedFxNum);
 		setNewFxGuiBox(selectedFxNum);
-
 		*pot1 = 0;
 		*pot5 = 0;
 		//TODO add clear all pot fnc
 		}
-
 		fxList->updateFXParameters(selectedFxNum);
 		updateFxGuiBox(selectedFxNum);
 	}
 }
-
-

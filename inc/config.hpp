@@ -2,7 +2,7 @@
  * conifg.hpp
  *
  *  Created on: 23 mar 2018
- *      Author: konoha
+ *      Author: SF
  */
 
 #ifndef CONFIG_HPP_
@@ -20,6 +20,14 @@
 //#define GTK_KEYBOARD_LOOP
 
 const unsigned int DEFAULT_RESERVED_FX_LIST_SIZE = 8;
+
+/*
+ * color for fx list dialog
+ */
+namespace fxDialogListColor{
+	const std::string selectedButtonCollor 		= "yellow";
+	const std::string unselectedButtonCollor 	= "white";
+}
 
 
 enum ControllerInput{

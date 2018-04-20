@@ -58,11 +58,11 @@ int main( int argc, char * argv[] )
 
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
-	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), keys.get(), view->getFxGtkList(), view->getFxGtkView()));
+	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), keys.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
 
 	std::thread guiThread(&ViewGtk::poolForView, view.get());
 	std::thread keyboardInputThread(&Keyboard::pollForEvents, keys.get());
-	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get(), argc, argv);
+	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
 

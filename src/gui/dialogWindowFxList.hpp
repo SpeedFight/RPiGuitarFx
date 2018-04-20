@@ -16,6 +16,9 @@ public:
 	DialogWindowFxList(int argc, char * argv[]);
 	std::array<std::unique_ptr<Gtk::Button>, 4> buttons;
 
+	void showDialog();
+	void hideDialog();
+
 private:
 	Gtk::Widget *setWidget();
 
