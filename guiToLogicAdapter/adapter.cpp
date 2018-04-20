@@ -15,6 +15,7 @@ Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtk
 	selectedFxNum(0),
 	fxListDialog(new DialogWindowFxList(argc, argv))
 	{
+	btn1LongPressMutex.lock();
 
 }
 
@@ -93,6 +94,38 @@ void Adapter::addToSelectedFxNum(int diff){
 	}
 }
 
+void Adapter::handleBtn1LongPress(){
+//	fxListDialog->showDialog();
+//	fxListDialog->markButton(DialogWindowBtn::cancelBtn);
+//	fxListDialog->hideDialog();
+	while(1){
+		std::this_thread::sleep_for (std::chrono::milliseconds(100));
+		int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
+
+		if(btn1LongPressMutex.try_lock()){
+			if(*btn1){
+				std::this_thread::sleep_for (std::chrono::milliseconds(1000));
+				while(*btn1){
+					fxListDialog->showDialog();
+				}
+
+			}
+
+		}
+
+
+
+//		int *pot5 = userInput->getInputHandler(ControllerInput::pot5);
+//		*pot5 = 0;
+//
+//
+//
+//		*pot5 = 0;
+		fxListDialog->hideDialog();
+		btn1LongPressMutex.unlock();
+	}
+}
+
 void Adapter::handleUserInput(){
 	userInput->getInputHandler(ControllerInput::pot1);
 
@@ -100,18 +133,16 @@ void Adapter::handleUserInput(){
 	setNewFxGuiBox(selectedFxNum);
 	selectFxInList(selectedFxNum);
 
+	std::thread handleBtn1LongPressThread(&Adapter::handleBtn1LongPress, this);
 
-	//dialog show, hide itp...
 
-	fxListDialog->showDialog();
-	fxListDialog->buttons.at(DialogWindowBtn::addNextBtn).get()->override_background_color(Gdk::RGBA(fxDialogListColor::selectedButtonCollor));
-	//TODO fnc to set focus
+
+
 
 	while(1){
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
 
 		int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
-		int *pot5 = userInput->getInputHandler(ControllerInput::pot5);
 		int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
 		addToSelectedFxNum(-(*pot1));
 
@@ -119,10 +150,19 @@ void Adapter::handleUserInput(){
 		selectFxInList(selectedFxNum);
 		setNewFxGuiBox(selectedFxNum);
 		*pot1 = 0;
-		*pot5 = 0;
+
 		//TODO add clear all pot fnc
 		}
+
+		if(*btn1){
+			btn1LongPressMutex.unlock();
+		}
+
 		fxList->updateFXParameters(selectedFxNum);
 		updateFxGuiBox(selectedFxNum);
+
+		if(btn1LongPressMutex.try_lock()){
+			btn1LongPressMutex.lock();
+		}
 	}
 }

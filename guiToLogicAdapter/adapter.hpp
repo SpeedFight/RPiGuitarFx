@@ -36,8 +36,11 @@ private:
 	int selectedFxNum;
 	std::unique_ptr<DialogWindowFxList> fxListDialog; //dialog to manipulate fx list
 
+	std::mutex btn1LongPressMutex;
+
 	void setSelectedFxNum(int newSelectedFxNum);
 	void addToSelectedFxNum(int diff);
+	void handleBtn1LongPress();
 };
 
 

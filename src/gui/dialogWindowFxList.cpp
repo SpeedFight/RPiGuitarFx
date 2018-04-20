@@ -47,6 +47,11 @@ Gtk::Widget *DialogWindowFxList::setWidget(){
 	return title;
 }
 
+void DialogWindowFxList::unMarkAllButtons(){
+	for(auto &button : buttons){
+		button.get()->override_background_color(Gdk::RGBA(fxDialogListColor::unselectedButtonCollor));
+	}
+}
 
 void DialogWindowFxList::showDialog(){
 	show();
@@ -54,6 +59,12 @@ void DialogWindowFxList::showDialog(){
 
 void DialogWindowFxList::hideDialog(){
 	hide();
+	unMarkAllButtons();
+}
+
+void DialogWindowFxList::markButton(DialogWindowBtn btnToMark){
+	unMarkAllButtons();
+	buttons[btnToMark].get()->override_background_color(Gdk::RGBA(fxDialogListColor::selectedButtonCollor));
 }
 
 

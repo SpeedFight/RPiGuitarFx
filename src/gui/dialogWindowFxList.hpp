@@ -19,8 +19,11 @@ public:
 	void showDialog();
 	void hideDialog();
 
+	void markButton(DialogWindowBtn btnToMark);
+
 private:
 	Gtk::Widget *setWidget();
+	void unMarkAllButtons();
 
 	Gtk::ButtonBox *buttonBox;
 	Gtk::Frame *title;
