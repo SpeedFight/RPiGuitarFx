@@ -40,5 +40,11 @@ enum ControllerInput{
 	foot3
 };
 
+enum DialogWindowBtn{
+	cancelBtn,
+	addNextBtn,
+	movelBtn,
+	deletelBtn
+};
 
 #endif /* CONFIG_HPP_ */

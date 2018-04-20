@@ -12,6 +12,7 @@
 #include "mainGtkView.hpp"
 #include "fxGtkView.hpp"
 #include "fxGtkList.hpp"
+#include "dialogWindow.hpp"
 
 #include "effectsList.hpp"
 #include "effect.hpp"

@@ -99,6 +99,10 @@ void Adapter::handleUserInput(){
 	setNewFxGuiBox(selectedFxNum);
 	selectFxInList(selectedFxNum);
 
+
+	DialogWindow dialog(0, nullptr);
+	//dialog show, hide itp...
+
 	while(1){
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
 
@@ -113,6 +117,7 @@ void Adapter::handleUserInput(){
 
 		*pot1 = 0;
 		*pot5 = 0;
+		//TODO add clear all pot fnc
 		}
 
 		fxList->updateFXParameters(selectedFxNum);

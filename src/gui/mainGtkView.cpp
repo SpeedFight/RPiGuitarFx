@@ -45,8 +45,8 @@ Gtk::Widget *ViewGtk::mainViewWidget(FxGtkList* fxGtkList, FxGtkView *fxGtkView)
 
 	fxViewBox->pack_start(*fxGtkView, Gtk::PACK_EXPAND_WIDGET);
 
-	lowePartMainWindowBox->attach(*scrollForFxList, 	0, 0, 2, 7);
-	lowePartMainWindowBox->attach(*fxViewBox, 		3, 0, 6, 7);
+	lowePartMainWindowBox->attach(*scrollForFxList, 	0, 0, 3, 7);
+	lowePartMainWindowBox->attach(*fxViewBox, 		2, 0, 7, 7);
 
 	return mainWindowBox;
 }
