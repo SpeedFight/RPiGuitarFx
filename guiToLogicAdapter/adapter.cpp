@@ -92,7 +92,7 @@ void Adapter::addToSelectedFxNum(int diff){
 	}
 }
 
-void Adapter::handleUserInput(){
+void Adapter::handleUserInput(int argc, char * argv[]){
 	userInput->getInputHandler(ControllerInput::pot1);
 
 	updateFxGuiList();
@@ -100,7 +100,7 @@ void Adapter::handleUserInput(){
 	selectFxInList(selectedFxNum);
 
 
-	DialogWindow dialog(0, nullptr);
+	DialogWindowFxList dialog(argc, argv);
 	//dialog show, hide itp...
 
 	while(1){

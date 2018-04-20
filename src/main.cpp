@@ -62,7 +62,7 @@ int main( int argc, char * argv[] )
 
 	std::thread guiThread(&ViewGtk::poolForView, view.get());
 	std::thread keyboardInputThread(&Keyboard::pollForEvents, keys.get());
-	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
+	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get(), argc, argv);
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
 

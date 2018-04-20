@@ -8,12 +8,11 @@
 #ifndef ADAPTER_HPP_
 #define ADAPTER_HPP_
 
+#include <dialogWindowFxList.hpp>
 #include "config.hpp"
 #include "mainGtkView.hpp"
 #include "fxGtkView.hpp"
 #include "fxGtkList.hpp"
-#include "dialogWindow.hpp"
-
 #include "effectsList.hpp"
 #include "effect.hpp"
 
@@ -27,7 +26,7 @@ public:
 	void setNewFxGuiBox(int indxOfFxToUpdate);
 	void updateFxGuiBox(int indxOfFxToUpdate);
 	void selectFxInList(int indxOfFxToSelect);
-	void handleUserInput();
+	void handleUserInput(int argc, char * argv[]);
 
 private:
 	FXList *fxList; //class contain also some other specific options for fx's
