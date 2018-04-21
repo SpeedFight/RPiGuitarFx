@@ -10,19 +10,12 @@
 
 #include "config.hpp"
 #include <gtkmm.h>
-//#include "effectsList.hpp"
-//#include "effect.hpp"
-//#include "dummyController.hpp"
-#include <cstddef>
 
 class FxGtkList : public Gtk::TreeView
 {
 public:
 	FxGtkList();
   virtual ~FxGtkList();
-
-
-
 
   //Tree model columns:
   class ModelColumns : public Gtk::TreeModel::ColumnRecord
@@ -34,7 +27,6 @@ public:
 
     Gtk::TreeModelColumn<unsigned int> idColumn;
     Gtk::TreeModelColumn<Glib::ustring> nameColumn;
-    //Gtk::TreeModelColumn<std::shared_ptr<IFX>> fxColumn;
   };
 
   ModelColumns columnsModel;
