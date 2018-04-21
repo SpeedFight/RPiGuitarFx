@@ -18,6 +18,7 @@
 #include "adapterAddFxDialog.hpp"
 
 #include <gtkmm.h>
+#include <sigc++/sigc++.h>
 
 class AdapterEditFxDialog{
 public:
