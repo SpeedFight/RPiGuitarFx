@@ -8,7 +8,11 @@
 #include "dialogWindowAddFx.hpp"
 
 AvaibleFxGtkList::AvaibleFxGtkList(){
+  //Create the Tree model:
+  treeModel = Gtk::ListStore::create(columnsModel);
+  set_model(treeModel);
 
+  append_column("Fx list", columnsModel.nameColumn);
 }
 
 AvaibleFxGtkList::~AvaibleFxGtkList(){
@@ -24,7 +28,7 @@ DialogWindowAddFx::DialogWindowAddFx(int argc, char * argv[]):
 
 	set_title("Dialog window");
 	set_decorated(false);
-	set_default_size(300, 100);
+	set_default_size(200, 400);
 	set_position(Gtk::WIN_POS_CENTER);
 	add(*setWidget());
 
@@ -32,12 +36,19 @@ DialogWindowAddFx::DialogWindowAddFx(int argc, char * argv[]):
 	hide();
 }
 
-Gtk::Widget *DialogWindowAddFx::setWidget(){
+void DialogWindowAddFx::showDialog(){
+	show();
+}
 
-//	title = Gtk::manage(new Gtk::Frame("Choose action"));
-//	title->set_border_width(5);
-//
-//	title->add(*buttonBox);
+void DialogWindowAddFx::hideDialog(){
+	hide();
+}
+
+Gtk::Widget *DialogWindowAddFx::setWidget(){
+	title = Gtk::manage(new Gtk::Frame("Choose FX"));
+	title->set_border_width(5);
+
+	title->add(*avaibleFxGtkList);
 
 	return title;
 }

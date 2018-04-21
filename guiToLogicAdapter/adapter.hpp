@@ -8,7 +8,8 @@
 #ifndef ADAPTER_HPP_
 #define ADAPTER_HPP_
 
-#include <dialogWindowFxList.hpp>
+#include "dialogWindowFxList.hpp"
+#include "dialogWindowAddFx.hpp"
 #include "config.hpp"
 #include "mainGtkView.hpp"
 #include "fxGtkView.hpp"
@@ -34,8 +35,9 @@ private:
 	FxGtkView *fxGtkView; //gui box where is all effect options
 	IDetector *userInput; //
 	int selectedFxNum;
-	std::unique_ptr<DialogWindowFxList> fxListDialog; //dialog to manipulate fx list
+	std::unique_ptr<DialogWindowFxList> fxDialog; //dialog to manipulate fx list
 	int selectedOptionFxListDialog;
+	std::unique_ptr<DialogWindowAddFx> addfxDialog; //dialog to manipulate fx list
 
 	std::mutex btn1LongPressMutex;
 

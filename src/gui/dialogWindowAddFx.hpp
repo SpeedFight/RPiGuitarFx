@@ -16,10 +16,21 @@
 
 #include <gtkmm.h>
 
-class AvaibleFxGtkList : public FxGtkList{
+class AvaibleFxGtkList : public Gtk::TreeView{
 public:
 	AvaibleFxGtkList();
 	virtual ~AvaibleFxGtkList();
+
+	//Tree model columns:
+	class ModelColumns : public Gtk::TreeModel::ColumnRecord
+	{
+	public:
+		ModelColumns() {add(nameColumn);}
+		Gtk::TreeModelColumn<Glib::ustring> nameColumn;
+	};
+
+	ModelColumns columnsModel;
+	Glib::RefPtr<Gtk::ListStore> treeModel;
 };
 
 class DialogWindowAddFx: Gtk::Window{
