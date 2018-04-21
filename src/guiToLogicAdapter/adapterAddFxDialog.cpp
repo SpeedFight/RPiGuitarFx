@@ -31,6 +31,7 @@ AdapterAddFxDialog::AdapterAddFxDialog(int argc, char *argv[], IDetector *newUse
 }
 
 void AdapterAddFxDialog::handleEditFxDialog(){
+	//error when use showDialog
 	std::cout<<"1"<<std::endl;
 	addFxDialog->showDialog();
 	std::cout<<"2"<<std::endl;

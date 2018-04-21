@@ -21,7 +21,7 @@ DialogWindowFxList::DialogWindowFxList(int argc, char * argv[]):
 	add(*setWidget());
 
 	show_all();
-	hide();
+	iconify();
 }
 
 Gtk::Widget *DialogWindowFxList::setWidget(){
@@ -54,11 +54,11 @@ void DialogWindowFxList::unMarkAllButtons(){
 }
 
 void DialogWindowFxList::showDialog(){
-	show();
+	deiconify();
 }
 
 void DialogWindowFxList::hideDialog(){
-	hide();
+	iconify();
 	unMarkAllButtons();
 }
 

@@ -15,7 +15,6 @@ AdapterEditFxDialog::AdapterEditFxDialog(int argc, char *argv[], IDetector *newU
 	selectedOptionFxListDialog(0),
 	addFxDialog(new AdapterAddFxDialog(argc, argv, newUserInput, newFxList, newSelectedFxNum))
 	{
-
 }
 
 void AdapterEditFxDialog::addToSelectedOptionFxListDialog(int diff){
@@ -31,26 +30,28 @@ void AdapterEditFxDialog::addToSelectedOptionFxListDialog(int diff){
 
 void AdapterEditFxDialog::handleEditFxDialog(){
 
+	int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
 	int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
 	if(*btn1){
-		std::this_thread::sleep_for (std::chrono::milliseconds(500));
+		std::this_thread::sleep_for (std::chrono::milliseconds(800));
+		if(*btn1){ //check if button is pressed through given time
+			fxDialog->showDialog();
+			fxDialog->markButton(selectedOptionFxListDialog);
 
-		if(*btn1){
-				fxDialog->showDialog();
-				fxDialog->markButton(selectedOptionFxListDialog);
-		//button pressed
-		while(*btn1){
-			std::this_thread::sleep_for (std::chrono::milliseconds(100));
-			int *pot5 = userInput->getInputHandler(ControllerInput::pot5);
+			while(*btn1){ //wait to stop press button
+				std::this_thread::sleep_for (std::chrono::milliseconds(100));
+			}
 
-			if(*pot5 != 0){
-					addToSelectedOptionFxListDialog(*pot5);
+			while(!*btn1){ //stop when button pressed
+				std::this_thread::sleep_for (std::chrono::milliseconds(100));
+
+				if(*pot1 != 0){
+					addToSelectedOptionFxListDialog(*pot1);
 					fxDialog->markButton(selectedOptionFxListDialog);
-				*pot5 = 0;
+					*pot1 = 0;
+					}
 				}
 
-			}
-		}
 
 		fxDialog->hideDialog();
 		//button stop pressed
@@ -78,9 +79,6 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 			}
 
 			selectedOptionFxListDialog = 0;
-
 		}
-
-
+	}
 }
-

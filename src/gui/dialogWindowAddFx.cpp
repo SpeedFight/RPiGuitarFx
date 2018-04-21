@@ -33,15 +33,15 @@ DialogWindowAddFx::DialogWindowAddFx(int argc, char * argv[]):
 	add(*setWidget());
 
 	show_all();
-	hide();
+	iconify();
 }
 
 void DialogWindowAddFx::showDialog(){
-	show();
+	deiconify();
 }
 
 void DialogWindowAddFx::hideDialog(){
-	hide();
+	iconify();
 }
 
 Gtk::Widget *DialogWindowAddFx::setWidget(){

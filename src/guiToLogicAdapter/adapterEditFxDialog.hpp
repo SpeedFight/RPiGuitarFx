@@ -18,12 +18,13 @@
 #include "adapterAddFxDialog.hpp"
 
 #include <gtkmm.h>
-#include <sigc++/sigc++.h>
 
 class AdapterEditFxDialog{
 public:
 	AdapterEditFxDialog(int argc, char *argv[], IDetector *userInput, FXList *newFxList, int *newSelectedFxNum);
 	void handleEditFxDialog();
+
+
 private:
 	IDetector *userInput;
 	FXList *fxList; //class contain also some other specific options for fx's

@@ -3,7 +3,7 @@ environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/LIBS/delimite
 environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/LIBS/operation=replace
 environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/LIBS/value=`pkg-config --cflags --libs gtk+-3.0 jack` -I/usr/local/include/  -ljackcpp
 environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/LIBS_GTKMM/delimiter=\:
-environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/LIBS_GTKMM/operation=append
+environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/LIBS_GTKMM/operation=replace
 environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/LIBS_GTKMM/value=`pkg-config --cflags --libs gtkmm-3.0 jack` -I/usr/local/include/  -ljackcpp
 environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/append=true
 environment/project/cdt.managedbuild.config.gnu.exe.debug.43942646/appendContributed=true
