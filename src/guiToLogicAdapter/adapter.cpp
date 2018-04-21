@@ -7,25 +7,21 @@
 
 #include "adapter.hpp"
 
-Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView, int argc, char * argv[]):
+Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView, int argc, char *argv[]):
 	fxList(newFxList),
 	fxGtkList(newFxGtkList),
 	fxGtkView(newFxGtkView),
 	userInput(newUserInput),
 	selectedFxNum(0),
-	fxDialog(new DialogWindowFxList(argc, argv)),
-	selectedOptionFxListDialog(0),
-	addfxDialog(new DialogWindowAddFx(argc, argv)),
-	selectedOptionAddFxDialog(0)
+//	addfxDialog(new DialogWindowAddFx(argc, argv)),
+//	selectedOptionAddFxDialog(0),
+	adapterEditFxDialog(new AdapterEditFxDialog(argc, argv, newUserInput, newFxList, &selectedFxNum))
 	{
 }
 
 /*
  * fx list in audio chain
  */
-void Adapter::setNewFxList(FXList *newFxList){
-	fxList = newFxList;
-}
 
 void Adapter::updateFxGuiList(){
 	static Gtk::TreeModel::Row row;
@@ -92,7 +88,6 @@ void Adapter::updateFxGuiBox(int indxOfFxToUpdate){
 }
 
 void Adapter::setSelectedFxNum(int newSelectedFxNum){
-
 	if(newSelectedFxNum > fxList->getCurrentFXList()->size() - 1){
 		newSelectedFxNum = fxList->getCurrentFXList()->size() - 1;
 
@@ -102,92 +97,13 @@ void Adapter::setSelectedFxNum(int newSelectedFxNum){
 }
 
 /*
- * add new fx dialog
- */
-
-
-
-
-/*
- *
- */
-void Adapter::addToSelectedOptionFxListDialog(int diff){
-
-	selectedOptionFxListDialog += diff;
-	if(selectedOptionFxListDialog < 0){
-		selectedOptionFxListDialog = 0;
-
-	}else if (selectedOptionFxListDialog > fxDialog->buttons.size() - 1){
-		selectedOptionFxListDialog = fxDialog->buttons.size() - 1;
-	}
-}
-
-/*
  * handle dialog windows
  */
 
-void Adapter::handleBtn1LongPress(){
 
-	while(1){
-		std::this_thread::sleep_for (std::chrono::milliseconds(40));
-
-		if(btn1LongPressMutex.try_lock()){
-			int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
-			if(*btn1){
-				std::this_thread::sleep_for (std::chrono::milliseconds(500));
-
-				if(*btn1){
-					fxDialog->showDialog();
-					fxDialog->markButton(selectedOptionFxListDialog);
-				//button pressed
-				while(*btn1){
-					std::this_thread::sleep_for (std::chrono::milliseconds(100));
-					int *pot5 = userInput->getInputHandler(ControllerInput::pot5);
-
-					if(*pot5 != 0){
-						addToSelectedOptionFxListDialog(*pot5);
-						fxDialog->markButton(selectedOptionFxListDialog);
-						*pot5 = 0;
-						}
-
-					}
-				}
-
-				//button stop pressed
-				switch (selectedOptionFxListDialog) {
-
-					case DialogWindowBtn::cancelBtn:
-						std::cout<<"cancelBtn"<<std::endl;
-						break;
-
-					case DialogWindowBtn::addNextBtn:
-						std::cout<<"addNextBtn"<<std::endl;
-						break;
-
-					case DialogWindowBtn::movelBtn:
-						std::cout<<"movelBtn"<<std::endl;
-						break;
-
-					case DialogWindowBtn::deletelBtn:
-						std::cout<<"deletelBtn"<<std::endl;
-						break;
-
-					default:
-						break;
-				}
-
-				selectedOptionFxListDialog = 0;
-
-				}
-
-			fxDialog->hideDialog();
-			btn1LongPressMutex.unlock();
-			}
-
-		}
-
-}
-
+/*
+ * change current active to edit settings fx
+ */
 void Adapter::handleUserInput(){
 	userInput->getInputHandler(ControllerInput::pot1);
 
@@ -195,10 +111,9 @@ void Adapter::handleUserInput(){
 	setNewFxGuiBox(selectedFxNum);
 	selectFxInList(selectedFxNum);
 
-	btn1LongPressMutex.lock();
-	std::thread handleBtn1LongPressThread(&Adapter::handleBtn1LongPress, this);
+	//std::thread handleBtn1LongPressThread(&Adapter::handleBtn1LongPress, this);
 
-	addfxDialog->showDialog();
+	//addfxDialog->showDialog();
 
 	while(1){
 		int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
@@ -217,10 +132,11 @@ void Adapter::handleUserInput(){
 
 		int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
 		if(*btn1){
-			btn1LongPressMutex.unlock();
+//			std::thread handleEditFxDialogThread(&AdapterEditFxDialog::handleEditFxDialog, adapterEditFxDialog.get());
+//			handleEditFxDialogThread.join();
+			adapterEditFxDialog->handleEditFxDialog();
 		}
-
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
-		while(btn1LongPressMutex.try_lock()) {}
+
 	}
 }

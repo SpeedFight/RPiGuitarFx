@@ -7,4 +7,77 @@
 
 #include "adapterEditFxDialog.hpp"
 
+AdapterEditFxDialog::AdapterEditFxDialog(int argc, char *argv[], IDetector *newUserInput, FXList *newFxList, int *newSelectedFxNum):
+	userInput(newUserInput),
+	fxList(newFxList),
+	selectedFxNum(newSelectedFxNum),
+	fxDialog(new DialogWindowFxList(argc, argv)),
+	selectedOptionFxListDialog(0)
+	{
+
+}
+
+void AdapterEditFxDialog::addToSelectedOptionFxListDialog(int diff){
+	selectedOptionFxListDialog += diff;
+	if(selectedOptionFxListDialog < 0){
+		selectedOptionFxListDialog = 0;
+
+	}else if (selectedOptionFxListDialog > fxDialog->buttons.size() - 1){
+		selectedOptionFxListDialog = fxDialog->buttons.size() - 1;
+	}
+}
+
+
+void AdapterEditFxDialog::handleEditFxDialog(){
+
+	int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
+	if(*btn1){
+		std::this_thread::sleep_for (std::chrono::milliseconds(500));
+
+		if(*btn1){
+				fxDialog->showDialog();
+				fxDialog->markButton(selectedOptionFxListDialog);
+		//button pressed
+		while(*btn1){
+			std::this_thread::sleep_for (std::chrono::milliseconds(100));
+			int *pot5 = userInput->getInputHandler(ControllerInput::pot5);
+
+			if(*pot5 != 0){
+					addToSelectedOptionFxListDialog(*pot5);
+					fxDialog->markButton(selectedOptionFxListDialog);
+				*pot5 = 0;
+				}
+
+			}
+		}
+
+		//button stop pressed
+			switch (selectedOptionFxListDialog) {
+
+				case DialogWindowBtn::cancelBtn:
+					std::cout<<"cancelBtn"<<std::endl;
+					break;
+
+				case DialogWindowBtn::addNextBtn:
+					std::cout<<"addNextBtn"<<std::endl;
+					break;
+
+				case DialogWindowBtn::movelBtn:
+					std::cout<<"movelBtn"<<std::endl;
+					break;
+
+				case DialogWindowBtn::deletelBtn:
+					std::cout<<"deletelBtn"<<std::endl;
+					break;
+
+				default:
+					break;
+			}
+
+			selectedOptionFxListDialog = 0;
+
+		}
+
+		fxDialog->hideDialog();
+}
 
