@@ -12,7 +12,7 @@ AvaibleFxGtkList::AvaibleFxGtkList(){
   treeModel = Gtk::ListStore::create(columnsModel);
   set_model(treeModel);
 
-  append_column("Fx list", columnsModel.nameColumn);
+  append_column("Avaible effects", columnsModel.nameColumn);
 }
 
 AvaibleFxGtkList::~AvaibleFxGtkList(){

@@ -38,12 +38,14 @@ private:
 	std::unique_ptr<DialogWindowFxList> fxDialog; //dialog to manipulate fx list
 	int selectedOptionFxListDialog;
 	std::unique_ptr<DialogWindowAddFx> addfxDialog; //dialog to manipulate fx list
+	int selectedOptionAddFxDialog;
 
 	std::mutex btn1LongPressMutex;
 
 	void setSelectedFxNum(int newSelectedFxNum);
 	void addToSelectedFxNum(int diff);
 	void addToSelectedOptionFxListDialog(int diff);
+	void addToselectedOptionAddFxDialog(int diff);
 	void handleBtn1LongPress();
 };
 

@@ -15,12 +15,14 @@ Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtk
 	selectedFxNum(0),
 	fxDialog(new DialogWindowFxList(argc, argv)),
 	selectedOptionFxListDialog(0),
-	addfxDialog(new DialogWindowAddFx(argc, argv))
+	addfxDialog(new DialogWindowAddFx(argc, argv)),
+	selectedOptionAddFxDialog(0)
 	{
-
-
 }
 
+/*
+ * fx list in audio chain
+ */
 void Adapter::setNewFxList(FXList *newFxList){
 	fxList = newFxList;
 }
@@ -38,6 +40,27 @@ void Adapter::updateFxGuiList(){
 	}
 }
 
+void Adapter::selectFxInList(int indxOfFxToSelect){
+	auto it = fxGtkList->treeModel->get_iter(std::to_string(indxOfFxToSelect));
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = fxGtkList->get_selection();
+	refTreeSelection->unselect_all();
+	refTreeSelection->select(it);
+}
+
+void Adapter::addToSelectedFxNum(int diff){
+
+	selectedFxNum += diff;
+	if(selectedFxNum < 0){
+		selectedFxNum = 0;
+
+	}else if (selectedFxNum > fxList->getCurrentFXList()->size() - 1){
+		selectedFxNum = fxList->getCurrentFXList()->size() - 1;
+	}
+}
+
+/*
+ * fx box with selected fx settings
+ */
 void Adapter::setNewFxGuiBox(int indxOfFxToUpdate){
 	auto fx = fxList->getCurrentFXList()->at(indxOfFxToUpdate).get();
 
@@ -68,13 +91,6 @@ void Adapter::updateFxGuiBox(int indxOfFxToUpdate){
 	}
 }
 
-void Adapter::selectFxInList(int indxOfFxToSelect){
-	auto it = fxGtkList->treeModel->get_iter(std::to_string(indxOfFxToSelect));
-	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = fxGtkList->get_selection();
-	refTreeSelection->unselect_all();
-	refTreeSelection->select(it);
-}
-
 void Adapter::setSelectedFxNum(int newSelectedFxNum){
 
 	if(newSelectedFxNum > fxList->getCurrentFXList()->size() - 1){
@@ -85,17 +101,16 @@ void Adapter::setSelectedFxNum(int newSelectedFxNum){
 	}
 }
 
-void Adapter::addToSelectedFxNum(int diff){
+/*
+ * add new fx dialog
+ */
 
-	selectedFxNum += diff;
-	if(selectedFxNum < 0){
-		selectedFxNum = 0;
 
-	}else if (selectedFxNum > fxList->getCurrentFXList()->size() - 1){
-		selectedFxNum = fxList->getCurrentFXList()->size() - 1;
-	}
-}
 
+
+/*
+ *
+ */
 void Adapter::addToSelectedOptionFxListDialog(int diff){
 
 	selectedOptionFxListDialog += diff;
@@ -106,6 +121,10 @@ void Adapter::addToSelectedOptionFxListDialog(int diff){
 		selectedOptionFxListDialog = fxDialog->buttons.size() - 1;
 	}
 }
+
+/*
+ * handle dialog windows
+ */
 
 void Adapter::handleBtn1LongPress(){
 
@@ -133,7 +152,6 @@ void Adapter::handleBtn1LongPress(){
 
 					}
 				}
-
 
 				//button stop pressed
 				switch (selectedOptionFxListDialog) {
