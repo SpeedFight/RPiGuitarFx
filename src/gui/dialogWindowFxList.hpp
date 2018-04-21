@@ -19,7 +19,7 @@ public:
 	void showDialog();
 	void hideDialog();
 
-	void markButton(DialogWindowBtn btnToMark);
+	void markButton(int btnToMark);
 
 private:
 	Gtk::Widget *setWidget();

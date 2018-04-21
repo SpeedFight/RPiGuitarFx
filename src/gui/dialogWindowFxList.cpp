@@ -62,8 +62,15 @@ void DialogWindowFxList::hideDialog(){
 	unMarkAllButtons();
 }
 
-void DialogWindowFxList::markButton(DialogWindowBtn btnToMark){
+void DialogWindowFxList::markButton(int btnToMark){
 	unMarkAllButtons();
+
+	if(btnToMark < 0){
+		btnToMark = 0;
+	}else if (btnToMark > buttons.size() - 1){
+		btnToMark = buttons.size() - 1;
+	}
+
 	buttons[btnToMark].get()->override_background_color(Gdk::RGBA(fxDialogListColor::selectedButtonCollor));
 }
 
