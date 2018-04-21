@@ -15,6 +15,8 @@
 #include "dialogWindowFxList.hpp"
 #include "dialogWindowAddFx.hpp"
 
+#include "adapterAddFxDialog.hpp"
+
 #include <gtkmm.h>
 
 class AdapterEditFxDialog{
@@ -27,6 +29,7 @@ private:
 	int *selectedFxNum;
 	std::unique_ptr<DialogWindowFxList> fxDialog; //dialog to manipulate fx list
 	int selectedOptionFxListDialog;
+	std::unique_ptr<AdapterAddFxDialog> addFxDialog; //dialog to add new fx
 
 	void addToSelectedOptionFxListDialog(int diff);
 };

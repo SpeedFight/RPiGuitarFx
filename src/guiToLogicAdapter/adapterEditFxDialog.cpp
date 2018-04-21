@@ -12,7 +12,8 @@ AdapterEditFxDialog::AdapterEditFxDialog(int argc, char *argv[], IDetector *newU
 	fxList(newFxList),
 	selectedFxNum(newSelectedFxNum),
 	fxDialog(new DialogWindowFxList(argc, argv)),
-	selectedOptionFxListDialog(0)
+	selectedOptionFxListDialog(0),
+	addFxDialog(new AdapterAddFxDialog(argc, argv, newUserInput, newFxList, newSelectedFxNum))
 	{
 
 }
@@ -51,6 +52,7 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 			}
 		}
 
+		fxDialog->hideDialog();
 		//button stop pressed
 			switch (selectedOptionFxListDialog) {
 
@@ -60,6 +62,7 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 
 				case DialogWindowBtn::addNextBtn:
 					std::cout<<"addNextBtn"<<std::endl;
+					addFxDialog->handleEditFxDialog();
 					break;
 
 				case DialogWindowBtn::movelBtn:
@@ -78,6 +81,6 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 
 		}
 
-		fxDialog->hideDialog();
+
 }
 

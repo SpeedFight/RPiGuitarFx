@@ -9,7 +9,6 @@
 #define ADAPTER_HPP_
 
 #include "dialogWindowFxList.hpp"
-#include "dialogWindowAddFx.hpp"
 #include "config.hpp"
 #include "mainGtkView.hpp"
 
@@ -32,8 +31,6 @@ private:
 	FxGtkView *fxGtkView; //gui box where is all effect options
 	IDetector *userInput; //
 	int selectedFxNum;
-//	std::unique_ptr<DialogWindowAddFx> addfxDialog; //dialog to manipulate fx list
-//	int selectedOptionAddFxDialog;
 	std::unique_ptr<AdapterEditFxDialog> adapterEditFxDialog;
 
 	void setSelectedFxNum(int newSelectedFxNum);

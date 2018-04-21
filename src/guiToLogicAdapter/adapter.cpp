@@ -13,8 +13,6 @@ Adapter::Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtk
 	fxGtkView(newFxGtkView),
 	userInput(newUserInput),
 	selectedFxNum(0),
-//	addfxDialog(new DialogWindowAddFx(argc, argv)),
-//	selectedOptionAddFxDialog(0),
 	adapterEditFxDialog(new AdapterEditFxDialog(argc, argv, newUserInput, newFxList, &selectedFxNum))
 	{
 }
@@ -111,11 +109,8 @@ void Adapter::handleUserInput(){
 	setNewFxGuiBox(selectedFxNum);
 	selectFxInList(selectedFxNum);
 
-	//std::thread handleBtn1LongPressThread(&Adapter::handleBtn1LongPress, this);
-
-	//addfxDialog->showDialog();
-
 	while(1){
+		std::this_thread::sleep_for (std::chrono::milliseconds(100));
 		int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
 		addToSelectedFxNum(-(*pot1));
 
@@ -132,11 +127,7 @@ void Adapter::handleUserInput(){
 
 		int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
 		if(*btn1){
-//			std::thread handleEditFxDialogThread(&AdapterEditFxDialog::handleEditFxDialog, adapterEditFxDialog.get());
-//			handleEditFxDialogThread.join();
 			adapterEditFxDialog->handleEditFxDialog();
 		}
-		std::this_thread::sleep_for (std::chrono::milliseconds(100));
-
 	}
 }
