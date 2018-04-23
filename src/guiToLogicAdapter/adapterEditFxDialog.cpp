@@ -52,7 +52,6 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 					}
 				}
 
-
 		fxDialog->hideDialog();
 		//button stop pressed
 			switch (selectedOptionFxListDialog) {
@@ -78,6 +77,7 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 					break;
 			}
 
+			*btn1 = 0; //because without this selected dialog window can show again
 			selectedOptionFxListDialog = 0;
 		}
 	}

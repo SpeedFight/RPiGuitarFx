@@ -32,13 +32,9 @@ AdapterAddFxDialog::AdapterAddFxDialog(int argc, char *argv[], IDetector *newUse
 
 void AdapterAddFxDialog::handleEditFxDialog(){
 	//error when use showDialog
-	std::cout<<"1"<<std::endl;
 	addFxDialog->showDialog();
-	std::cout<<"2"<<std::endl;
 	std::this_thread::sleep_for (std::chrono::milliseconds(1000));
-	std::cout<<"3"<<std::endl;
 	addFxDialog->hideDialog();
-	std::cout<<"4"<<std::endl;
 	int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
 	int *pot5 = userInput->getInputHandler(ControllerInput::pot5);
 }
