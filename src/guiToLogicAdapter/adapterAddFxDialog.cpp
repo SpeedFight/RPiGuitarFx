@@ -15,6 +15,7 @@ AdapterAddFxDialog::AdapterAddFxDialog(int argc, char *argv[], IDetector *newUse
 	selectedOptionAddFxDialog(0)
 	{
 	AvaibleFxList avaibleFxList(newUserInput); //object with list of all fx's
+	avaibleFxAmount = 0;
 
 	auto treeView = addFxDialog->avaibleFxGtkList;
 	static Gtk::TreeModel::Row row;
@@ -25,16 +26,56 @@ AdapterAddFxDialog::AdapterAddFxDialog(int argc, char *argv[], IDetector *newUse
 
 	//fill rest of table with avaible fx's
 	for(auto &fx : avaibleFxList.fxlist){
+		avaibleFxAmount++;
 		row = *(treeView->treeModel->append());
 		row[treeView->columnsModel.nameColumn] = Glib::ustring(*fx->getName());
 	}
 }
 
+void AdapterAddFxDialog::selectFxInList(int indxOfFxToSelect){
+	auto it = addFxDialog->avaibleFxGtkList->treeModel->get_iter(std::to_string(indxOfFxToSelect));
+	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection = addFxDialog->avaibleFxGtkList->get_selection();
+	refTreeSelection->unselect_all();
+	refTreeSelection->select(it);
+}
+
+void AdapterAddFxDialog::addToSelectedFxNum(int diff){
+
+	selectedOptionAddFxDialog += diff;
+	if(selectedOptionAddFxDialog < 0){
+		selectedOptionAddFxDialog = 0;
+
+	}else if (selectedOptionAddFxDialog > avaibleFxAmount ){
+		selectedOptionAddFxDialog = avaibleFxAmount;
+	}
+}
+
 void AdapterAddFxDialog::handleEditFxDialog(){
-	//error when use showDialog
-	addFxDialog->showDialog();
-	std::this_thread::sleep_for (std::chrono::milliseconds(1000));
-	addFxDialog->hideDialog();
+//	selectedOptionAddFxDialog
+
+	int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
 	int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
-	int *pot5 = userInput->getInputHandler(ControllerInput::pot5);
+	addFxDialog->showDialog();
+	selectFxInList(selectedOptionAddFxDialog);
+
+	while(!*btn1){ //stop when button pressed
+		std::this_thread::sleep_for (std::chrono::milliseconds(100));
+
+		addToSelectedFxNum(-(*pot1));
+
+		if(*pot1 != 0){
+			selectFxInList(selectedOptionAddFxDialog);
+			*pot1 = 0;
+		}
+	}
+
+	while(*btn1){ //wait to stop press button
+		std::this_thread::sleep_for (std::chrono::milliseconds(100));
+	}
+
+	std::cout<<"selectedOptionAddFxDialog "<<selectedOptionAddFxDialog<<std::endl;
+
+	selectedOptionAddFxDialog = 0;
+	selectFxInList(selectedOptionAddFxDialog);
+	addFxDialog->hideDialog();
 }

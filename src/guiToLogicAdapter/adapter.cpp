@@ -109,9 +109,10 @@ void Adapter::handleUserInput(){
 	setNewFxGuiBox(selectedFxNum);
 	selectFxInList(selectedFxNum);
 
+	int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
 	while(1){
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
-		int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
+
 		addToSelectedFxNum(-(*pot1));
 
 		if(*pot1 != 0){

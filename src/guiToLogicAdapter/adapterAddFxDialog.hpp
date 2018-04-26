@@ -26,8 +26,12 @@ private:
 	int *selectedFxNum;
 	std::unique_ptr<DialogWindowAddFx> addFxDialog; //dialog to manipulate fx list
 	int selectedOptionAddFxDialog;
+	int avaibleFxAmount;
 
 	void addToSelectedOptionFxListDialog(int diff);
+	void selectFxInList(int indxOfFxToSelect);
+	void addToSelectedFxNum(int diff);
+
 };
 
 

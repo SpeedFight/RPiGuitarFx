@@ -52,6 +52,10 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 					}
 				}
 
+			while(*btn1){ //wait to stop press button
+				std::this_thread::sleep_for (std::chrono::milliseconds(100));
+			}
+
 		fxDialog->hideDialog();
 		//button stop pressed
 			switch (selectedOptionFxListDialog) {
