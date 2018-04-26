@@ -69,6 +69,11 @@ void AdapterAddFxDialog::handleEditFxDialog(){
 		}
 	}
 
+	if(selectedOptionAddFxDialog > 0){
+		selectedOptionAddFxDialog--;
+		fxList->addFX(FxFactory::createFx(selectedOptionAddFxDialog, userInput), *selectedFxNum);
+	}
+
 	while(*btn1){ //wait to stop press button
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}

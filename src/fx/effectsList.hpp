@@ -2,7 +2,7 @@
  * effectsList.hpp
  *
  *  Created on: 5 kwi 2018
- *      Author: konoha
+ *      Author: SF
  */
 
 #ifndef EFFECTSLIST_HPP_
@@ -15,11 +15,14 @@
 
 class AvaibleFxList{
 public:
-	AvaibleFxList(IDetector *newUserInput){
-		fxlist.push_back(std::unique_ptr<IFX>(new PlaybackFx(newUserInput)));
-		fxlist.push_back(std::unique_ptr<IFX>(new SimpleOverdriveFx(newUserInput)));
-	}
+	AvaibleFxList(IDetector *newUserInput);
+
 	std::vector<std::unique_ptr<IFX>> fxlist;
+};
+
+class FxFactory{
+public:
+	static IFX *createFx(int fxNum, IDetector *newUserInput);
 };
 
 #endif /* EFFECTSLIST_HPP_ */

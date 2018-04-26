@@ -123,12 +123,14 @@ void Adapter::handleUserInput(){
 		//TODO add clear all pot fnc
 		}
 
-		fxList->updateFXParameters(selectedFxNum);
 		updateFxGuiBox(selectedFxNum);
 
 		int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
 		if(*btn1){
 			adapterEditFxDialog->handleEditFxDialog();
+			updateFxGuiList();
+			selectFxInList(selectedFxNum);
+			setNewFxGuiBox(selectedFxNum);
 			std::cout<<"edit fx end"<<std::endl;
 		}
 	}
