@@ -155,6 +155,13 @@ void FXList::moveFX(int fxToMoveIndex,int destinationIndex){
 }
 
 void FXList::removeFX(unsigned int fxToRemoveIndex){
+	if(fxToRemoveIndex < 0){
+		fxToRemoveIndex = 0;
+	}
+
+	if(fxToRemoveIndex > futureFX.size() - 1){
+		fxToRemoveIndex = futureFX.size() - 1;
+	}
 	futureFX.erase(futureFX.begin()+fxToRemoveIndex);
 }
 

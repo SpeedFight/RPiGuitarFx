@@ -109,6 +109,7 @@ void Adapter::handleUserInput(){
 	setNewFxGuiBox(selectedFxNum);
 	selectFxInList(selectedFxNum);
 
+	int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
 	int *pot1 = userInput->getInputHandler(ControllerInput::pot1);
 	while(1){
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
@@ -125,9 +126,9 @@ void Adapter::handleUserInput(){
 
 		updateFxGuiBox(selectedFxNum);
 
-		int *btn1 = userInput->getInputHandler(ControllerInput::btn1);
 		if(*btn1){
 			adapterEditFxDialog->handleEditFxDialog();
+			std::this_thread::sleep_for (std::chrono::milliseconds(100));
 			updateFxGuiList();
 			selectFxInList(selectedFxNum);
 			setNewFxGuiBox(selectedFxNum);

@@ -74,6 +74,13 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 					break;
 
 				case DialogWindowBtn::deletelBtn:
+					fxList->removeFX(*selectedFxNum);
+
+					*selectedFxNum = *selectedFxNum - 1;
+					if (*selectedFxNum < 0){
+						*selectedFxNum = 0;
+					}
+
 					std::cout<<"deletelBtn"<<std::endl;
 					break;
 

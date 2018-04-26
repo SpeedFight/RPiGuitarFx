@@ -78,8 +78,6 @@ void AdapterAddFxDialog::handleEditFxDialog(){
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 
-	std::cout<<"selectedOptionAddFxDialog "<<selectedOptionAddFxDialog<<std::endl;
-
 	selectedOptionAddFxDialog = 0;
 	selectFxInList(selectedOptionAddFxDialog);
 	addFxDialog->hideDialog();
