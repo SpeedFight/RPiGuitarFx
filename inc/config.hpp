@@ -17,7 +17,15 @@
 #include <string>
 #include <cmath>
 
+/*
+ * keyboard windows is only graphics thread
+ */
 //#define GTK_KEYBOARD_LOOP
+
+/*
+ * uncomment if use with rpi encoders
+ */
+//#define ROTARY_ENCODER
 
 const unsigned int DEFAULT_RESERVED_FX_LIST_SIZE = 8;
 

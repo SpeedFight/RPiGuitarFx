@@ -59,6 +59,12 @@
  * with the correct variables as described bellow and seen in the 
  * "test.c" code exemple.
  */
+#ifndef ROTARYENCODER_HPP_
+#define ROTARYENCODER_HPP_
+
+#include "config.hpp"
+
+#ifdef ROTARY_ENCODER
 
 #define max_encoders 8
 
@@ -124,3 +130,6 @@ struct button
 struct button buttons[max_buttons] ;
 
 struct button *setupbutton(char *label, int pin, long int value) ;
+
+#endif
+#endif
