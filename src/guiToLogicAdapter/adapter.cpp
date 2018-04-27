@@ -78,10 +78,12 @@ void Adapter::setNewFxGuiBox(int indxOfFxToUpdate){
 
 void Adapter::updateFxGuiBox(int indxOfFxToUpdate){
 	auto fx = fxList->getCurrentFXList()->at(indxOfFxToUpdate).get();
+	fxList->updateFXParameters(indxOfFxToUpdate);
 
 	int num = 0;
 	for(auto fxSetting : *(fx->getSettings())){
 		fxGtkView->fxSettings[num].get()->fxValueScale->set_value(fxSetting.getValue());
+		num++;
 	}
 }
 
@@ -93,10 +95,6 @@ void Adapter::setSelectedFxNum(int newSelectedFxNum){
 		newSelectedFxNum = 0;
 	}
 }
-
-/*
- * handle dialog windows
- */
 
 
 /*
