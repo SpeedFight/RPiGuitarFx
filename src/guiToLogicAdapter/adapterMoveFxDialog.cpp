@@ -75,12 +75,17 @@ void AdapterMoveFxDialog::handleMoveFxDialog(){
 
 
 		if(*pot1 != 0){
-
 			addToSelectedFxNum(-(*pot1));
+
+			if(*selectedFxNum == selectedOptionMoveFxDialog){
+				*pot1 = 0;
+				continue;
+			}
+
 			fxList->moveFX(*selectedFxNum, selectedOptionMoveFxDialog);
 			*selectedFxNum = selectedOptionMoveFxDialog;
 
-			std::this_thread::sleep_for (std::chrono::milliseconds(100));
+			std::this_thread::sleep_for (std::chrono::milliseconds(20));
 			reloadFxList();
 			selectFxInList(selectedOptionMoveFxDialog);
 			*pot1 = 0;
