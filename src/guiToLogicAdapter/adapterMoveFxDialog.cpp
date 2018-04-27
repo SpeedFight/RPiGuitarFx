@@ -53,8 +53,8 @@ void AdapterMoveFxDialog::addToSelectedFxNum(int diff){
 	if(selectedOptionMoveFxDialog < 0){
 		selectedOptionMoveFxDialog = 0;
 
-	}else if (selectedOptionMoveFxDialog > fxList->getCurrentFXList()->size()){
-		selectedOptionMoveFxDialog = fxList->getCurrentFXList()->size() ;
+	}else if (selectedOptionMoveFxDialog > fxList->getCurrentFXList()->size() - 1){
+		selectedOptionMoveFxDialog = fxList->getCurrentFXList()->size() -1;
 	}
 }
 
@@ -73,10 +73,14 @@ void AdapterMoveFxDialog::handleMoveFxDialog(){
 	while(!*btn1){ //stop when button pressed
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
 
-		addToSelectedFxNum(-(*pot1));
 
 		if(*pot1 != 0){
 
+			addToSelectedFxNum(-(*pot1));
+			fxList->moveFX(*selectedFxNum, selectedOptionMoveFxDialog);
+			*selectedFxNum = selectedOptionMoveFxDialog;
+
+			std::this_thread::sleep_for (std::chrono::milliseconds(100));
 			reloadFxList();
 			selectFxInList(selectedOptionMoveFxDialog);
 			*pot1 = 0;
@@ -87,7 +91,6 @@ void AdapterMoveFxDialog::handleMoveFxDialog(){
 		std::this_thread::sleep_for (std::chrono::milliseconds(100));
 	}
 
-	*selectedFxNum = selectedOptionMoveFxDialog;
 	//selectFxInList(selectedOptionAddFxDialog);
 	moveFxDialog->hideDialog();
 }

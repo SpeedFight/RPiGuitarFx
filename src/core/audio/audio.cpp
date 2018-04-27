@@ -51,7 +51,7 @@ Audio::Audio(FXList *newFxList) : JackCpp::AudioIO("RPiGuitarFX", 2,2), fxList(n
 #endif
 
 }
-
+//TODO fix buffers
 int Audio::audioCallback(jack_nframes_t nframes, audioBufVector inBufs, audioBufVector outBufs){
 
 			for (auto& fxs : *fxList->getCurrentFXList()){
