@@ -40,7 +40,7 @@ public:
 	void hideDialog();
 	void markButton(int btnToMark);
 
-	ActualFxGtkList *avaibleFxGtkList;
+	ActualFxGtkList *actualFxGtkList;
 
 private:
 	Gtk::Widget *setWidget();

@@ -13,7 +13,8 @@ AdapterEditFxDialog::AdapterEditFxDialog(int argc, char *argv[], IDetector *newU
 	selectedFxNum(newSelectedFxNum),
 	fxDialog(new DialogWindowFxList(argc, argv)),
 	selectedOptionFxListDialog(0),
-	addFxDialog(new AdapterAddFxDialog(argc, argv, newUserInput, newFxList, newSelectedFxNum))
+	addFxDialog(new AdapterAddFxDialog(argc, argv, newUserInput, newFxList, newSelectedFxNum)),
+	moveFxDialog(new AdapterMoveFxDialog(argc, argv, newUserInput, newFxList, newSelectedFxNum))
 	{
 }
 
@@ -71,6 +72,7 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 
 				case DialogWindowBtn::movelBtn:
 					std::cout<<"movelBtn"<<std::endl;
+					moveFxDialog->handleMoveFxDialog();
 					break;
 
 				case DialogWindowBtn::deletelBtn:
