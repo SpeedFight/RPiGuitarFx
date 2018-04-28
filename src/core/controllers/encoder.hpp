@@ -13,7 +13,12 @@
 
 #ifdef ROTARY_ENCODER
 
-#include "rotaryencoder.hpp"
+#ifdef __cplusplus
+extern "C" {
+#include <rotaryencoder.h>
+
+}
+#endif
 
 class EncoderButton: public IButton{
 public:

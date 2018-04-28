@@ -59,12 +59,18 @@
  * with the correct variables as described bellow and seen in the 
  * "test.c" code exemple.
  */
-#ifndef ROTARYENCODER_HPP_
-#define ROTARYENCODER_HPP_
+#ifndef ROTARYENCODER_H_
+#define ROTARYENCODER_H_
 
-#include "config.hpp"
+//#include "config.hpp"
+#define ROTARY_ENCODER
 
 #ifdef ROTARY_ENCODER
+
+extern "C" {
+	#include <wiringPi.h>
+	#include <stdio.h>
+}
 
 #define max_encoders 8
 

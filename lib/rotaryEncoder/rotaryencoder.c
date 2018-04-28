@@ -55,16 +55,9 @@
  * Enable them at your need and personal risk only.                    
  */
 
-#include "rotaryencoder.hpp"
+#include <rotaryencoder.h>
 
 #ifdef ROTARY_ENCODER
-
-extern "C"
-{
-	#include <wiringPi.h>
-	#include <stdio.h>
-}
-
 
 // used GPIO for 2 UP/DOWN monitor LEDs
 #define	LED_DOWN	23
