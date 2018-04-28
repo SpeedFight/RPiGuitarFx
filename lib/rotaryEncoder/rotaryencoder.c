@@ -66,6 +66,9 @@
 #define ROTARY_DEBOUNCE_DELAY 0 // in microsecondes, 500 microsecondes seems ok, OPTIONAL
 #define BUTTON_DEBOUNCE_DELAY 0 // in microsecondes, 50 microsecondes seems ok, OPTIONAL
 
+struct encoder_type encoders[max_encoders] ;
+struct button buttons[max_buttons] ;
+
 // don't change these init values :
 int numberofencoders = 0 ;             // as writed, number of rotary encoders, will be modified by the code later
 int numberofbuttons = 0 ;              // as writed, number of axial buttons if any, will be modified by the code later
@@ -97,8 +100,8 @@ unsigned long int impulse_time = 0 ;   // exact bounce time
 unsigned long int last_impulse_time = 0 ; // just the preview time value, to know time before two status change
 unsigned char writeOk = 1 ;            // a flag which authorize the current values to be recorded in the objects structure
 
-struct encoder *lastEncoder ;
-struct encoder *currentEncoder ;
+struct encoder_type *lastEncoder ;
+struct encoder_type *currentEncoder ;
 
 void updateOneEncoder(unsigned char interrupt) ;
 int check_rotation_direction(unsigned char previous_step, unsigned char current_step, unsigned char sequence) ;
@@ -149,7 +152,7 @@ void updateOneEncoder(unsigned char interrupt)
 	int pin ;
 	unsigned char current_step ;
 	
-	struct encoder *encoder = encoders ;
+	struct encoder_type *encoder = encoders ;
 	
 	step = 0 ;	
 	now = micros() ; // mark elapsed time for chrono 1 - elaped time between two detends (or steps if 1/4 grey code sequence rotary encoder model) for "speed rotation"
@@ -518,7 +521,7 @@ void updateOneButton(unsigned char interrupt)
 	lastupdate_5 = micros() ; // reset/start (gap measurement)
 }
 //======================================================================
-struct encoder *setupencoder(char *label, int pin_a, int pin_b, unsigned char sequence, 
+struct encoder_type *setupencoder(char *label, int pin_a, int pin_b, unsigned char sequence, 
 	unsigned char reverse, unsigned char looping, long int low_Limit, long int high_Limit, 
 	long int value, unsigned long int pause, 
 	int speed_Level_Threshold_2, int speed_Level_Threshold_3, int speed_Level_Threshold_4,
@@ -536,7 +539,7 @@ struct encoder *setupencoder(char *label, int pin_a, int pin_b, unsigned char se
 	// show pins; addresses and label of each rotary encoder
 //	printf("pin A:%d - pin B:%d - addresse:%d - label:%s \n\n", pin_a, pin_b, label, label) ;
 	
-	struct encoder *newencoder = encoders + numberofencoders++ ;
+	struct encoder_type *newencoder = encoders + numberofencoders++ ;
 	newencoder->label = label ;                                       // name or label as "Volume" or "Balance" or "Treble", etc...
 	newencoder->pin_a = pin_a ;                                       // which GPIO received the A pin from the rotary encoder
 	newencoder->pin_b = pin_b ;                                       // which GPIO received the B pin from the rotary encoder

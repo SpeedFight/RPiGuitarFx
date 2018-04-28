@@ -62,8 +62,7 @@
 #ifndef ROTARYENCODER_H_
 #define ROTARYENCODER_H_
 
-//#include "config.hpp"
-#define ROTARY_ENCODER
+#include "config.hpp"
 
 #ifdef ROTARY_ENCODER
 
@@ -87,7 +86,7 @@ extern "C" {
 #define HIGH 1
 #define LOW 0
 
-struct encoder
+struct encoder_type
 {
 	char *label ;                   // name or label as "Volume" or "Balance" or "Treble", etc...
 	int pin_a ;                     // which GPIO received the A pin from the rotary encoder
@@ -112,9 +111,9 @@ struct encoder
 	unsigned char active_flag ;     // already working on its status
 };
 
-struct encoder encoders[max_encoders] ;
+extern struct encoder_type encoders[max_encoders] ;
 
-struct encoder *setupencoder(char *label, int pin_a, int pin_b, unsigned char sequence, 
+struct encoder_type *setupencoder(char *label, int pin_a, int pin_b, unsigned char sequence, 
 	unsigned char reverse, unsigned char looping, long int low_Limit, long int high_Limit, 
 	long int value, unsigned long int pause, 
 	int speed_Level_Threshold_2, int speed_Level_Threshold_3, int speed_Level_Threshold_4,
@@ -133,7 +132,7 @@ struct button
 	unsigned char active_flag ;            // already working on its status (to avoid loop reentrance for each bounce)
 };
 
-struct button buttons[max_buttons] ;
+extern struct button buttons[max_buttons] ;
 
 struct button *setupbutton(char *label, int pin, long int value) ;
 
