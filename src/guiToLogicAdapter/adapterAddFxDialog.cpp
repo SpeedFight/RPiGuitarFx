@@ -50,7 +50,7 @@ void AdapterAddFxDialog::addToSelectedFxNum(int diff){
 	}
 }
 
-void AdapterAddFxDialog::handleEditFxDialog(){
+void AdapterAddFxDialog::handleAddFxDialog(){
 //	selectedOptionAddFxDialog
 
 	int *pot1 = userInput->getInputHandler(ControllerInput::pot1);

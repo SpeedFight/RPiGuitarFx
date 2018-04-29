@@ -19,7 +19,7 @@
 class AdapterAddFxDialog{
 public:
 	AdapterAddFxDialog(int argc, char *argv[], IDetector *userInput, FXList *newFxList, int *newSelectedFxNum);
-	void handleEditFxDialog();
+	void handleAddFxDialog();
 private:
 	IDetector *userInput;
 	FXList *fxList; //class contain also some other specific options for fx's

@@ -65,7 +65,7 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 					break;
 
 				case DialogWindowBtn::addNextBtn:
-					addFxDialog->handleEditFxDialog();
+					addFxDialog->handleAddFxDialog();
 					break;
 
 				case DialogWindowBtn::movelBtn:
