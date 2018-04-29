@@ -67,7 +67,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/fx}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/core/audio}&quot;"/>
 								</option>
-								<option id="gnu.c.compiler.option.misc.other.2137662751" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -x c++" valueType="string"/>
+								<option id="gnu.c.compiler.option.misc.other.2137662751" name="Other flags" superClass="gnu.c.compiler.option.misc.other" useByScannerDiscovery="false" value="-c -fmessage-length=0 -x c++" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.261748759" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1846296777" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
@@ -76,7 +76,7 @@
 									<listOptionValue builtIn="false" value="/usr/local/lib/"/>
 								</option>
 								<option id="gnu.cpp.link.option.libs.2021514882" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" useByScannerDiscovery="false" valueType="libs">
-									<listOptionValue builtIn="false" value="wiringPi"/>
+									<listOptionValue builtIn="false" value="jackcpp"/>
 								</option>
 								<option id="gnu.cpp.link.option.pthread.405416647" name="Support for pthread (-pthread)" superClass="gnu.cpp.link.option.pthread" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1923142757" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">

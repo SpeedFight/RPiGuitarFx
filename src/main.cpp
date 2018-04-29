@@ -10,6 +10,7 @@
 #include "effect.hpp"
 #include "controller.hpp"
 #include "keyboard.hpp"
+#include "encoder.hpp"
 
 #include "effectsList.hpp"
 
@@ -48,31 +49,31 @@ void printList(FXList *list){
 
 int main( int argc, char * argv[] )
 {
-	std::unique_ptr<Keyboard> keys(new Keyboard(argc, argv));
+	std::unique_ptr<Keyboard> controller(new Keyboard(argc, argv));
 
 	std::unique_ptr<FXList> fxList(new FXList());
 
-	fxList->addFX(new PlaybackFx(keys.get()));
-	fxList->addFX(new SimpleOverdriveFx(keys.get()));
+	fxList->addFX(new PlaybackFx(controller.get()));
+	fxList->addFX(new SimpleOverdriveFx(controller.get()));
 
 
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
-	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), keys.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
+	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), controller.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
 
 	std::thread guiThread(&ViewGtk::poolForView, view.get());
-	std::thread keyboardInputThread(&Keyboard::pollForEvents, keys.get());
+	std::thread controllerInputThread(&Keyboard::pollForEvents, controller.get());
 	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
 
 	guiThread.~thread();
-	keyboardInputThread.~thread();
+	controllerInputThread.~thread();
 	handleUserInputThread.~thread();
 
 	view.reset();
 	input.reset();
 	fxList.reset();
-	keys.reset();
+	controller.reset();
     return 0;
 }

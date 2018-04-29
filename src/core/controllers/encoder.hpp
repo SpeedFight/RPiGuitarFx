@@ -13,42 +13,19 @@
 
 #ifdef ROTARY_ENCODER
 
-#ifdef __cplusplus
 extern "C" {
 #include <rotaryencoder.h>
-
 }
-#endif
-
-class EncoderButton: public IButton{
-public:
-	EncoderButton();
-	virtual int getValue(void);
-	virtual ~EncoderButton(void);
-
-protected:
-	char character;
-};
-
-class EncoderPot: public EncoderButton{
-public:
-	EncoderPot();
-	virtual int getValue(void);
-
-protected:
-	char character;
-};
 
 class Encoder: public IDetector{
 public:
-	Encoder(int argc, char * argv[]);
+	Encoder();
 	void pollForEvents(void);
 	int *getInputHandler(ControllerInput controllerInput);
 	~Encoder() {};
 
 private:
 	std::array<int,15> controllerValues;
-
 };
 
 

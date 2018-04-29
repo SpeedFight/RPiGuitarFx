@@ -27,7 +27,7 @@
 /*
  * uncomment if use with rpi encoders
  */
-#define ROTARY_ENCODER
+//#define ROTARY_ENCODER
 
 const unsigned int DEFAULT_RESERVED_FX_LIST_SIZE = 8;
 
