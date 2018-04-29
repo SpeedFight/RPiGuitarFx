@@ -11,6 +11,7 @@
 #include "config.hpp"
 #include "effect.hpp"
 #include <jackaudioio.hpp>
+#include <chrono>
 
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 

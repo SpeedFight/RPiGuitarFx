@@ -54,15 +54,24 @@ Audio::Audio(FXList *newFxList) : JackCpp::AudioIO("RPiGuitarFX", 2,2), fxList(n
 //TODO fix buffers
 int Audio::audioCallback(jack_nframes_t nframes, audioBufVector inBufs, audioBufVector outBufs){
 
+//			auto start_audio_calback = std::chrono::steady_clock::now();
+
 			for (auto& fxs : *fxList->getCurrentFXList()){
 				fxs->process(nframes, inBufs, outBufs);
+
+				inBufs = outBufs;
 			}
 			fxList->updateFXList();
+
+//			auto end_audio_calback = std::chrono::steady_clock::now();
+//			auto diff = end_audio_calback - start_audio_calback;
+//			auto diff_u = std::chrono::duration_cast<std::chrono::microseconds>(diff);
+//			std::cout << "diff micro:"<<diff_u.count() << std::endl;
 			return 0;
 }
 
 Audio::~Audio(){
-	disconnectInPort(0);	// Disconnecting ports.W
+	disconnectInPort(0);	// Disconnecting ports
 	disconnectOutPort(1);
 	close();	// stop client.
 }
