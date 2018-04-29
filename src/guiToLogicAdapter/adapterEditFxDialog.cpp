@@ -62,28 +62,28 @@ void AdapterEditFxDialog::handleEditFxDialog(){
 			switch (selectedOptionFxListDialog) {
 
 				case DialogWindowBtn::cancelBtn:
-					std::cout<<"cancelBtn"<<std::endl;
 					break;
 
 				case DialogWindowBtn::addNextBtn:
-					std::cout<<"addNextBtn"<<std::endl;
 					addFxDialog->handleEditFxDialog();
 					break;
 
 				case DialogWindowBtn::movelBtn:
-					std::cout<<"movelBtn"<<std::endl;
 					moveFxDialog->handleMoveFxDialog();
 					break;
 
 				case DialogWindowBtn::deletelBtn:
+
+					if(fxList->getCurrentFXList()->size() == 1){
+						fxList->addFX(FxFactory::createFx(0, userInput));
+					}
+
 					fxList->removeFX(*selectedFxNum);
 
 					*selectedFxNum = *selectedFxNum - 1;
 					if (*selectedFxNum < 0){
 						*selectedFxNum = 0;
 					}
-
-					std::cout<<"deletelBtn"<<std::endl;
 					break;
 
 				default:

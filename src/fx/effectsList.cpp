@@ -16,7 +16,7 @@ AvaibleFxList::AvaibleFxList(IDetector *newUserInput){
 IFX *FxFactory::createFx(int fxNum, IDetector *newUserInput){
 	std::cout<<"fxNum "<<fxNum<<std::endl;
 	switch (fxNum) {
-		case 0: return new PlaybackFx(newUserInput); break;
+		case 0: return new PlaybackFx(newUserInput); break; //playback FX always first!
 		case 1: return new SimpleOverdriveFx(newUserInput); break;
 		default: return nullptr; break;
 	}
