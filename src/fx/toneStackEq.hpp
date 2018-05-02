@@ -1,29 +1,30 @@
 /*
- * simpleOverdriveFX.hpp
+ * toneStackEq.hpp
  *
- *  Created on: 5 kwi 2018
+ *  Created on: 2 maj 2018
  *      Author: SF
  */
 
-#ifndef SIMPLEOVERDRIVEFX_HPP_
-#define SIMPLEOVERDRIVEFX_HPP_
+#ifndef TONESTACKEQ_HPP_
+#define TONESTACKEQ_HPP_
 
 #include "effect.hpp"
 
-class SimpleOverdriveFx: public IFX{
+class ToneStackEq: public IFX{
 public:
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs);
-	SimpleOverdriveFx(IDetector *newUserInput);
-	~SimpleOverdriveFx();
+	ToneStackEq(IDetector *newUserInput);
+	~ToneStackEq();
 
 	const std::string *getName();
 	std::vector<Setting> *getSettings();
 
 private:
 	 static const std::string nameFx;
+	 float C1, C2, C3, R1, lowR, midR, highR;
+	 float fs;
 };
 
 
 
-
-#endif /* SIMPLEOVERDRIVEFX_HPP_ */
+#endif /* TONESTACKEQ_HPP_ */
