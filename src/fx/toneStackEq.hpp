@@ -21,7 +21,7 @@ public:
 
 private:
 	 static const std::string nameFx;
-	 float C1, C2, C3, R1, lowR, midR, highR;
+	 float C1, C2, C3, R1, R2, R3, R4;
 	 float fs;
 };
 

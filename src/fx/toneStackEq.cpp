@@ -12,80 +12,152 @@ const std::string ToneStackEq::nameFx("Tone stack EQ");
 void ToneStackEq::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs){
 
 	static float c = 2*fs;
-	static std::array<float,6> prevIn = {0 , 0, 0, 0, 0, 0};
-	static float lowPot, midPot, highPot;
-	float B0, B1, B2, B3, A0, A1, A2, A3;
+	static float lowPot = 0.5;
+	static float midPot, highPot;
+	static std::array<float,8> reg = {0, 0, 0, 0, 0, 0, 0, 0};
+
+	static std::array<float,4> numCoeff = {0, 0, 0, 0};
+	static std::array<float,4> denomCoeff = {0, 0, 0, 0};
 
 	//pot give value from 0 to 100;
-	float tmpLowPot = settings.at(ControllerInput::pot2).getValue()  / 100.0;
-	float tmpMidPot = settings.at(ControllerInput::pot3).getValue()  / 100.0;
-	float tmpHighPot = settings.at(ControllerInput::pot4).getValue() / 100.0;
+	float b = settings.at(0).getValue() / 100.0; 	//bass
+	float m = settings.at(1).getValue() / 100.0;	//mid
+	float t = settings.at(2).getValue() / 100.0;	//treble
 
-	if(lowPot != tmpLowPot || midPot != tmpMidPot || highPot != tmpHighPot){
-		lowPot 	= tmpLowPot;
-		midPot 	= tmpMidPot;
-		highPot = tmpHighPot;
+	if(lowPot != b || midPot != m || highPot != t){
+		lowPot 	= b;
+		midPot 	= m;
+		highPot = t;
+		std::cout<<"wow: "<<std::endl;
+		double b1t, b1m, b1l, b1d,
+				b2t, b2m2, b2m, b2l, b2lm, b2d,
+				b3lm, b3m2, b3m, b3t, b3tm, b3tl,
+				a0, a1d, a1m, a1l, a2m, a2lm, a2m2, a2l, a2d,
+				a3lm, a3m2, a3m, a3l, a3d;      // intermediate calculations
+
 
 		//calculate coeffecients
-		float b1 = highPot * C1 * highR + midPot * C3 * midR + lowPot * (C1 * lowR + C2 * lowR) + (C1 * midR + C2 * midR);
-		float b2 = highPot * (C1 * C2 * highR * R1 + C1 * C3 * highR * R1) - pow(midPot, 2)  *  (C1  *  C3  *  pow(midR, 2) + C2  *  C3  *  pow(midR, 2))
-				+ midPot * (C1 * C3 * highR * midR + C1  *  C3  *  pow(midR ,2) + C2  *  C3  *  pow(midR, 2))
-				+ lowPot * (C1 * C2 * highR * lowR + C1 * C2 * lowR * R1 + C1 * C3 * lowR * R1)
-				+ lowPot * midPot * (C1 * C3 * lowR * midR + C2 * C3 * lowR * midR)
-				+ (C1 * C2 * highR * midR + C1 * C2 * midR * R1 + C1 * C3 * midR * R1);
-		float b3 = lowPot*midPot*(C1*C2*C3*highR*lowR*midR + C1*C2*C3*lowR*midR*R1)
-				- pow(midPot, 2) * (C1 * C2 * C3 * highR * pow(midR, 2) + C1 * C2 * C3 * pow(midR, 2) * R1)
-				+ midPot * (C1 * C2 * C3 * highR * pow(midR, 2) + C1 * C2 * C3 * pow(midR, 2) * R1)
-				+ highPot * C1 * C2 * C3 * highR * midR * R1 - highPot * midPot * C1 * C2 * C3 * highR * midR * R1
-				+ highPot * lowPot * C1 * C2 * C3 * highR * lowR * R1;
-		float a0 = 1;
-		float a1 = (C1*highR + C1*midR + C2*midR + C2*R1 + C3*R1) + midPot*C3*midR
-				+ lowPot*(C1*lowR + C2*lowR);
-		float a2 = midPot * (C1 * C3 * highR * midR - C2 * C3 * midR * R1 + C1 * C3 * pow(midR, 2) + C2 * C3 * pow(midR, 2))
-				+ lowPot * midPot * (C1 * C3 * lowR * midR + C2 * C3 * lowR * midR)
-				- pow(midPot, 2) * (C1 * C3 * pow(midR, 2) + C2 * C3 * pow(midR, 2))
-				+ lowPot * (C1 * C2 * lowR * R1 + C1 * C2 * highR * lowR + C1 * C3 * lowR * R1 + C2 * C3 * lowR * R1)
-				+ (C1 * C2 * highR * R1 + C1 * C3 * highR * R1 + C1 * C2 * midR * R1 + C1 * C2 * highR * midR
-				+ C1 * C3 * midR * R1 + C2 * C3 * midR * R1);
-		float a3 = lowPot * midPot * (C1 * C2 * C3 * highR * lowR * midR + C1 * C2 * C3 * lowR * midR * R1)
-				- pow(midPot, 2) * (C1 * C2 * C3 * highR * pow(midR, 2) + C1 * C2 * C3 * pow(midR, 2) * R1)
-				+ midPot * (C1 * C2 * C3 * pow(midR, 2) * R1 + C1 * C2 * C3 * highR * pow(midR, 2)
-				- C1 * C2 * C3 * highR * midR * R1) + lowPot * C1 * C2 * C3 * highR * lowR * R1 + C1 * C2 * C3 * highR * midR * R1;
+		b1t  = C1*R1;
+		b1m  = C3*R3;
+		b1l  = C1*R2 + C2*R2;
+		b1d  = C1*R3 + C2*R3;
+		b2t  = C1*C2*R1*R4 + C1*C3*R1*R4;
+		b2m2 = -(C1*C3*R3*R3 + C2*C3*R3*R3);
+		b2m  = C1*C3*R1*R3 + C1*C3*R3*R3 + C2*C3*R3*R3;
+		b2l  = C1*C2*R1*R2 + C1*C2*R2*R4 + C1*C3*R2*R4;
+		b2lm = C1*C3*R2*R3 + C2*C3*R2*R3;
+		b2d  = C1*C2*R1*R3 + C1*C2*R3*R4 + C1*C3*R3*R4;
+		b3lm = C1*C2*C3*R1*R2*R3 + C1*C2*C3*R2*R3*R4;
+		b3m2 = -(C1*C2*C3*R1*R3*R3 + C1*C2*C3*R3*R3*R4);
+		b3m  = C1*C2*C3*R1*R3*R3 + C1*C2*C3*R3*R3*R4;
+		b3t  = C1*C2*C3*R1*R3*R4;
+		b3tm = -b3t;
+		b3tl = C1*C2*C3*R1*R2*R4;
+		a0   = 1;
+		a1d  = C1*R1 + C1*R3 + C2*R3 + C2*R4 + C3*R4;
+		a1m  = C3*R3;
+		a1l  = C1*R2 + C2*R2;
+		a2m  = C1*C3*R1*R3 - C2*C3*R3*R4 + C1*C3*R3*R3 + C2*C3*R3*R3;
+		a2lm = C1*C3*R2*R3 + C2*C3*R2*R3;
+		a2m2 = -(C1*C3*R3*R3 + C2*C3*R3*R3);
+		a2l  = C1*C2*R2*R4 + C1*C2*R1*R2 + C1*C3*R2*R4 + C2*C3*R2*R4;
+		a2d  = C1*C2*R1*R4 + C1*C3*R1*R4 + C1*C2*R3*R4
+				+ C1*C2*R1*R3 + C1*C3*R3*R4 + C2*C3*R3*R4;
+		a3lm = C1*C2*C3*R1*R2*R3 + C1*C2*C3*R2*R3*R4;
+		a3m2 = -(C1*C2*C3*R1*R3*R3 + C1*C2*C3*R3*R3*R4);
+		a3m  = C1*C2*C3*R3*R3*R4 + C1*C2*C3*R1*R3*R3 - C1*C2*C3*R1*R3*R4;
+		a3l  = C1*C2*C3*R1*R2*R4;
+		a3d  = C1*C2*C3*R1*R3*R4;
 
-		B0 = -b1 * c - b2 * pow(c ,2) - b3 * pow(c ,3);
-		B1 = -b1 * c + b2 * pow(c ,2) + 3 * b3 * pow(c ,3);
-		B2 = b1 * c + b2 * pow(c , 2) - 3 * b3 * pow(c ,3);
-		B3 = b1 * c - b2 * pow(c , 2) + b3 * pow(c , 3);
-		A0 = -a0 - a1 * c - a2 * pow(c , 2) - a3 * pow(c , 3);
-		A1 = -3 * a0 - a1 * c + a2 * pow(c , 2) + 3 * a3 * pow(c , 3);
-		A2 = -3 * a0 + a1 * c + a2 * pow(c , 2) - 3 * a3 * pow(c , 3);
-		A3 = -a0 + a1 * c - a2 * pow(c , 2) + a3 * pow(c , 3);
+
+
+		struct {
+				double a1, a2, a3;
+				double b1, b2, b3;
+		} acoef; // analog coefficients
+
+		// digital coefficients
+		double dcoef_a[3 + 1];
+		double dcoef_b[3 + 1];
+
+		m = (m - 1) * 3.5;
+		m = pow (10, m);
+
+		acoef.a1 = a1d + m*a1m + b*a1l;
+		acoef.a2 = m*a2m + b*m*a2lm + m*m*a2m2 + b*a2l + a2d;
+		acoef.a3 = b*m*a3lm + m*m*a3m2 + m*a3m + b*a3l + a3d;
+
+		double c2 = c*c, c3 = c2*c;
+
+		acoef.a1 *= c, acoef.a2 *= c2, acoef.a3 *= c3;
+
+		dcoef_a[0] = -1 - acoef.a1 - acoef.a2 - acoef.a3; // sets scale
+		dcoef_a[1] = -3 - acoef.a1 + acoef.a2 + 3*acoef.a3;
+		dcoef_a[2] = -3 + acoef.a1 + acoef.a2 - 3*acoef.a3;
+		dcoef_a[3] = -1 + acoef.a1 - acoef.a2 + acoef.a3;
+
+		acoef.b1 = t*b1t + m*b1m + b*b1l + b1d;
+		acoef.b2 = t*b2t + m*m*b2m2 + m*b2m + b*b2l + b*m*b2lm + b2d;
+		acoef.b3 = b*m*b3lm + m*m*b3m2 + m*b3m + t*b3t + t*m*b3tm + t*b*b3tl;
+
+		acoef.b1 *= c, acoef.b2 *= c2, acoef.b3 *= c3;
+
+		dcoef_b[0] = - acoef.b1 - acoef.b2 - acoef.b3;
+		dcoef_b[1] = - acoef.b1 + acoef.b2 + 3*acoef.b3;
+		dcoef_b[2] = acoef.b1 + acoef.b2 - 3*acoef.b3;
+		dcoef_b[3] = acoef.b1 - acoef.b2 + acoef.b3;
+
+		double a0i = 1. / dcoef_a[0];
+		for (int i=1; i<=3; ++i)
+			denomCoeff[i] = dcoef_a[i] * a0i;
+
+		for (int i=0; i<=3; ++i)
+			numCoeff[i] = dcoef_b[i] * a0i;
+
 	}
 
-	prevIn[3] = inBufs[0][0];
-	prevIn[4] = inBufs[0][1];
-	prevIn[5] = inBufs[0][2];
 
-	for(unsigned int i = 0; i <= 2; ++i){
-		//float q = inBufs[0][i];
+	int N = 3;
 
-		float tmp1 = B0 + B1 * prevIn[5 - i] + B2 * prevIn[ 5 - i - 1] + B3 * prevIn[ 5 - i - 2];
-		float tmp2 = A0 + A1 * prevIn[5 - i] + A2 * prevIn[ 5 - i - 1] + A3 * prevIn[ 5 - i - 2];
+	  int j, k;
 
-		outBufs[0][i] = tmp1 / tmp2;
-	}
 
-	for(unsigned int i = 3; i <= nframes; ++i){
+//	  for(j=0; j<REG_SIZE; j++){
+//		  Reg[j] = 0.0;  // Init the delay registers.
+//	  }
 
-		float tmp1 = B0 + B1 * inBufs[0][i] + B2 * inBufs[0][i - 1] + B3 * inBufs[0][i - 2];
-		float tmp2 = A0 + A1 * inBufs[0][i] + A2 * inBufs[0][i - 1] + A3 * inBufs[0][i - 2];
+	  for(j=0; j<=nframes; j++){
+			// Shift the register values.
+			for(k=N; k>0; k--){
+				reg[k] = reg[k-1];
+//				std::cout<<"reg"<<k<<" "<<reg[k]<<std::endl;
+			}
 
-		outBufs[0][i] = tmp1 / tmp2;
-	}
+//			for(auto &element : numCoeff){
+//				std::cout<<"numCoeff: "<<" "<<element<<std::endl;
+//			}
+//
+//			for(auto &element : denomCoeff){
+//				std::cout<<"denomCoeff: "<<" "<<element<<std::endl;
+//			}
+//
+//			std::cout<<std::endl;
 
-	prevIn[2] = inBufs[0][nframes];
-	prevIn[1] = inBufs[0][nframes - 1];
-	prevIn[0] = inBufs[0][nframes - 2];
+			// The denominator
+			reg[0] = inBufs[0][j];
+			for(k=1; k<=N; k++){
+			  reg[0] -= denomCoeff[k] * reg[k];
+			 }
+
+			// The numerator
+			float y = 0;
+			for(k=0; k<=N; k++) {
+			  y += numCoeff[k] * reg[k];
+			 }
+
+			outBufs[0][j] = y;
+		   }
+
 
 }
 
@@ -99,10 +171,10 @@ ToneStackEq::ToneStackEq(IDetector *newUserInput):
 	C1 = 250e-12;
 	C2 = 22e-9;
 	C3 = 22e-9;
-	R1 = 56e3;
-	lowR = 1e6;
-	midR = 25e3;
-	highR = 250e3;
+	R1 = 250e3; // highR
+	R2 = 1e6; // lowR
+	R3 = 25e3; // midR
+	R4 = 56e3;
 	fs = 44.1e3;
 }
 
