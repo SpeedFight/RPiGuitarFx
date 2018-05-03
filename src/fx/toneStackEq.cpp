@@ -11,6 +11,7 @@ const std::string ToneStackEq::nameFx("Tone stack EQ");
 
 void ToneStackEq::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs){
 
+	//TODO rework
 	static float c = 2*fs;
 	static float lowPot = 0.5;
 	static float midPot, highPot;
@@ -121,27 +122,11 @@ void ToneStackEq::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVect
 
 	  int j, k;
 
-
-//	  for(j=0; j<REG_SIZE; j++){
-//		  Reg[j] = 0.0;  // Init the delay registers.
-//	  }
-
 	  for(j=0; j<=nframes; j++){
 			// Shift the register values.
 			for(k=N; k>0; k--){
 				reg[k] = reg[k-1];
-//				std::cout<<"reg"<<k<<" "<<reg[k]<<std::endl;
 			}
-
-//			for(auto &element : numCoeff){
-//				std::cout<<"numCoeff: "<<" "<<element<<std::endl;
-//			}
-//
-//			for(auto &element : denomCoeff){
-//				std::cout<<"denomCoeff: "<<" "<<element<<std::endl;
-//			}
-//
-//			std::cout<<std::endl;
 
 			// The denominator
 			reg[0] = inBufs[0][j];
