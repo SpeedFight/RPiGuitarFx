@@ -29,7 +29,6 @@ void ToneStackEq::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVect
 		lowPot 	= b;
 		midPot 	= m;
 		highPot = t;
-		std::cout<<"wow: "<<std::endl;
 		double b1t, b1m, b1l, b1d,
 				b2t, b2m2, b2m, b2l, b2lm, b2d,
 				b3lm, b3m2, b3m, b3t, b3tm, b3tl,
