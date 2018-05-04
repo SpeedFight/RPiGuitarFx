@@ -17,31 +17,11 @@
  * 2 buttons as footswitch
  */
 
-
-class IController{
-public:
-	virtual int getValue(void) {return 0;};
-	virtual ~IController(void) {};
-};
-
 class IDetector{
 public:
 	virtual void pollForEvents(void) {};
 	virtual int *getInputHandler(ControllerInput controllerInput) = 0;
 	virtual ~IDetector() {};
 };
-
-class IButton: public IController{
-public:
-	virtual int getValue(void) = 0;
-	virtual ~IButton(void) {};
-};
-
-class IPotentiometer: public IController{
-public:
-	virtual int getValue(void) = 0;
-	virtual ~IPotentiometer(void) {};
-};
-
 
 #endif /* CONTROLLER_HPP_ */

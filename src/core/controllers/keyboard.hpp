@@ -13,25 +13,6 @@
 
 #include <gtkmm.h>
 
-class KeyboardKey: public IButton{
-public:
-	KeyboardKey(char characterToDetect);
-	virtual int getValue(void);
-	virtual ~KeyboardKey(void);
-
-protected:
-	char character;
-};
-
-class KeyboardPot: public KeyboardKey{
-public:
-	KeyboardPot(char characterToDetect);
-	virtual int getValue(void);
-
-protected:
-	char character;
-};
-
 class Keyboard: public IDetector{
 public:
 	Keyboard(int argc, char * argv[]);

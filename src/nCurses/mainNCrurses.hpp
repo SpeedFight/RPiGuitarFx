@@ -15,7 +15,12 @@
 class TerminalGui{
 public:
 	TerminalGui();
+	~TerminalGui();
+
+	void poolForView();
 private:
+
+
 
 };
 

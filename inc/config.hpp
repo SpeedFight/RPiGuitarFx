@@ -18,11 +18,12 @@
 #include <list>
 #include <string>
 #include <cmath>
+#include <vector>
 
 /*
  * keyboard windows is only graphics thread
  */
-//#define GTK_KEYBOARD_LOOP
+#define GTK_KEYBOARD_LOOP
 
 /*
  * uncomment if use with rpi encoders

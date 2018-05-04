@@ -19,6 +19,7 @@
 #include "adapter.hpp"
 
 #include "mainNCrurses.hpp"
+#include "nCoursesKeyboard.hpp"
 
 void poolForInput(FXList *fxList, Adapter *adapter){
 	adapter->updateFxGuiList();
@@ -54,7 +55,8 @@ int main( int argc, char * argv[] )
 #ifdef ROTARY_ENCODER
 	std::unique_ptr<IDetector> controller(new Encoder());
 #else
-	std::unique_ptr<IDetector> controller(new Keyboard(argc, argv));
+//	std::unique_ptr<IDetector> controller(new Keyboard(argc, argv));
+	std::unique_ptr<IDetector> controller(new NCourseKeyboard());
 #endif
 
 	std::unique_ptr<FXList> fxList(new FXList());
@@ -63,7 +65,7 @@ int main( int argc, char * argv[] )
 	fxList->addFX(new SimpleOverdriveFx(controller.get()));
 	fxList->addFX(new ToneStackEq(controller.get()));
 
-	TerminalGui termGui();
+//	std::unique_ptr<TerminalGui> termGui(new TerminalGui());
 
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 //	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
