@@ -49,7 +49,11 @@ void printList(FXList *list){
 
 int main( int argc, char * argv[] )
 {
-	std::unique_ptr<Keyboard> controller(new Keyboard(argc, argv));
+#ifdef ROTARY_ENCODER
+	std::unique_ptr<IDetector> controller(new Encoder());
+#else
+	std::unique_ptr<IDetector> controller(new Keyboard(argc, argv));
+#endif
 
 	std::unique_ptr<FXList> fxList(new FXList());
 
@@ -63,7 +67,7 @@ int main( int argc, char * argv[] )
 	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), controller.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
 
 	std::thread guiThread(&ViewGtk::poolForView, view.get());
-	std::thread controllerInputThread(&Keyboard::pollForEvents, controller.get());
+	std::thread controllerInputThread(&IDetector::pollForEvents, controller.get());
 	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
