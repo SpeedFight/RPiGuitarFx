@@ -13,9 +13,7 @@
 
 #ifdef ROTARY_ENCODER
 
-extern "C" {
 #include <rotaryencoder.h>
-}
 
 class Encoder: public IDetector{
 public:
