@@ -18,6 +18,8 @@
 
 #include "adapter.hpp"
 
+#include "mainNCrurses.hpp"
+
 void poolForInput(FXList *fxList, Adapter *adapter){
 	adapter->updateFxGuiList();
 	adapter->setNewFxGuiBox(1);
@@ -61,22 +63,23 @@ int main( int argc, char * argv[] )
 	fxList->addFX(new SimpleOverdriveFx(controller.get()));
 	fxList->addFX(new ToneStackEq(controller.get()));
 
+	TerminalGui termGui();
 
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
-	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
-	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), controller.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
+//	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
+//	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), controller.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
 
-	std::thread guiThread(&ViewGtk::poolForView, view.get());
+//	std::thread guiThread(&ViewGtk::poolForView, view.get());
 	std::thread controllerInputThread(&IDetector::pollForEvents, controller.get());
-	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
+//	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
 
-	guiThread.~thread();
+//	guiThread.~thread();
 	controllerInputThread.~thread();
-	handleUserInputThread.~thread();
+//	handleUserInputThread.~thread();
 
-	view.reset();
+//	view.reset();
 	input.reset();
 	fxList.reset();
 	controller.reset();
