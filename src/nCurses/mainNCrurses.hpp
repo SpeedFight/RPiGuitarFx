@@ -10,7 +10,11 @@
 
 #include "config.hpp"
 
+#include "fxListNC.hpp"
+
 #include <ncurses.h>
+#include <menu.h>
+#include <panel.h>
 
 class TerminalGui{
 public:
