@@ -65,7 +65,7 @@ int main( int argc, char * argv[] )
 	fxList->addFX(new SimpleOverdriveFx(controller.get()));
 	fxList->addFX(new ToneStackEq(controller.get()));
 
-//	std::unique_ptr<TerminalGui> termGui(new TerminalGui());
+	std::unique_ptr<TerminalGui> termGui(new TerminalGui());
 
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 //	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
