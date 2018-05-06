@@ -11,13 +11,16 @@
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 #define CTRLD 	4
 
-char *choices[] = {
+std::array<char *, 12> choices = {
                         "Choice 1",
                         "Choice 2",
                         "Choice 3",
                         "Choice 4",
-                        "Exit",
-                        (char *)NULL,
+						"Choice 5",
+						"Choice 6",
+						"Choice 7",
+						"Choice 8",
+                        "Exit"
                   };
 
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
@@ -43,102 +46,73 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 	refresh();
 }
 
-FxListWindowNC::FxListWindowNC():
-		fxListWindowNC(nullptr),
+FxListWindowNC::FxListWindowNC(int windowWidth, int windowHeight, int windowPosX, int windowPosY):
+		fxListWindowNC(newwin(windowHeight, windowWidth, windowPosY, windowPosX)),
 		fxMenuNC(nullptr)
 	{
+	std::string title = "List";
 
-	ITEM **my_items;
-			int c;
-			MENU *my_menu;
-		        WINDOW *my_menu_win;
-		        int n_choices, i;
+	start_color();;
+	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 
-			/* Initialize curses */
-			initscr();
-			start_color();
-		        cbreak();
-		        noecho();
-			keypad(stdscr, TRUE);
-			init_pair(1, COLOR_RED, COLOR_BLACK);
+	/* Create items */
+	std::vector<ITEM *> my_items;
+	for(auto &element : choices){
+		my_items.push_back(new_item(element,""));
+	}
 
-			/* Create items */
-		        n_choices = ARRAY_SIZE(choices);
-		        my_items = (ITEM **)calloc(n_choices, sizeof(ITEM *));
-		        for(i = 0; i < n_choices; ++i)
-		                my_items[i] = new_item(choices[i], choices[i]);
+	/* Crate menu */
+	fxMenuNC.reset(new_menu(&my_items.front()));
 
-			/* Crate menu */
-			my_menu = new_menu((ITEM **)my_items);
+	/* Create the window to be associated with the menu */
+	keypad(fxListWindowNC.get(), TRUE);
 
-			/* Create the window to be associated with the menu */
-		        my_menu_win = newwin(10, 30, 2, 0);
-		        keypad(my_menu_win, TRUE);
+	/* Set main window and sub window */
+	set_menu_win(fxMenuNC.get(), fxListWindowNC.get());
+	set_menu_sub(fxMenuNC.get(), derwin(fxListWindowNC.get(), windowHeight - 4, windowWidth - 2, 3, 1));
+	set_menu_format(fxMenuNC.get(), windowHeight - 4, 1);
 
-			/* Set main window and sub window */
-		        set_menu_win(my_menu, my_menu_win);
-		        set_menu_sub(my_menu, derwin(my_menu_win, 6, 18, 3, 1));
+	/* Print a border around the main window and print a title */
+	box(fxListWindowNC.get(), 0, 0);
+	print_in_middle(fxListWindowNC.get(), 1, 0, windowWidth, (char*)title.c_str(), COLOR_PAIR(1));
+	/* Print line under title */
+	mvwaddch(fxListWindowNC.get(), 2, 0, ACS_LTEE);
+	mvwhline(fxListWindowNC.get(), 2, 1, ACS_HLINE, 18);
+	mvwaddch(fxListWindowNC.get(), 2, windowWidth - 1, ACS_RTEE);
+	refresh();
 
-			/* Set menu mark to the string " * " */
-//		        set_menu_mark(my_menu, " * ");
+	/* Post the menu */
+	post_menu(fxMenuNC.get());
+	wrefresh(fxListWindowNC.get());
 
-			/* Print a border around the main window and print a title */
-		        box(my_menu_win, 0, 0);
-			print_in_middle(my_menu_win, 1, 0, 40, "My Menu", COLOR_PAIR(1));
-			mvwaddch(my_menu_win, 2, 0, ACS_LTEE);
-			mvwhline(my_menu_win, 2, 1, ACS_HLINE, 38);
-			mvwaddch(my_menu_win, 2, 39, ACS_RTEE);
-			mvprintw(LINES - 2, 0, "F1 to exit");
-			refresh();
+	int c;
+	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
+	{
+		switch(c){
+			case KEY_DOWN:
+				menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
+				break;
 
-			/* Post the menu */
-			post_menu(my_menu);
-			wrefresh(my_menu_win);
+			case KEY_UP:
+				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
+				break;
+		}
+		ITEM *cur = current_item(fxMenuNC.get());
+		mvprintw(LINES - 2, 0,"%d", cur->index);
+		refresh();
+		wrefresh(fxListWindowNC.get());
+	}
 
-			while((c = wgetch(my_menu_win)) != KEY_F(1))
-			{       switch(c)
-			        {	case KEY_DOWN:
-						menu_driver(my_menu, REQ_DOWN_ITEM);
-						break;
-					case KEY_UP:
-						menu_driver(my_menu, REQ_UP_ITEM);
-						break;
-				}
-		                wrefresh(my_menu_win);
-			}
+	/* Unpost and free all the memory taken up */
+		unpost_menu(fxMenuNC.get());
+		free_menu(fxMenuNC.get());
+		for(auto &element : my_items){
+			free_item(element);
+		}
+	endwin();
 
-			/* Unpost and free all the memory taken up */
-		        unpost_menu(my_menu);
-		        free_menu(my_menu);
-		        for(i = 0; i < n_choices; ++i)
-		                free_item(my_items[i]);
-			endwin();
+}
 
-		fxListWindowNC->reset(my_menu_win);
-		fxMenuNC->reset(my_menu);
+FxListWindowNC::~FxListWindowNC(){
 
-
-
-
-//	/* Create items */
-//	std::vector<ITEM *> elements;
-//		for(auto &elem : choices){
-//			elements.push_back(new_item(elem, elem));
-//		}
-//
-//	/* Crate menu */
-//	   fxMenuNC->reset(new_menu((ITEM **)elements.front()));
-//
-//	/* Create the window to be associated with the menu */
-//	   fxListWindowNC->reset(newwin(22, 20, 1, 0));
-//
-//	/* Set main window and sub window */
-//		set_menu_win(fxMenuNC->get(), fxListWindowNC->get());
-//
-//	box(fxListWindowNC->get(), 0 , 0);		/* 0, 0 gives default characters
-//					 * for the vertical and horizontal
-//					 * lines			*/
-////	refresh();
-//	post_menu(fxMenuNC->get());
-//	wrefresh(fxListWindowNC->get());		/* Show that box 		*/
 }

@@ -15,11 +15,21 @@
 
 class FxListWindowNC{
 public:
-	FxListWindowNC();
+	FxListWindowNC(int windowWidth, int windowHeight, int windowPosX, int windowPosY);
+	~FxListWindowNC();
 
-	std::unique_ptr<WINDOW> *fxListWindowNC;
-	std::unique_ptr<MENU> *fxMenuNC;
+	void selectFirstIndex();
+	void selectIndex(unsigned int newIndex);
+	void selectByDiff(int diff);
+	void setNewListsElements(std::vector<std::string> newElements);
+	int getSelectedIndex();
+	void refreshWindow();
+
 private:
+	std::unique_ptr<WINDOW> fxListWindowNC;
+	std::unique_ptr<MENU> fxMenuNC;
+
+	std::vector<std::string> namesOfElements;
 
 };
 
