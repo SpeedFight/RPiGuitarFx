@@ -12,6 +12,7 @@
 #define CTRLD 	4
 
 std::array<char *, 12> choices = {
+						"Choice 0",
                         "Choice 1",
                         "Choice 2",
                         "Choice 3",
@@ -56,13 +57,13 @@ FxListWindowNC::FxListWindowNC(int windowWidth, int windowHeight, int windowPosX
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 
 	/* Create items */
-	std::vector<ITEM *> my_items;
+	listOfElements.reserve(10);
 	for(auto &element : choices){
-		my_items.push_back(new_item(element,""));
+		listOfElements.push_back(new_item(element,""));
 	}
 
 	/* Crate menu */
-	fxMenuNC.reset(new_menu(&my_items.front()));
+	fxMenuNC.reset(new_menu(&listOfElements.front()));
 
 	/* Create the window to be associated with the menu */
 	keypad(fxListWindowNC.get(), TRUE);
@@ -83,7 +84,7 @@ FxListWindowNC::FxListWindowNC(int windowWidth, int windowHeight, int windowPosX
 
 	/* Post the menu */
 	post_menu(fxMenuNC.get());
-	wrefresh(fxListWindowNC.get());
+	refreshWindow();
 
 	int c;
 	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
@@ -97,22 +98,65 @@ FxListWindowNC::FxListWindowNC(int windowWidth, int windowHeight, int windowPosX
 				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
 				break;
 		}
-		ITEM *cur = current_item(fxMenuNC.get());
-		mvprintw(LINES - 2, 0,"%d", cur->index);
-		refresh();
-		wrefresh(fxListWindowNC.get());
+//		ITEM *cur = current_item(fxMenuNC.get());
+//		mvprintw(LINES - 2, 0,"%d", cur->index);
+//		refresh();
+		refreshWindow();
 	}
-
-	/* Unpost and free all the memory taken up */
-		unpost_menu(fxMenuNC.get());
-		free_menu(fxMenuNC.get());
-		for(auto &element : my_items){
-			free_item(element);
-		}
-	endwin();
 
 }
 
 FxListWindowNC::~FxListWindowNC(){
+	/* Unpost and free all the memory taken up */
+		unpost_menu(fxMenuNC.get());
+		free_menu(fxMenuNC.get());
+		clearList();
+	endwin();
+}
 
+inline void FxListWindowNC::selectFirstIndex(){
+	menu_driver(fxMenuNC.get(), REQ_FIRST_ITEM);
+	refreshWindow();
+}
+
+inline void FxListWindowNC::selectIndex(unsigned int newIndex){
+	selectByDiff(newIndex - getSelectedIndex());
+}
+
+//make test
+inline void FxListWindowNC::selectByDiff(int diff){
+	if(diff > 0){
+		for (; diff > 0; --diff) {
+			menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
+		}
+	}else if (diff < 0){
+		for (; diff < 0; ++diff) {
+			menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
+		}
+	}
+	refreshWindow();
+}
+
+//make test
+inline void FxListWindowNC::setNewList(std::vector<std::string> newElements){
+	clearList();
+	for(auto &element : newElements){
+		listOfElements.push_back(new_item(element.c_str(),""));
+	}
+	selectFirstIndex();
+}
+
+//make test
+inline void FxListWindowNC::clearList(){
+	for(auto &element : listOfElements){
+		free_item(element);
+	}
+}
+
+inline int FxListWindowNC::getSelectedIndex(){
+	return current_item(fxMenuNC.get())->index;
+}
+
+inline void FxListWindowNC::refreshWindow(){
+	wrefresh(fxListWindowNC.get());
 }

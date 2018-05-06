@@ -21,13 +21,15 @@ public:
 	void selectFirstIndex();
 	void selectIndex(unsigned int newIndex);
 	void selectByDiff(int diff);
-	void setNewListsElements(std::vector<std::string> newElements);
+	void setNewList(std::vector<std::string> newElements);
+	void clearList();
 	int getSelectedIndex();
 	void refreshWindow();
 
 private:
 	std::unique_ptr<WINDOW> fxListWindowNC;
 	std::unique_ptr<MENU> fxMenuNC;
+	std::vector<ITEM *> listOfElements;
 
 	std::vector<std::string> namesOfElements;
 
