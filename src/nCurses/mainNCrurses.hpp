@@ -8,9 +8,8 @@
 #ifndef MAINNCRURSES_HPP_
 #define MAINNCRURSES_HPP_
 
+#include <listNC.hpp>
 #include "config.hpp"
-
-#include "fxListNC.hpp"
 
 #include <ncurses.h>
 #include <menu.h>

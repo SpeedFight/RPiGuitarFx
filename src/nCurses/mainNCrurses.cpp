@@ -15,7 +15,7 @@ TerminalGui::TerminalGui(){
 	cbreak();
 	noecho();
 	keypad(stdscr, TRUE);
-	std::unique_ptr<FxListWindowNC> fxList(new FxListWindowNC(20, 8, 0, 2));
+	std::unique_ptr<ListWindowNC> fxList(new ListWindowNC(20, 8, 0, 2));
 	refresh();
 
 	while(1){

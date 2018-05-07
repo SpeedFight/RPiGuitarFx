@@ -5,13 +5,10 @@
  *      Author: SF
  */
 
-#include <fxListNC.hpp>
+#include <listNC.hpp>
 #include "string.h"
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 	4
-
-std::array<char *, 12> choices = {
+std::vector<char *> choices1 = {
 						"Choice 0",
                         "Choice 1",
                         "Choice 2",
@@ -21,6 +18,19 @@ std::array<char *, 12> choices = {
 						"Choice 6",
 						"Choice 7",
 						"Choice 8",
+                        "Exit"
+                  };
+
+std::vector<char *> choices2 = {
+						"wybor 0",
+                        "wybor 1",
+                        "wybor 2",
+                        "wybor 3",
+                        "wybor 4",
+						"wybor 5",
+						"wybor 6",
+						"wybor 7",
+						"wybor 8",
                         "Exit"
                   };
 
@@ -47,7 +57,11 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 	refresh();
 }
 
-FxListWindowNC::FxListWindowNC(int windowWidth, int windowHeight, int windowPosX, int windowPosY):
+ListWindowNC::ListWindowNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
+		windowWidth(newWindowWidth  ),
+		windowHeight(newWindowHeight ),
+		windowPosX(newWindowPosX   ),
+		windowPosY(newWindowPosY   ),
 		fxListWindowNC(newwin(windowHeight, windowWidth, windowPosY, windowPosX)),
 		fxMenuNC(nullptr)
 	{
@@ -56,22 +70,19 @@ FxListWindowNC::FxListWindowNC(int windowWidth, int windowHeight, int windowPosX
 	start_color();;
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 
-	/* Create items */
 	listOfElements.reserve(10);
-	for(auto &element : choices){
-		listOfElements.push_back(new_item(element,""));
-	}
 
+//	setNewList(choices1);
 	/* Crate menu */
-	fxMenuNC.reset(new_menu(&listOfElements.front()));
+//	fxMenuNC.reset(new_menu(&listOfElements.front()));
 
 	/* Create the window to be associated with the menu */
 	keypad(fxListWindowNC.get(), TRUE);
 
 	/* Set main window and sub window */
-	set_menu_win(fxMenuNC.get(), fxListWindowNC.get());
+//	set_menu_win(fxMenuNC.get(), fxListWindowNC.get());
 	set_menu_sub(fxMenuNC.get(), derwin(fxListWindowNC.get(), windowHeight - 4, windowWidth - 2, 3, 1));
-	set_menu_format(fxMenuNC.get(), windowHeight - 4, 1);
+//	set_menu_format(fxMenuNC.get(), windowHeight - 4, 1);
 
 	/* Print a border around the main window and print a title */
 	box(fxListWindowNC.get(), 0, 0);
@@ -83,8 +94,8 @@ FxListWindowNC::FxListWindowNC(int windowWidth, int windowHeight, int windowPosX
 	refresh();
 
 	/* Post the menu */
-	post_menu(fxMenuNC.get());
-	refreshWindow();
+//	post_menu(fxMenuNC.get());
+//	refreshWindow();
 
 	int c;
 	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
@@ -96,35 +107,32 @@ FxListWindowNC::FxListWindowNC(int windowWidth, int windowHeight, int windowPosX
 
 			case KEY_UP:
 				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
+				setNewList(choices2);
 				break;
 		}
-//		ITEM *cur = current_item(fxMenuNC.get());
-//		mvprintw(LINES - 2, 0,"%d", cur->index);
-//		refresh();
 		refreshWindow();
 	}
 
 }
 
-FxListWindowNC::~FxListWindowNC(){
+ListWindowNC::~ListWindowNC(){
 	/* Unpost and free all the memory taken up */
-		unpost_menu(fxMenuNC.get());
-		free_menu(fxMenuNC.get());
-		clearList();
+	unpost_menu(fxMenuNC.get());
+	free_menu(fxMenuNC.get());
+	clearList();
 	endwin();
 }
 
-inline void FxListWindowNC::selectFirstIndex(){
+inline void ListWindowNC::selectFirstIndex(){
 	menu_driver(fxMenuNC.get(), REQ_FIRST_ITEM);
 	refreshWindow();
 }
 
-inline void FxListWindowNC::selectIndex(unsigned int newIndex){
+inline void ListWindowNC::selectIndex(unsigned int newIndex){
 	selectByDiff(newIndex - getSelectedIndex());
 }
 
-//make test
-inline void FxListWindowNC::selectByDiff(int diff){
+inline void ListWindowNC::selectByDiff(int diff){
 	if(diff > 0){
 		for (; diff > 0; --diff) {
 			menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
@@ -137,26 +145,31 @@ inline void FxListWindowNC::selectByDiff(int diff){
 	refreshWindow();
 }
 
-//make test
-inline void FxListWindowNC::setNewList(std::vector<std::string> newElements){
+inline void ListWindowNC::setNewList(std::vector<char *> newElements){
+	unpost_menu(fxMenuNC.get());
+	free_menu(fxMenuNC.get());
 	clearList();
+	listOfElements.clear();
 	for(auto &element : newElements){
-		listOfElements.push_back(new_item(element.c_str(),""));
+		listOfElements.push_back(new_item((char *)element,""));
 	}
+	fxMenuNC.reset(new_menu(&listOfElements.front()));
+	set_menu_win(fxMenuNC.get(), fxListWindowNC.get());
+	set_menu_format(fxMenuNC.get(), windowHeight - 4, 1);
+	post_menu(fxMenuNC.get());
 	selectFirstIndex();
 }
 
-//make test
-inline void FxListWindowNC::clearList(){
+inline void ListWindowNC::clearList(){
 	for(auto &element : listOfElements){
 		free_item(element);
 	}
 }
 
-inline int FxListWindowNC::getSelectedIndex(){
+inline int ListWindowNC::getSelectedIndex(){
 	return current_item(fxMenuNC.get())->index;
 }
 
-inline void FxListWindowNC::refreshWindow(){
+inline void ListWindowNC::refreshWindow(){
 	wrefresh(fxListWindowNC.get());
 }

@@ -5,28 +5,32 @@
  *      Author: SF
  */
 
-#ifndef FXLISTNC_HPP_
-#define FXLISTNC_HPP_
+#ifndef LISTNC_HPP_
+#define LISTNC_HPP_
 
 #include "config.hpp"
 #include <ncurses.h>
 #include <panel.h>
 #include <menu.h>
 
-class FxListWindowNC{
+class ListWindowNC{
 public:
-	FxListWindowNC(int windowWidth, int windowHeight, int windowPosX, int windowPosY);
-	~FxListWindowNC();
+	ListWindowNC(int windowWidth, int windowHeight, int windowPosX, int windowPosY);
+	~ListWindowNC();
 
 	void selectFirstIndex();
 	void selectIndex(unsigned int newIndex);
 	void selectByDiff(int diff);
-	void setNewList(std::vector<std::string> newElements);
+	void setNewList(std::vector<char *> newElements);
 	void clearList();
 	int getSelectedIndex();
 	void refreshWindow();
 
 private:
+	int windowWidth;
+	int windowHeight;
+	int windowPosX;
+	int windowPosY;
 	std::unique_ptr<WINDOW> fxListWindowNC;
 	std::unique_ptr<MENU> fxMenuNC;
 	std::vector<ITEM *> listOfElements;
@@ -37,4 +41,4 @@ private:
 
 
 
-#endif /* FXLISTNC_HPP_ */
+#endif /* LISTNC_HPP_ */
