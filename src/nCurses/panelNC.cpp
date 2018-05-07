@@ -4,12 +4,9 @@
  *  Created on: 7 maj 2018
  *      Author: SF
  */
-#include "config.hpp"
 #include "panelNC.hpp"
 
-#include <ncurses.h>
-#include "panel.h"
-#include "string.h"
+
 
 typedef struct _PANEL_DATA {
 	int hide;	/* TRUE if panel is hidden */
