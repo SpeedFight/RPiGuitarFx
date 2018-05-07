@@ -34,7 +34,7 @@ std::vector<char *> choices2 = {
                         "Exit"
                   };
 
-void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
+void ListWindowNC::print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
 {	int length, x, y;
 	float temp;
 
@@ -97,21 +97,21 @@ ListWindowNC::ListWindowNC(int newWindowWidth, int newWindowHeight, int newWindo
 //	post_menu(fxMenuNC.get());
 //	refreshWindow();
 
-	int c;
-	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
-	{
-		switch(c){
-			case KEY_DOWN:
-				menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
-				break;
-
-			case KEY_UP:
-				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
-				setNewList(choices2);
-				break;
-		}
-		refreshWindow();
-	}
+//	int c;
+//	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
+//	{
+//		switch(c){
+//			case KEY_DOWN:
+//				menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
+//				break;
+//
+//			case KEY_UP:
+//				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
+//				setNewList(choices2);
+//				break;
+//		}
+//		refreshWindow();
+//	}
 
 }
 

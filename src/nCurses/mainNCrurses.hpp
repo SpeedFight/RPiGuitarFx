@@ -9,6 +9,7 @@
 #define MAINNCRURSES_HPP_
 
 #include <listNC.hpp>
+#include "panelNC.hpp"
 #include "config.hpp"
 
 #include <ncurses.h>
