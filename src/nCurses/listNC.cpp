@@ -84,20 +84,20 @@ ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, i
 	post_menu(fxMenuNC.get());
 	refreshWindow();
 
-	int c;
-	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
-	{
-		switch(c){
-			case KEY_DOWN:
-				menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
-				break;
-
-			case KEY_UP:
-				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
-				break;
-		}
-		refreshWindow();
-	}
+//	int c;
+//	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
+//	{
+//		switch(c){
+//			case KEY_DOWN:
+//				menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
+//				break;
+//
+//			case KEY_UP:
+//				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
+//				break;
+//		}
+//		refreshWindow();
+//	}
 
 }
 

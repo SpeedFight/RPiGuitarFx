@@ -69,7 +69,7 @@ void PanelNC::init_wins(WINDOW **wins, int n){
 	}
 }
 
-PanelNC::PanelNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
+PanelNC::PanelNC(WINDOW *window, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
 		windowWidth(newWindowWidth  ),
 		windowHeight(newWindowHeight ),
 		windowPosX(newWindowPosX   ),
@@ -98,7 +98,7 @@ PanelNC::PanelNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int
 
 //	std::unique_ptr<ListWindowNC> listWindow1(new ListWindowNC(20, 8, 10, 4));
 
-//	my_wins[0] = listWindow1->fxListWindowNC.get();
+	my_wins[0] = window;
 
 	/* Attach a panel to each window */ 	/* Order is bottom up */
 	my_panels[0] = new_panel(my_wins[0]); 	/* Push 0, order: stdscr-0 */

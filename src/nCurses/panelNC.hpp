@@ -15,7 +15,7 @@
 
 class PanelNC{
 public:
-	PanelNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY);
+	PanelNC(WINDOW *window, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY);
 	~PanelNC();
 
 
