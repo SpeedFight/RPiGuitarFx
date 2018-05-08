@@ -15,7 +15,7 @@
 
 class ListWindowNC{
 public:
-	ListWindowNC(int windowWidth, int windowHeight, int windowPosX, int windowPosY);
+	ListWindowNC(std::vector<char *> newElements, std::string title, int windowWidth, int windowHeight, int windowPosX, int windowPosY);
 	~ListWindowNC();
 
 	void selectFirstIndex();
@@ -26,18 +26,20 @@ public:
 	int getSelectedIndex();
 	void refreshWindow();
 
+	std::unique_ptr<WINDOW> fxListWindowNC;
+	std::unique_ptr<MENU> fxMenuNC;
+
 private:
 	int windowWidth;
 	int windowHeight;
 	int windowPosX;
 	int windowPosY;
-	std::unique_ptr<WINDOW> fxListWindowNC;
-	std::unique_ptr<MENU> fxMenuNC;
+
 	std::vector<ITEM *> listOfElements;
 
 	std::vector<std::string> namesOfElements;
 
-	void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
+//	void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
 
 };
 

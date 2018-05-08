@@ -6,7 +6,7 @@
  */
 #include "panelNC.hpp"
 
-
+#include "listNC.hpp"
 
 typedef struct _PANEL_DATA {
 	int hide;	/* TRUE if panel is hidden */
@@ -71,9 +71,9 @@ void PanelNC::init_wins(WINDOW **wins, int n){
 
 PanelNC::PanelNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
 		windowWidth(newWindowWidth  ),
-				windowHeight(newWindowHeight ),
-				windowPosX(newWindowPosX   ),
-				windowPosY(newWindowPosY   )
+		windowHeight(newWindowHeight ),
+		windowPosX(newWindowPosX   ),
+		windowPosY(newWindowPosY   )
 			{
 	WINDOW *my_wins[3];
 	PANEL  *my_panels[3];
@@ -82,11 +82,11 @@ PanelNC::PanelNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int
 	int ch;
 
 	/* Initialize curses */
-	initscr();
-	start_color();
-	cbreak();
-	noecho();
-	keypad(stdscr, TRUE);
+//	initscr();
+//	start_color();
+//	cbreak();
+//	noecho();
+//	keypad(stdscr, TRUE);
 
 	/* Initialize all the colors */
 	init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -94,21 +94,18 @@ PanelNC::PanelNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int
 	init_pair(3, COLOR_BLUE, COLOR_BLACK);
 	init_pair(4, COLOR_CYAN, COLOR_BLACK);
 
-	init_wins(my_wins, 3);
+//	init_wins(my_wins, 3);
+
+//	std::unique_ptr<ListWindowNC> listWindow1(new ListWindowNC(20, 8, 10, 4));
+
+//	my_wins[0] = listWindow1->fxListWindowNC.get();
 
 	/* Attach a panel to each window */ 	/* Order is bottom up */
 	my_panels[0] = new_panel(my_wins[0]); 	/* Push 0, order: stdscr-0 */
-	my_panels[1] = new_panel(my_wins[1]); 	/* Push 1, order: stdscr-0-1 */
-	my_panels[2] = new_panel(my_wins[2]); 	/* Push 2, order: stdscr-0-1-2 */
-
 	/* Initialize panel datas saying that nothing is hidden */
 	panel_datas[0].hide = FALSE;
-	panel_datas[1].hide = FALSE;
-	panel_datas[2].hide = FALSE;
 
 	set_panel_userptr(my_panels[0], &panel_datas[0]);
-	set_panel_userptr(my_panels[1], &panel_datas[1]);
-	set_panel_userptr(my_panels[2], &panel_datas[2]);
 
 	/* Update the stacking order. 2nd panel will be on top */
 	update_panels();
@@ -134,28 +131,6 @@ PanelNC::PanelNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int
 					temp->hide = FALSE;
 				}
 				break;
-			case 'b':
-				temp = (PANEL_DATA *)panel_userptr(my_panels[1]);
-				if(temp->hide == FALSE)
-				{	hide_panel(my_panels[1]);
-					temp->hide = TRUE;
-				}
-				else
-				{	show_panel(my_panels[1]);
-					temp->hide = FALSE;
-				}
-				break;
-			case 'c':
-				temp = (PANEL_DATA *)panel_userptr(my_panels[2]);
-				if(temp->hide == FALSE)
-				{	hide_panel(my_panels[2]);
-					temp->hide = TRUE;
-				}
-				else
-				{	show_panel(my_panels[2]);
-					temp->hide = FALSE;
-				}
-				break;
 		}
 		update_panels();
 		doupdate();
@@ -164,5 +139,13 @@ PanelNC::PanelNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int
 }
 
 PanelNC::~PanelNC(){
+
+}
+
+void hidePanel(){
+
+}
+
+void showPanel(){
 
 }

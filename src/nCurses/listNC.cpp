@@ -21,20 +21,7 @@ std::vector<char *> choices1 = {
                         "Exit"
                   };
 
-std::vector<char *> choices2 = {
-						"wybor 0",
-                        "wybor 1",
-                        "wybor 2",
-                        "wybor 3",
-                        "wybor 4",
-						"wybor 5",
-						"wybor 6",
-						"wybor 7",
-						"wybor 8",
-                        "Exit"
-                  };
-
-void ListWindowNC::print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
+void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
 {	int length, x, y;
 	float temp;
 
@@ -57,15 +44,14 @@ void ListWindowNC::print_in_middle(WINDOW *win, int starty, int startx, int widt
 	refresh();
 }
 
-ListWindowNC::ListWindowNC(int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
+ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
 		windowWidth(newWindowWidth  ),
 		windowHeight(newWindowHeight ),
 		windowPosX(newWindowPosX   ),
 		windowPosY(newWindowPosY   ),
-		fxListWindowNC(newwin(windowHeight, windowWidth, windowPosY, windowPosX)),
+		fxListWindowNC(newwin(newWindowHeight, newWindowWidth, newWindowPosY, newWindowPosX)),
 		fxMenuNC(nullptr)
 	{
-	std::string title = "List";
 
 	start_color();;
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
@@ -74,44 +60,49 @@ ListWindowNC::ListWindowNC(int newWindowWidth, int newWindowHeight, int newWindo
 
 //	setNewList(choices1);
 	/* Crate menu */
-//	fxMenuNC.reset(new_menu(&listOfElements.front()));
+	fxMenuNC.reset(new_menu(&listOfElements.front()));
+	for(auto &element : newElements){
+		listOfElements.push_back(new_item((char *)element,""));
+	}
+	fxMenuNC.reset(new_menu(&listOfElements.front()));
 
 	/* Create the window to be associated with the menu */
 	keypad(fxListWindowNC.get(), TRUE);
 
 	/* Set main window and sub window */
-//	set_menu_win(fxMenuNC.get(), fxListWindowNC.get());
-	set_menu_sub(fxMenuNC.get(), derwin(fxListWindowNC.get(), windowHeight - 4, windowWidth - 2, 3, 1));
-//	set_menu_format(fxMenuNC.get(), windowHeight - 4, 1);
+	set_menu_win(fxMenuNC.get(), fxListWindowNC.get());
+	set_menu_sub(fxMenuNC.get(), derwin(fxListWindowNC.get(), windowHeight - 2, windowWidth - 2, 1, 1));
+	//int mvderwin(WINDOW *win, int par_y, int par_x);
+//	mvderwin(fxMenuNC.get(), 2, 2);
+	set_menu_format(fxMenuNC.get(), windowHeight - 2, 1);
 
 	/* Print a border around the main window and print a title */
 	box(fxListWindowNC.get(), 0, 0);
-	print_in_middle(fxListWindowNC.get(), 1, 0, windowWidth, (char*)title.c_str(), COLOR_PAIR(1));
+	print_in_middle(fxListWindowNC.get(), 0, 0, windowWidth, (char*)title.c_str(), COLOR_PAIR(1));
 	/* Print line under title */
-	mvwaddch(fxListWindowNC.get(), 2, 0, ACS_LTEE);
-	mvwhline(fxListWindowNC.get(), 2, 1, ACS_HLINE, 18);
-	mvwaddch(fxListWindowNC.get(), 2, windowWidth - 1, ACS_RTEE);
-	refresh();
+	//
+//	mvwaddch(fxListWindowNC.get(), newWindowPosY - 1, newWindowPosX, ACS_LTEE);
+//	mvwhline(fxListWindowNC.get(), newWindowPosY - 1 , newWindowPosX, ACS_HLINE, windowWidth);
+//	mvwaddch(fxListWindowNC.get(), newWindowPosY- 1, newWindowPosX + windowWidth , ACS_RTEE);
 
 	/* Post the menu */
-//	post_menu(fxMenuNC.get());
-//	refreshWindow();
+	post_menu(fxMenuNC.get());
+	refreshWindow();
 
-//	int c;
-//	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
-//	{
-//		switch(c){
-//			case KEY_DOWN:
-//				menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
-//				break;
-//
-//			case KEY_UP:
-//				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
-//				setNewList(choices2);
-//				break;
-//		}
-//		refreshWindow();
-//	}
+	int c;
+	while((c = wgetch(fxListWindowNC.get())) != KEY_F(1))
+	{
+		switch(c){
+			case KEY_DOWN:
+				menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
+				break;
+
+			case KEY_UP:
+				menu_driver(fxMenuNC.get(), REQ_UP_ITEM);
+				break;
+		}
+		refreshWindow();
+	}
 
 }
 
