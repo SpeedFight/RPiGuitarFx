@@ -72,8 +72,6 @@ ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, i
 	/* Set main window and sub window */
 	set_menu_win(fxMenuNC.get(), fxListWindowNC.get());
 	set_menu_sub(fxMenuNC.get(), derwin(fxListWindowNC.get(), windowHeight - 2, windowWidth - 2, 1, 1));
-	//int mvderwin(WINDOW *win, int par_y, int par_x);
-//	mvderwin(fxMenuNC.get(), 2, 2);
 	set_menu_format(fxMenuNC.get(), windowHeight - 2, 1);
 
 	/* Print a border around the main window and print a title */
@@ -81,9 +79,6 @@ ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, i
 	print_in_middle(fxListWindowNC.get(), 0, 0, windowWidth, (char*)title.c_str(), COLOR_PAIR(1));
 	/* Print line under title */
 	//
-//	mvwaddch(fxListWindowNC.get(), newWindowPosY - 1, newWindowPosX, ACS_LTEE);
-//	mvwhline(fxListWindowNC.get(), newWindowPosY - 1 , newWindowPosX, ACS_HLINE, windowWidth);
-//	mvwaddch(fxListWindowNC.get(), newWindowPosY- 1, newWindowPosX + windowWidth , ACS_RTEE);
 
 	/* Post the menu */
 	post_menu(fxMenuNC.get());
