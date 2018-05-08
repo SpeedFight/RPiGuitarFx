@@ -18,6 +18,8 @@ public:
 	PanelNC(WINDOW *window, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY);
 	~PanelNC();
 
+	void hidePanel();
+	void showPanel();
 
 private:
 	int windowWidth;

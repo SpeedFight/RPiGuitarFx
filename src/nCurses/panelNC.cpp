@@ -50,7 +50,7 @@ void PanelNC::win_show(WINDOW *win, char *label, int label_color){
 	mvwhline(win, 2, 1, ACS_HLINE, width - 2);
 	mvwaddch(win, 2, width - 1, ACS_RTEE);
 
-	print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+//	print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
 }
 
 /* Put all the windows */
@@ -81,13 +81,6 @@ PanelNC::PanelNC(WINDOW *window, int newWindowWidth, int newWindowHeight, int ne
 	PANEL_DATA *temp;
 	int ch;
 
-	/* Initialize curses */
-//	initscr();
-//	start_color();
-//	cbreak();
-//	noecho();
-//	keypad(stdscr, TRUE);
-
 	/* Initialize all the colors */
 	init_pair(1, COLOR_RED, COLOR_BLACK);
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
@@ -95,8 +88,6 @@ PanelNC::PanelNC(WINDOW *window, int newWindowWidth, int newWindowHeight, int ne
 	init_pair(4, COLOR_CYAN, COLOR_BLACK);
 
 //	init_wins(my_wins, 3);
-
-//	std::unique_ptr<ListWindowNC> listWindow1(new ListWindowNC(20, 8, 10, 4));
 
 	my_wins[0] = window;
 
@@ -111,11 +102,11 @@ PanelNC::PanelNC(WINDOW *window, int newWindowWidth, int newWindowHeight, int ne
 	update_panels();
 
 	/* Show it on the screen */
-	attron(COLOR_PAIR(4));
-	mvprintw(LINES - 3, 0, "Show or Hide a window with 'a'(first window)  'b'(Second Window)  'c'(Third Window)");
-	mvprintw(LINES - 2, 0, "F1 to Exit");
-
-	attroff(COLOR_PAIR(4));
+//	attron(COLOR_PAIR(4));
+//	mvprintw(LINES - 3, 0, "Show or Hide a window with 'a'(first window)  'b'(Second Window)  'c'(Third Window)");
+//	mvprintw(LINES - 2, 0, "F1 to Exit");
+//
+//	attroff(COLOR_PAIR(4));
 	doupdate();
 
 	while((ch = getch()) != KEY_F(1))
@@ -135,17 +126,17 @@ PanelNC::PanelNC(WINDOW *window, int newWindowWidth, int newWindowHeight, int ne
 		update_panels();
 		doupdate();
 	}
-	endwin();
+
 }
 
 PanelNC::~PanelNC(){
 
 }
 
-void hidePanel(){
-
+void PanelNC::hidePanel(){
+	hide_panel(my_panels[0]);
 }
 
-void showPanel(){
-
+void PanelNC::showPanel(){
+	show_panel(my_panels[0]);
 }

@@ -26,6 +26,13 @@ TerminalGui::TerminalGui(){
 	cbreak();
 	noecho();
 	keypad(stdscr, TRUE);
+
+	/* Initialize all the colors */
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+
 	std::unique_ptr<ListWindowNC> fxList(new ListWindowNC(choices2, "lista", 20, 8, 6, 6));
 	std::unique_ptr<PanelNC> panel(new PanelNC(fxList->fxListWindowNC.get(), 20, 8, 20, 4));
 	refresh();

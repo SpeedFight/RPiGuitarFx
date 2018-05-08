@@ -54,8 +54,6 @@ ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, i
 	{
 
 	start_color();;
-	init_pair(1, COLOR_CYAN, COLOR_BLACK);
-
 	listOfElements.reserve(10);
 
 //	setNewList(choices1);
