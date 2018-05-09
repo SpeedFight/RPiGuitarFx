@@ -9,6 +9,11 @@
 #define FXVIEWNC_HPP_
 
 
+#include "config.hpp"
+#include "panelNC.hpp"
+
+#include <ncurses.h>
+
 
 
 

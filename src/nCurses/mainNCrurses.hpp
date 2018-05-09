@@ -8,14 +8,11 @@
 #ifndef MAINNCRURSES_HPP_
 #define MAINNCRURSES_HPP_
 
-//#include <listNC.hpp>
-//#include "panelNC.hpp"
-#include <elementListNC.hpp>
 #include "config.hpp"
+#include <elementListNC.hpp>
 
 #include <ncurses.h>
-#include <menu.h>
-#include <panel.h>
+
 
 class TerminalGui{
 public:

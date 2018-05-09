@@ -6,7 +6,6 @@
  */
 #include "panelNC.hpp"
 
-#include "listNC.hpp"
 
 PanelNC::PanelNC(WINDOW *newWindow, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
 		windowWidth(newWindowWidth  ),
