@@ -33,9 +33,32 @@ TerminalGui::TerminalGui(){
 	init_pair(3, COLOR_BLUE, COLOR_BLACK);
 	init_pair(4, COLOR_CYAN, COLOR_BLACK);
 
+	//int windowWidth, int windowHeight, int windowPosX, int windowPosY
+
 	std::unique_ptr<ListWindowNC> fxList(new ListWindowNC(choices2, "lista", 20, 8, 6, 6));
-	std::unique_ptr<PanelNC> panel(new PanelNC(fxList->fxListWindowNC.get(), 20, 8, 20, 4));
+	std::unique_ptr<PanelNC> panel(new PanelNC(fxList->fxListWindowNC.get(), 20, 8, 40, 4));
 	refresh();
+
+	int ch;
+	while((ch = getch()) != KEY_F(1))
+	{	switch(ch){
+			case 'a':
+				panel->showPanel();
+			break;
+
+			case 'b':
+				panel->hidePanel();
+			break;
+
+			case KEY_DOWN:
+				fxList->selectByDiff(1);
+			break;
+
+			case KEY_UP:
+				fxList->selectByDiff(-1);
+			break;
+		}
+	}
 
 	while(1){
 

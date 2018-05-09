@@ -107,16 +107,16 @@ ListWindowNC::~ListWindowNC(){
 	endwin();
 }
 
-inline void ListWindowNC::selectFirstIndex(){
+void ListWindowNC::selectFirstIndex(){
 	menu_driver(fxMenuNC.get(), REQ_FIRST_ITEM);
 	refreshWindow();
 }
 
-inline void ListWindowNC::selectIndex(unsigned int newIndex){
+void ListWindowNC::selectIndex(unsigned int newIndex){
 	selectByDiff(newIndex - getSelectedIndex());
 }
 
-inline void ListWindowNC::selectByDiff(int diff){
+void ListWindowNC::selectByDiff(int diff){
 	if(diff > 0){
 		for (; diff > 0; --diff) {
 			menu_driver(fxMenuNC.get(), REQ_DOWN_ITEM);
@@ -129,7 +129,7 @@ inline void ListWindowNC::selectByDiff(int diff){
 	refreshWindow();
 }
 
-inline void ListWindowNC::setNewList(std::vector<char *> newElements){
+void ListWindowNC::setNewList(std::vector<char *> newElements){
 	unpost_menu(fxMenuNC.get());
 	free_menu(fxMenuNC.get());
 	clearList();
@@ -144,16 +144,16 @@ inline void ListWindowNC::setNewList(std::vector<char *> newElements){
 	selectFirstIndex();
 }
 
-inline void ListWindowNC::clearList(){
+void ListWindowNC::clearList(){
 	for(auto &element : listOfElements){
 		free_item(element);
 	}
 }
 
-inline int ListWindowNC::getSelectedIndex(){
+int ListWindowNC::getSelectedIndex(){
 	return current_item(fxMenuNC.get())->index;
 }
 
-inline void ListWindowNC::refreshWindow(){
+void ListWindowNC::refreshWindow(){
 	wrefresh(fxListWindowNC.get());
 }

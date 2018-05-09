@@ -27,7 +27,9 @@ private:
 	int windowPosX;
 	int windowPosY;
 
-	std::unique_ptr<WINDOW> window;
+	bool isShow;
+
+	WINDOW* window;
 	std::unique_ptr<PANEL>	panel;
 
 	void init_wins(WINDOW **wins, int n);
