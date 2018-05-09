@@ -64,7 +64,7 @@ ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, i
 	fxMenuNC.reset(new_menu(&listOfElements.front()));
 
 	/* Create the window to be associated with the menu */
-	keypad(fxListWindowNC.get(), TRUE);
+//	keypad(fxListWindowNC.get(), TRUE);
 
 	/* Set main window and sub window */
 	set_menu_win(fxMenuNC.get(), fxListWindowNC.get());
@@ -101,7 +101,8 @@ ListWindowNC::~ListWindowNC(){
 	unpost_menu(fxMenuNC.get());
 	free_menu(fxMenuNC.get());
 	clearList();
-	endwin();
+	delwin(fxListWindowNC.get());
+	refresh();
 }
 
 void ListWindowNC::selectFirstIndex(){
