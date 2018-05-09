@@ -5,9 +5,9 @@
  *      Author: SF
  */
 
-#include "elementNC.hpp"
+#include <elementListNC.hpp>
 
-ElementNC::ElementNC(std::vector<char *> newElements, std::string title, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
+ElementListNC::ElementListNC(std::vector<char *> newElements, std::string title, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
 	listWindow(new ListWindowNC(newElements, title, newWindowWidth, newWindowHeight, newWindowPosX, newWindowPosY)),
 	panel(new PanelNC(listWindow->fxListWindowNC.get(), newWindowWidth, newWindowHeight, newWindowPosX, newWindowPosY))
 {

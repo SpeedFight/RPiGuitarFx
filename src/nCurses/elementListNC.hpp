@@ -5,8 +5,8 @@
  *      Author: SF
  */
 
-#ifndef ELEMENTNC_HPP_
-#define ELEMENTNC_HPP_
+#ifndef ELEMENTLISTNC_HPP_
+#define ELEMENTLISTNC_HPP_
 
 #include "config.hpp"
 
@@ -14,10 +14,10 @@
 #include "listNC.hpp"
 #include "panelNC.hpp"
 
-class ElementNC{
+class ElementListNC{
 public:
 
-	ElementNC(std::vector<char *> newElements, std::string title, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY);
+	ElementListNC(std::vector<char *> newElements, std::string title, int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY);
 
 	std::unique_ptr<ListWindowNC> listWindow;
 	std::unique_ptr<PanelNC> panel;
@@ -28,4 +28,4 @@ private:
 
 
 
-#endif /* ELEMENTNC_HPP_ */
+#endif /* ELEMENTLISTNC_HPP_ */

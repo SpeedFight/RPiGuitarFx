@@ -10,7 +10,7 @@
 
 //#include <listNC.hpp>
 //#include "panelNC.hpp"
-#include "elementNC.hpp"
+#include <elementListNC.hpp>
 #include "config.hpp"
 
 #include <ncurses.h>

@@ -35,10 +35,7 @@ TerminalGui::TerminalGui(){
 
 	//int windowWidth, int windowHeight, int windowPosX, int windowPosY
 
-//	std::unique_ptr<ListWindowNC> fxList(new ListWindowNC(choices2, "lista", 20, 8, 6, 6));
-//	std::unique_ptr<PanelNC> panel(new PanelNC(fxList->fxListWindowNC.get(), 20, 8, 40, 4));
-
-	std::unique_ptr<ElementNC> elementListFx(new ElementNC(choices2, "lista", 20, 8, 6, 6));
+	std::unique_ptr<ElementListNC> elementListFx(new ElementListNC(choices2, "lista", 20, 20, 0, 1));
 	refresh();
 
 	int ch;
