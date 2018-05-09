@@ -94,5 +94,40 @@ FxInfoViewNC::~FxInfoViewNC(){
 	refresh();
 }
 
-//FxInfoViewNC::
+/*
+ * FxViewNC
+ */
 
+FxViewNC::FxViewNC(){
+//	settingsBoxs.fill(nullptr);
+
+	fxInfoBox.reset(new FxInfoViewNC("Simple overdrive", 1, 60, 5, 20, 4));
+	settingsBoxs[0].reset(new FxSettingViewNC("gain", "10%", 20, 6, 20, 13));
+	settingsBoxs[1].reset(new FxSettingViewNC("gain", "10%", 20, 6, 40, 13));
+	settingsBoxs[2].reset(new FxSettingViewNC("gain", "10%", 20, 6, 20, 13));
+	settingsBoxs[3].reset(new FxSettingViewNC("gain", "10%", 20, 6, 60, 13));
+	settingsBoxs[4].reset(new FxSettingViewNC("gain", "10%", 20, 6, 20, 19));
+//	settingsBoxs[5].reset(new FxSettingViewNC("gain", "10%", 20, 6, 40, 19));
+//	settingsBoxs[6].reset(new FxSettingViewNC("gain", "10%", 20, 6, 60, 19));
+
+}
+
+FxViewNC::~FxViewNC(){
+
+}
+
+void FxViewNC::refresh(){
+	redrawwin(fxInfoBox->window.get());
+	wnoutrefresh(fxInfoBox->window.get());
+
+
+	for(auto &settingBox : settingsBoxs){
+		if(settingBox != nullptr){
+			redrawwin(settingBox->window.get());
+			wnoutrefresh(settingBox->window.get());
+		}else {
+			break;
+		}
+	}
+	doupdate();
+}

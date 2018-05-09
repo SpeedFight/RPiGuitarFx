@@ -10,6 +10,7 @@
 
 #include "config.hpp"
 #include <elementListNC.hpp>
+#include "fxViewNC.hpp"
 
 #include <ncurses.h>
 

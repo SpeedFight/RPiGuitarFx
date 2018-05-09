@@ -55,6 +55,11 @@ private:
 class FxViewNC{
 public:
 
+	FxViewNC();
+	~FxViewNC();
+
+	void refresh();
+
 	std::array<std::unique_ptr<FxSettingViewNC>, 7> settingsBoxs;
 	std::unique_ptr<FxInfoViewNC> fxInfoBox;
 

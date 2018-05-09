@@ -25,9 +25,11 @@ TerminalGui::TerminalGui(){
 	initscr();
 	cbreak();
 	noecho();
+	curs_set(0); //invisible cursor
 	keypad(stdscr, TRUE);
 
 	/* Initialize all the colors */
+	start_color();
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	init_pair(3, COLOR_BLUE, COLOR_BLACK);
@@ -35,26 +37,36 @@ TerminalGui::TerminalGui(){
 
 	//int windowWidth, int windowHeight, int windowPosX, int windowPosY
 
-	std::unique_ptr<ElementListNC> elementListFx(new ElementListNC(choices2, "lista", 20, 20, 0, 1));
+	std::unique_ptr<ElementListNC> fxList(new ElementListNC(choices2, "FX list", 20, 24, 0, 1));
+	fxList->panel->showPanel();
+	fxList->panel->hidePanel();
+	fxList->panel->showPanel(); //workaround
+
+	std::unique_ptr<ElementListNC> optionsList(new ElementListNC(choices2, "Options", 20, 21, 30, 2));
+
+	std::unique_ptr<FxViewNC> fxView(new FxViewNC());
+
 	refresh();
+
 
 	int ch;
 	while((ch = getch()) != KEY_F(1))
 	{	switch(ch){
 			case 'a':
-				elementListFx->panel->showPanel();
+				optionsList->panel->showPanel();
 			break;
 
 			case 'b':
-				elementListFx->panel->hidePanel();
+				optionsList->panel->hidePanel();
+				fxView->refresh();
 			break;
 
 			case KEY_DOWN:
-				elementListFx->listWindow->selectByDiff(1);
+				optionsList->listWindow->selectByDiff(1);
 			break;
 
 			case KEY_UP:
-				elementListFx->listWindow->selectByDiff(-1);
+				optionsList->listWindow->selectByDiff(-1);
 			break;
 		}
 	}

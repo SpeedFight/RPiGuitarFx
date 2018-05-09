@@ -15,12 +15,6 @@ PanelNC::PanelNC(WINDOW *newWindow, int newWindowWidth, int newWindowHeight, int
 		isShow(false)
 			{
 
-	/* Initialize all the colors */
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_BLUE, COLOR_BLACK);
-	init_pair(4, COLOR_CYAN, COLOR_BLACK);
-
 	window = newWindow;
 	panel.reset(new_panel(window)); 	/* Push 0, order: stdscr-0 */
 	update_panels();
