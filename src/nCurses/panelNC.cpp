@@ -26,6 +26,7 @@ PanelNC::PanelNC(WINDOW *newWindow, int newWindowWidth, int newWindowHeight, int
 	panel.reset(new_panel(window)); 	/* Push 0, order: stdscr-0 */
 	update_panels();
 
+	hide_panel(panel.get());
 	doupdate();
 
 //	int ch;

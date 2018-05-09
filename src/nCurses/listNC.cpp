@@ -56,7 +56,6 @@ ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, i
 	start_color();;
 	listOfElements.reserve(10);
 
-//	setNewList(choices1);
 	/* Crate menu */
 	fxMenuNC.reset(new_menu(&listOfElements.front()));
 	for(auto &element : newElements){
@@ -75,8 +74,6 @@ ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, i
 	/* Print a border around the main window and print a title */
 	box(fxListWindowNC.get(), 0, 0);
 	print_in_middle(fxListWindowNC.get(), 0, 0, windowWidth, (char*)title.c_str(), COLOR_PAIR(1));
-	/* Print line under title */
-	//
 
 	/* Post the menu */
 	post_menu(fxMenuNC.get());
