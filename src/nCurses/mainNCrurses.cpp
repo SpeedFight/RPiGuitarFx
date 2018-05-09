@@ -35,27 +35,29 @@ TerminalGui::TerminalGui(){
 
 	//int windowWidth, int windowHeight, int windowPosX, int windowPosY
 
-	std::unique_ptr<ListWindowNC> fxList(new ListWindowNC(choices2, "lista", 20, 8, 6, 6));
-	std::unique_ptr<PanelNC> panel(new PanelNC(fxList->fxListWindowNC.get(), 20, 8, 40, 4));
+//	std::unique_ptr<ListWindowNC> fxList(new ListWindowNC(choices2, "lista", 20, 8, 6, 6));
+//	std::unique_ptr<PanelNC> panel(new PanelNC(fxList->fxListWindowNC.get(), 20, 8, 40, 4));
+
+	std::unique_ptr<ElementNC> elementListFx(new ElementNC(choices2, "lista", 20, 8, 6, 6));
 	refresh();
 
 	int ch;
 	while((ch = getch()) != KEY_F(1))
 	{	switch(ch){
 			case 'a':
-				panel->showPanel();
+				elementListFx->panel->showPanel();
 			break;
 
 			case 'b':
-				panel->hidePanel();
+				elementListFx->panel->hidePanel();
 			break;
 
 			case KEY_DOWN:
-				fxList->selectByDiff(1);
+				elementListFx->listWindow->selectByDiff(1);
 			break;
 
 			case KEY_UP:
-				fxList->selectByDiff(-1);
+				elementListFx->listWindow->selectByDiff(-1);
 			break;
 		}
 	}

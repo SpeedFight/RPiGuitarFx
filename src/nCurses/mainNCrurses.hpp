@@ -8,8 +8,9 @@
 #ifndef MAINNCRURSES_HPP_
 #define MAINNCRURSES_HPP_
 
-#include <listNC.hpp>
-#include "panelNC.hpp"
+//#include <listNC.hpp>
+//#include "panelNC.hpp"
+#include "elementNC.hpp"
 #include "config.hpp"
 
 #include <ncurses.h>
