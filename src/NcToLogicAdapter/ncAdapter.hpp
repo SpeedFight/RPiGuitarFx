@@ -12,6 +12,26 @@
 
 #include <elementListNC.hpp>
 #include "fxViewNC.hpp"
+#include "mainNCrurses.hpp"
+
+#include "effectsList.hpp"
+#include "effect.hpp"
+
+class NcAdapter{
+public:
+	NcAdapter(FXList *newFxList, IDetector *newUserInput);
+	void handleUserInput();
+
+private:
+	void fillActualFxList();
+
+
+	FXList *fxList; //class contain also some other specific options for fx's
+	IDetector *userInput; //
+	int selectedFxNum;
+	std::unique_ptr<TerminalGui> terminalGui;
+	std::unique_ptr<ElementListNC> actualFxList;
+};
 
 
 

@@ -14,33 +14,34 @@
 
 #include "effectsList.hpp"
 
-#include "mainGtkView.hpp"
+//#include "mainGtkView.hpp"
 
-#include "adapter.hpp"
+//#include "adapter.hpp"
 
-#include "mainNCrurses.hpp"
+//#include "mainNCrurses.hpp"
 #include "nCoursesKeyboard.hpp"
+#include "ncAdapter.hpp"
 
-void poolForInput(FXList *fxList, Adapter *adapter){
-	adapter->updateFxGuiList();
-	adapter->setNewFxGuiBox(1);
-	adapter->selectFxInList(1);
-
-	while(1){
-	fxList->updateFXParameters(1);
-	adapter->updateFxGuiBox(1);
-	std::this_thread::sleep_for (std::chrono::milliseconds(100));
-	}
-}
+//void poolForInput(FXList *fxList, Adapter *adapter){
+//	adapter->updateFxGuiList();
+//	adapter->setNewFxGuiBox(1);
+//	adapter->selectFxInList(1);
+//
+//	while(1){
+//	fxList->updateFXParameters(1);
+//	adapter->updateFxGuiBox(1);
+//	std::this_thread::sleep_for (std::chrono::milliseconds(100));
+//	}
+//}
 
 //tmpo help function
-void printList(FXList *list){
-	std::cout<<"lista: "<<std::endl;
-	for(auto element : *(list->getFXList())){
-		std::cout<< *(element->getName()) << std::endl;
-	}
-	std::cout<<std::endl;
-}
+//void printList(FXList *list){
+//	std::cout<<"lista: "<<std::endl;
+//	for(auto element : *(list->getFXList())){
+//		std::cout<< *(element->getName()) << std::endl;
+//	}
+//	std::cout<<std::endl;
+//}
 
 /*	TODO
  * 1) DONE zamienic liste na vector
@@ -70,16 +71,18 @@ int main( int argc, char * argv[] )
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 //	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
 //	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), controller.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
+	std::unique_ptr<NcAdapter> adapter(new NcAdapter(fxList.get(), controller.get()));
 
 //	std::thread guiThread(&ViewGtk::poolForView, view.get());
 	std::thread controllerInputThread(&IDetector::pollForEvents, controller.get());
 //	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
+	std::thread handleUserInputThread(&NcAdapter::handleUserInput, adapter.get());
 
 	std::this_thread::sleep_for (std::chrono::seconds(60*4));
 
 //	guiThread.~thread();
 	controllerInputThread.~thread();
-//	handleUserInputThread.~thread();
+	handleUserInputThread.~thread();
 
 //	view.reset();
 	input.reset();

@@ -70,10 +70,10 @@ void NCourseKeyboard::on_key_press(){
 }
 
 void NCourseKeyboard::pollForEvents(){
-	initscr();
-	clear();
-	noecho();
-	cbreak();	/* Line buffering disabled. pass on everything */
+//	initscr();
+//	clear();
+//	noecho();
+//	cbreak();	/* Line buffering disabled. pass on everything */
 	timeout(50);
 
 	while(1){
@@ -153,26 +153,26 @@ void NCourseKeyboard::pollForEvents(){
 		}
 
 
-		clear();
-		mvprintw(0, 0, "pot1val: 	%d", controllerValues[ControllerInput::pot1]);
-		mvprintw(1, 0, "pot2val: 	%d", controllerValues[ControllerInput::pot2]);
-		mvprintw(2, 0, "pot3val:	%d", controllerValues[ControllerInput::pot3]);
-		mvprintw(3, 0, "pot4val:	%d", controllerValues[ControllerInput::pot4]);
-		mvprintw(4, 0, "pot5val: 	%d", controllerValues[ControllerInput::pot5]);
-		mvprintw(5, 0, "pot6val: 	%d", controllerValues[ControllerInput::pot6]);
-		mvprintw(6, 0, "pot7val: 	%d", controllerValues[ControllerInput::pot7]);
-		mvprintw(7, 0, "pot8val: 	%d", controllerValues[ControllerInput::pot8]);
-		mvprintw(8, 0, "btn1val: 	%d", controllerValues[ControllerInput::btn1]);
-		mvprintw(9, 0, "btn2val: 	%d", controllerValues[ControllerInput::btn2]);
-		mvprintw(10, 0,"btn3val: 	%d", controllerValues[ControllerInput::btn3]);
-		mvprintw(11, 0,"btn4val: 	%d", controllerValues[ControllerInput::btn4]);
-
-		mvprintw(12, 0, "foot1val: 	%d", controllerValues[ControllerInput::foot1]);
-		mvprintw(13, 0, "foot2val: 	%d", controllerValues[ControllerInput::foot2]);
-		mvprintw(14, 0, "foot3val: 	%d", controllerValues[ControllerInput::foot3]);
-
-
-		refresh();
+//		clear();
+//		mvprintw(0, 0, "pot1val: 	%d", controllerValues[ControllerInput::pot1]);
+//		mvprintw(1, 0, "pot2val: 	%d", controllerValues[ControllerInput::pot2]);
+//		mvprintw(2, 0, "pot3val:	%d", controllerValues[ControllerInput::pot3]);
+//		mvprintw(3, 0, "pot4val:	%d", controllerValues[ControllerInput::pot4]);
+//		mvprintw(4, 0, "pot5val: 	%d", controllerValues[ControllerInput::pot5]);
+//		mvprintw(5, 0, "pot6val: 	%d", controllerValues[ControllerInput::pot6]);
+//		mvprintw(6, 0, "pot7val: 	%d", controllerValues[ControllerInput::pot7]);
+//		mvprintw(7, 0, "pot8val: 	%d", controllerValues[ControllerInput::pot8]);
+//		mvprintw(8, 0, "btn1val: 	%d", controllerValues[ControllerInput::btn1]);
+//		mvprintw(9, 0, "btn2val: 	%d", controllerValues[ControllerInput::btn2]);
+//		mvprintw(10, 0,"btn3val: 	%d", controllerValues[ControllerInput::btn3]);
+//		mvprintw(11, 0,"btn4val: 	%d", controllerValues[ControllerInput::btn4]);
+//
+//		mvprintw(12, 0, "foot1val: 	%d", controllerValues[ControllerInput::foot1]);
+//		mvprintw(13, 0, "foot2val: 	%d", controllerValues[ControllerInput::foot2]);
+//		mvprintw(14, 0, "foot3val: 	%d", controllerValues[ControllerInput::foot3]);
+//
+//
+//		refresh();
 
 	}
 

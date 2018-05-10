@@ -7,32 +7,32 @@
 
 #include "mainNCrurses.hpp"
 
-std::vector<char *> choices2 = {
-		"simple overdriv",
-						"wybor 0",
-                        "wybor 1",
-                        "wybor 2",
-                        "wybor 3",
-                        "wybor 4",
-						"wybor 5",
-						"wybor 6",
-						"wybor 7",
-						"wybor 8",
-                        "Exit"
-                  };
-
-std::vector<char *> choices3 = {
-						"wybor 0",
-                        "wybor 1",
-                        "wybor 2",
-                        "wybor 3",
-                        "wybor 4",
-						"wybor 5",
-						"wybor 6",
-						"wybor 7",
-						"wybor 8",
-                        "Exit"
-                  };
+//std::vector<char *> choices2 = {
+//		"simple overdriv",
+//						"wybor 0",
+//                        "wybor 1",
+//                        "wybor 2",
+//                        "wybor 3",
+//                        "wybor 4",
+//						"wybor 5",
+//						"wybor 6",
+//						"wybor 7",
+//						"wybor 8",
+//                        "Exit"
+//                  };
+//
+//std::vector<char *> choices3 = {
+//						"wybor 0",
+//                        "wybor 1",
+//                        "wybor 2",
+//                        "wybor 3",
+//                        "wybor 4",
+//						"wybor 5",
+//						"wybor 6",
+//						"wybor 7",
+//						"wybor 8",
+//                        "Exit"
+//                  };
 
 
 TerminalGui::TerminalGui(){

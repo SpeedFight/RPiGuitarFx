@@ -8,18 +8,18 @@
 #include <listNC.hpp>
 #include "string.h"
 
-std::vector<char *> choices1 = {
-						"Choice 0",
-                        "Choice 1",
-                        "Choice 2",
-                        "Choice 3",
-                        "Choice 4",
-						"Choice 5",
-						"Choice 6",
-						"Choice 7",
-						"Choice 8",
-                        "Exit"
-                  };
+//std::vector<char *> choices1 = {
+//						"Choice 0",
+//                        "Choice 1",
+//                        "Choice 2",
+//                        "Choice 3",
+//                        "Choice 4",
+//						"Choice 5",
+//						"Choice 6",
+//						"Choice 7",
+//						"Choice 8",
+//                        "Exit"
+//                  };
 extern void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
 //void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
 //{	int length, x, y;
