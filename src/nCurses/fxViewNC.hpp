@@ -35,7 +35,7 @@ private:
 
 class FxInfoViewNC{
 public:
-	FxInfoViewNC(std::string newFxname, int newColorScheme,int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY);
+	FxInfoViewNC(char *newFxname, int newColorScheme,int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY);
 	~FxInfoViewNC();
 
 	std::unique_ptr<WINDOW> window;
@@ -46,7 +46,7 @@ private:
 	int windowPosX;
 	int windowPosY;
 
-	std::string fxName;
+	char *fxName;
 	int colorScheme;
 };
 

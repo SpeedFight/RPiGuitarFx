@@ -8,6 +8,20 @@
 #include "mainNCrurses.hpp"
 
 std::vector<char *> choices2 = {
+		"simple overdriv",
+						"wybor 0",
+                        "wybor 1",
+                        "wybor 2",
+                        "wybor 3",
+                        "wybor 4",
+						"wybor 5",
+						"wybor 6",
+						"wybor 7",
+						"wybor 8",
+                        "Exit"
+                  };
+
+std::vector<char *> choices3 = {
 						"wybor 0",
                         "wybor 1",
                         "wybor 2",
@@ -37,43 +51,47 @@ TerminalGui::TerminalGui(){
 
 	//int windowWidth, int windowHeight, int windowPosX, int windowPosY
 
-	std::unique_ptr<ElementListNC> fxList(new ElementListNC(choices2, "FX list", 20, 24, 0, 1));
-	fxList->panel->showPanel();
-	fxList->panel->hidePanel();
-	fxList->panel->showPanel(); //workaround
+//	std::unique_ptr<ElementListNC> fxList(new ElementListNC(choices2, "FX list", 20, 24, 0, 1));
+//	fxList->panel->showPanel();
+//	fxList->panel->hidePanel();
+//	fxList->panel->showPanel(); //workaround
+//
+//	std::unique_ptr<ElementListNC> fxInfoBox(new ElementListNC(choices2, "Options", 20, 21, 30, 2));
+//
+//	std::unique_ptr<FxViewNC> fxView(new FxViewNC());
+//
+//	refresh();
 
-	std::unique_ptr<ElementListNC> optionsList(new ElementListNC(choices2, "Options", 20, 21, 30, 2));
-
-	std::unique_ptr<FxViewNC> fxView(new FxViewNC());
-
-	refresh();
-
-
-	int ch;
-	while((ch = getch()) != KEY_F(1))
-	{	switch(ch){
-			case 'a':
-				optionsList->panel->showPanel();
-			break;
-
-			case 'b':
-				optionsList->panel->hidePanel();
-				fxView->refresh();
-			break;
-
-			case KEY_DOWN:
-				optionsList->listWindow->selectByDiff(1);
-			break;
-
-			case KEY_UP:
-				optionsList->listWindow->selectByDiff(-1);
-			break;
-		}
-	}
-
-	while(1){
-
-	}
+//	void *bin; //because double clearing memory error :c
+//	int ch;
+//	while((ch = getch()) != KEY_F(1)){
+//		switch(ch){
+//			case 'a':
+//				fxInfoBox->panel->showPanel();
+//			break;
+//
+//			case 'b':
+//				fxInfoBox->panel->hidePanel();
+//				fxView->refresh();
+//			break;
+//
+//			case KEY_DOWN:
+////				optionsList->listWindow->selectByDiff(1);
+////				delete fxView.get();
+//				bin =  fxList.release();
+////				fxInfoBox.reset(new ElementListNC(choices2, "Options", 20, 21, 30, 2));
+//				fxList.reset(new ElementListNC(choices3, "FX list", 20, 24, 0, 1));
+//				fxList->panel->showPanel();
+//				fxList->panel->hidePanel();
+//				fxList->panel->showPanel(); //workaround
+////				delete bin;
+//			break;
+//
+//			case KEY_UP:
+////				optionsList->listWindow->selectByDiff(-1);
+//			break;
+//		}
+//	}
 }
 
 TerminalGui::~TerminalGui(){

@@ -72,7 +72,7 @@ void FxSettingViewNC::updateValue(std::string newValueName){
  * FxInfoViewNC
  */
 
-FxInfoViewNC::FxInfoViewNC(std::string newFxname, int newColorScheme,int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
+FxInfoViewNC::FxInfoViewNC(char *newFxname, int newColorScheme,int newWindowWidth, int newWindowHeight, int newWindowPosX, int newWindowPosY):
 		windowWidth(newWindowWidth  ),
 		windowHeight(newWindowHeight ),
 		windowPosX(newWindowPosX   ),
@@ -84,7 +84,7 @@ FxInfoViewNC::FxInfoViewNC(std::string newFxname, int newColorScheme,int newWind
 	box(window.get(), 0, 0);
 
 	//print setting name
-	print_in_middle(window.get(), 2, 0, windowWidth, (char*)fxName.c_str(), colorScheme);
+	print_in_middle(window.get(), 2, 0, windowWidth, newFxname, colorScheme);
 
 	wrefresh(window.get());
 }
@@ -101,19 +101,25 @@ FxInfoViewNC::~FxInfoViewNC(){
 FxViewNC::FxViewNC(){
 //	settingsBoxs.fill(nullptr);
 
-	fxInfoBox.reset(new FxInfoViewNC("Simple overdrive", 1, 60, 5, 20, 4));
-	settingsBoxs[0].reset(new FxSettingViewNC("gain", "10%", 20, 6, 20, 13));
+	fxInfoBox.reset(new FxInfoViewNC("simple overdrive machine", 1, 60, 5, 20, 4));
+	settingsBoxs[0].reset(new FxSettingViewNC("gain kek", "10% ms", 20, 6, 20, 13));
 	settingsBoxs[1].reset(new FxSettingViewNC("gain", "10%", 20, 6, 40, 13));
-	settingsBoxs[2].reset(new FxSettingViewNC("gain", "10%", 20, 6, 20, 13));
+	settingsBoxs[2].reset(new FxSettingViewNC("master volume", "10%", 20, 6, 20, 13));
 	settingsBoxs[3].reset(new FxSettingViewNC("gain", "10%", 20, 6, 60, 13));
-	settingsBoxs[4].reset(new FxSettingViewNC("gain", "10%", 20, 6, 20, 19));
-//	settingsBoxs[5].reset(new FxSettingViewNC("gain", "10%", 20, 6, 40, 19));
-//	settingsBoxs[6].reset(new FxSettingViewNC("gain", "10%", 20, 6, 60, 19));
+	settingsBoxs[4].reset(new FxSettingViewNC("simple overdrive", "10%", 20, 6, 20, 19));
+	settingsBoxs[5].reset(new FxSettingViewNC("gain", "10%", 20, 6, 40, 19));
+	settingsBoxs[6].reset(new FxSettingViewNC("gain", "10%", 20, 6, 60, 19));
 
 }
 
 FxViewNC::~FxViewNC(){
 
+	for(auto &settingBox : settingsBoxs){
+		settingBox->~FxSettingViewNC();
+		}
+	fxInfoBox->~FxInfoViewNC();
+
+	refresh();
 }
 
 void FxViewNC::refresh(){

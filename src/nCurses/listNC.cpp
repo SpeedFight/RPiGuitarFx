@@ -53,7 +53,7 @@ ListWindowNC::ListWindowNC(std::vector<char *> newElements, std::string title, i
 		fxMenuNC(nullptr)
 	{
 
-	start_color();;
+
 	listOfElements.reserve(10);
 
 	/* Crate menu */
