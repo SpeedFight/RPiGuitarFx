@@ -7,7 +7,7 @@
 
 #include "ncAdapterEditFx.hpp"
 
-std::array<char *, 5> NcAdapterEditFx::options = {
+std::vector<char *> NcAdapterEditFx::options = {
 		"Cancel",
 		"Add FX",
 		"Move FX",
@@ -19,10 +19,12 @@ fxList(newFxList),
 userInput(newUserInput),
 selectedFxNum(newSelectedFxNum),
 selectedOption(0),
-optionList(new ElementListNC(std::vector<char *>{ options.begin(), options.end() }, "Select action", 20, 6, 30, 2)),
 addNcDialog(new NcAdapterAddFx(newFxList, newUserInput, newSelectedFxNum)),
 moveNcDialog(new NcAdapterMoveFx(newFxList, newUserInput, newSelectedFxNum))
 {
+	int width = (options.size() + 2 > 21) ? 21 : options.size() + 2;
+	optionList.reset(new ElementListNC(options, "Select action", 20, width, 30, 2));
+
 	optionList->panel->showPanel();
 	optionList->panel->hidePanel(); //workaround
 }

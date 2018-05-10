@@ -32,7 +32,7 @@ private:
 	int selectedOption;
 	std::unique_ptr<ElementListNC> optionList;
 
-	static std::array<char *, 5> options;
+	static std::vector<char *> options;
 
 	std::unique_ptr<NcAdapterAddFx> addNcDialog;
 	std::unique_ptr<NcAdapterMoveFx> moveNcDialog;

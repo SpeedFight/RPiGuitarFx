@@ -26,7 +26,11 @@ void NcAdapterMoveFx::fillActualFxList(){
 		fxListElements.push_back((char *)fx->getName()->c_str());
 	}
 
-	actualFxList.reset(new ElementListNC(fxListElements, "Move FX", 20, 21, 30, 2));
+	//if shorter than 6 fx then set width to 8
+	int width = (fxListElements.size() + 2 > 21) ? 21 : fxListElements.size() + 2;
+	width = (width < 9) ? 8 : width;
+
+	actualFxList.reset(new ElementListNC(fxListElements, "Move FX", 20, width, 30, 2));
 	actualFxList->panel->showPanel();
 	actualFxList->panel->hidePanel(); //workaround
 }

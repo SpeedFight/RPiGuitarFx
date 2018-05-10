@@ -26,7 +26,8 @@ optionList(nullptr)
 		avaibleFxAmount++;
 	}
 
-	optionList.reset(new ElementListNC(avaibleFxNames, "Add FX", 20, 21, 30, 2));
+	int width = (avaibleFxNames.size() + 2 > 21) ? 21 : avaibleFxNames.size() + 2;
+	optionList.reset(new ElementListNC(avaibleFxNames, "Add FX", 20, width, 30, 2));
 
 
 	optionList->panel->showPanel();
