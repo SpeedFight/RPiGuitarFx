@@ -22,8 +22,12 @@ public:
 	NcAdapter(FXList *newFxList, IDetector *newUserInput);
 	void handleUserInput();
 
+
 private:
 	void fillActualFxList();
+	void addToSelectedFxNum(int diff);
+	void setNewFxGuiBox();
+	void updateFxGuiBox();
 
 
 	FXList *fxList; //class contain also some other specific options for fx's
@@ -31,6 +35,8 @@ private:
 	int selectedFxNum;
 	std::unique_ptr<TerminalGui> terminalGui;
 	std::unique_ptr<ElementListNC> actualFxList;
+	std::unique_ptr<FxViewNC> fxViewNc;
+
 };
 
 

@@ -84,7 +84,7 @@ FxInfoViewNC::FxInfoViewNC(char *newFxname, int newColorScheme,int newWindowWidt
 	box(window.get(), 0, 0);
 
 	//print setting name
-	print_in_middle(window.get(), 2, 0, windowWidth, newFxname, colorScheme);
+	print_in_middle(window.get(), 2, 0, windowWidth, fxName, colorScheme);
 
 	wrefresh(window.get());
 }
@@ -99,16 +99,6 @@ FxInfoViewNC::~FxInfoViewNC(){
  */
 
 FxViewNC::FxViewNC(){
-//	settingsBoxs.fill(nullptr);
-
-	fxInfoBox.reset(new FxInfoViewNC("simple overdrive machine", 1, 60, 5, 20, 4));
-	settingsBoxs[0].reset(new FxSettingViewNC("gain kek", "10% ms", 20, 6, 20, 13));
-	settingsBoxs[1].reset(new FxSettingViewNC("gain", "10%", 20, 6, 40, 13));
-	settingsBoxs[2].reset(new FxSettingViewNC("master volume", "10%", 20, 6, 20, 13));
-	settingsBoxs[3].reset(new FxSettingViewNC("gain", "10%", 20, 6, 60, 13));
-	settingsBoxs[4].reset(new FxSettingViewNC("simple overdrive", "10%", 20, 6, 20, 19));
-	settingsBoxs[5].reset(new FxSettingViewNC("gain", "10%", 20, 6, 40, 19));
-	settingsBoxs[6].reset(new FxSettingViewNC("gain", "10%", 20, 6, 60, 19));
 
 }
 
@@ -120,6 +110,19 @@ FxViewNC::~FxViewNC(){
 	fxInfoBox->~FxInfoViewNC();
 
 	refresh();
+}
+
+void FxViewNC::eraseWin(){
+	for(auto &settingBox : settingsBoxs){
+		if(settingBox != nullptr){
+			werase(settingBox->window.get());
+			redrawwin(settingBox->window.get());
+			wnoutrefresh(settingBox->window.get());
+		}else {
+			break;
+		}
+	}
+	doupdate();
 }
 
 void FxViewNC::refresh(){

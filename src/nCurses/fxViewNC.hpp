@@ -59,6 +59,7 @@ public:
 	~FxViewNC();
 
 	void refresh();
+	void eraseWin();
 
 	std::array<std::unique_ptr<FxSettingViewNC>, 7> settingsBoxs;
 	std::unique_ptr<FxInfoViewNC> fxInfoBox;
