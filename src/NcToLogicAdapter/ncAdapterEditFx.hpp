@@ -25,6 +25,13 @@ private:
 	FXList *fxList; //class contain also some other specific options for fx's
 	IDetector *userInput; //
 	int *selectedFxNum;
+
+	int selectedOption;
+	std::unique_ptr<ElementListNC> optionList;
+
+	static std::array<char *, 5> options;
+
+	void addToSelectedOption(int diff);
 };
 
 

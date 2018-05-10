@@ -17,6 +17,8 @@
 #include "effectsList.hpp"
 #include "effect.hpp"
 
+#include "ncAdapterEditFx.hpp"
+
 class NcAdapter{
 public:
 	NcAdapter(FXList *newFxList, IDetector *newUserInput);
@@ -36,6 +38,7 @@ private:
 	std::unique_ptr<TerminalGui> terminalGui;
 	std::unique_ptr<ElementListNC> actualFxList;
 	std::unique_ptr<FxViewNC> fxViewNc;
+	std::unique_ptr<NcAdapterEditFx> editNcDialog;
 
 };
 

@@ -13,7 +13,8 @@ userInput(newUserInput),
 selectedFxNum(0),
 terminalGui(new TerminalGui()),
 actualFxList(nullptr),
-fxViewNc(nullptr)
+fxViewNc(nullptr),
+editNcDialog(new NcAdapterEditFx(newFxList, newUserInput, &selectedFxNum))
 {
 	//prepare basic UI
 	fillActualFxList();
@@ -60,7 +61,6 @@ fxViewNc(nullptr)
 void NcAdapter::fillActualFxList(){
 	static std::vector<char *> fxListElements;
 	void *ptr = actualFxList.release();
-	fxViewNc.reset(new FxViewNC());
 
 	fxListElements.clear();
 	for(auto fx : *fxList->getCurrentFXList()){
@@ -85,8 +85,10 @@ void NcAdapter::addToSelectedFxNum(int diff){
 }
 
 void NcAdapter::setNewFxGuiBox(){
+	if(fxViewNc){
 	fxViewNc->eraseWin();
 	void *ptr = fxViewNc.release();
+	}
 	fxViewNc.reset(new FxViewNC());
 
 	auto currentFx = fxList->getCurrentFXList()->at(selectedFxNum);
@@ -129,7 +131,7 @@ void NcAdapter::handleUserInput(){
 
 	setNewFxGuiBox();
 	while(1){
-		std::this_thread::sleep_for (std::chrono::milliseconds(100));
+		std::this_thread::sleep_for (std::chrono::milliseconds(50));
 
 
 		if(*pot1 != 0){
@@ -141,13 +143,10 @@ void NcAdapter::handleUserInput(){
 		}
 
 		if(*btn1){
-//			adapterEditFxDialog->handleEditFxDialog();
+			editNcDialog->handleEditFx();
 			std::this_thread::sleep_for (std::chrono::milliseconds(50));
-//			updateFxGuiList();
-//			selectFxInList(selectedFxNum);
-//			setNewFxGuiBox(selectedFxNum);
-//			std::cout<<"edit fx end"<<std::endl;
-
+			fxViewNc->refresh();
+			fillActualFxList();
 			setNewFxGuiBox();
 			actualFxList->listWindow->selectIndex(selectedFxNum);
 		}
