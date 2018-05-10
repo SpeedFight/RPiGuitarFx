@@ -19,7 +19,8 @@ fxList(newFxList),
 userInput(newUserInput),
 selectedFxNum(newSelectedFxNum),
 selectedOption(0),
-optionList(new ElementListNC(std::vector<char *>{ options.begin(), options.end() }, "Select action", 20, 6, 30, 2))
+optionList(new ElementListNC(std::vector<char *>{ options.begin(), options.end() }, "Select action", 20, 6, 30, 2)),
+addNcDialog(new NcAdapterAddFx(newFxList, newUserInput, newSelectedFxNum))
 {
 	optionList->panel->showPanel();
 	optionList->panel->hidePanel(); //workaround
@@ -72,7 +73,7 @@ void NcAdapterEditFx::handleEditFx(){
 					break;
 
 				case DialogWindowBtn::addNextBtn:
-//					addFxDialog->handleAddFxDialog();
+					addNcDialog->handleAddFx();
 					break;
 
 				case DialogWindowBtn::movelBtn:

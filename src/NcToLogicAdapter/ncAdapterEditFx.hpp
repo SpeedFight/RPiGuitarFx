@@ -16,6 +16,9 @@
 #include "effectsList.hpp"
 #include "effect.hpp"
 
+#include "ncAdapterAddFx.hpp"
+#include "ncAdapterMoveFx.hpp"
+
 class NcAdapterEditFx{
 public:
 	NcAdapterEditFx(FXList *newFxList, IDetector *newUserInput, int *newSelectedFxNum);
@@ -30,6 +33,9 @@ private:
 	std::unique_ptr<ElementListNC> optionList;
 
 	static std::array<char *, 5> options;
+
+	std::unique_ptr<NcAdapterAddFx> addNcDialog;
+//	std::unique_ptr<NcAdapterMoveFx> moveNcDialog;
 
 	void addToSelectedOption(int diff);
 };
