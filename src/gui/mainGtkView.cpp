@@ -18,8 +18,8 @@ ViewGtk::ViewGtk(int argc, char * argv[]){
 	mainWindow->set_default_size(592, 448);
 
 #ifdef __arm__
-	mainWindow->set_decorated(false); //aded
-	mainWindow->fullscreen();	//added
+	mainWindow->set_decorated(false);
+	mainWindow->fullscreen();
 #endif
 
 	fxBox = Gtk::manage(new FxGtkView());

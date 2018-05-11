@@ -14,20 +14,13 @@
 
 #include "effectsList.hpp"
 
-#include "mainGtkView.hpp"
-#include "adapter.hpp"
-
-//#include "mainNCrurses.hpp"
-#include "nCoursesKeyboard.hpp"
-#include "ncAdapter.hpp"
-
-/*	TODO
- * 1) DONE zamienic liste na vector
- * 2) dodać klase do zarzadzania vectorem z efektami
- * 3) dodać mechanizm który wybiera efekt przyjmujący dane z potencjometrow
- * 4) testowy interfejs w konsoli
- * 4) gui -> gtk3
- */
+#ifdef GTK_UI
+	#include "mainGtkView.hpp"
+	#include "adapter.hpp"
+#else
+	#include "nCoursesKeyboard.hpp"
+	#include "ncAdapter.hpp"
+#endif
 
 int main( int argc, char * argv[] )
 {
