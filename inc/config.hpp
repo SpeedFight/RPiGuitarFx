@@ -23,12 +23,17 @@
 /*
  * keyboard windows is only graphics thread
  */
-#define GTK_KEYBOARD_LOOP
+//#define GTK_KEYBOARD_LOOP
+
+
+#ifdef __arm__
+	#define ROTARY_ENCODER
+#endif
 
 /*
- * uncomment if use with rpi encoders
+ * choose between UI in GTK or ncurses
  */
-//#define ROTARY_ENCODER
+#define GTK_UI
 
 const unsigned int DEFAULT_RESERVED_FX_LIST_SIZE = 8;
 

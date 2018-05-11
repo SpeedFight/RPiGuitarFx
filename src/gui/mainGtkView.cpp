@@ -15,14 +15,17 @@ ViewGtk::ViewGtk(int argc, char * argv[]){
 	mainWindow.reset(new Gtk::Window());
 
 	mainWindow->set_title("RPiGFX");
-	mainWindow->set_default_size(800, 600);
+	mainWindow->set_default_size(592, 448);
+
+#ifdef __arm__
+	mainWindow->set_decorated(false); //aded
+	mainWindow->fullscreen();	//added
+#endif
 
 	fxBox = Gtk::manage(new FxGtkView());
 	fxlist = Gtk::manage(new FxGtkList());
 
 	mainWindow->add(*mainViewWidget(fxlist, fxBox));
-
-	//mainWindow->set_decorated(false);
 
 	mainWindow->show_all_children();
 }
@@ -34,10 +37,10 @@ Gtk::Widget *ViewGtk::mainViewWidget(FxGtkList* fxGtkList, FxGtkView *fxGtkView)
 	scrollForFxList = Gtk::manage(new Gtk::ScrolledWindow());
 	fxViewBox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 10));
 
-	lowePartMainWindowBox->set_row_spacing(100);
-	lowePartMainWindowBox->set_column_spacing(100);
+	lowePartMainWindowBox->set_row_spacing(45);
+	lowePartMainWindowBox->set_column_spacing(30);
 
-	mainWindowBox->pack_start(*title, Gtk::PACK_SHRINK);
+	mainWindowBox->pack_start(*title, Gtk::PACK_EXPAND_WIDGET);
 	mainWindowBox->pack_start(*lowePartMainWindowBox, Gtk::PACK_EXPAND_WIDGET);
 
 	scrollForFxList->add(*fxGtkList);
@@ -45,8 +48,8 @@ Gtk::Widget *ViewGtk::mainViewWidget(FxGtkList* fxGtkList, FxGtkView *fxGtkView)
 
 	fxViewBox->pack_start(*fxGtkView, Gtk::PACK_EXPAND_WIDGET);
 
-	lowePartMainWindowBox->attach(*scrollForFxList, 	0, 0, 3, 7);
-	lowePartMainWindowBox->attach(*fxViewBox, 		2, 0, 7, 7);
+	lowePartMainWindowBox->attach(*scrollForFxList, 	0, 0, 1, 9);
+	lowePartMainWindowBox->attach(*fxViewBox, 			1, 0, 7, 9);
 
 	return mainWindowBox;
 }

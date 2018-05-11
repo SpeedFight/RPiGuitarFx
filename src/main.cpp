@@ -14,34 +14,12 @@
 
 #include "effectsList.hpp"
 
-//#include "mainGtkView.hpp"
-
-//#include "adapter.hpp"
+#include "mainGtkView.hpp"
+#include "adapter.hpp"
 
 //#include "mainNCrurses.hpp"
 #include "nCoursesKeyboard.hpp"
 #include "ncAdapter.hpp"
-
-//void poolForInput(FXList *fxList, Adapter *adapter){
-//	adapter->updateFxGuiList();
-//	adapter->setNewFxGuiBox(1);
-//	adapter->selectFxInList(1);
-//
-//	while(1){
-//	fxList->updateFXParameters(1);
-//	adapter->updateFxGuiBox(1);
-//	std::this_thread::sleep_for (std::chrono::milliseconds(100));
-//	}
-//}
-
-//tmpo help function
-//void printList(FXList *list){
-//	std::cout<<"lista: "<<std::endl;
-//	for(auto element : *(list->getFXList())){
-//		std::cout<< *(element->getName()) << std::endl;
-//	}
-//	std::cout<<std::endl;
-//}
 
 /*	TODO
  * 1) DONE zamienic liste na vector
@@ -56,8 +34,11 @@ int main( int argc, char * argv[] )
 #ifdef ROTARY_ENCODER
 	std::unique_ptr<IDetector> controller(new Encoder());
 #else
-//	std::unique_ptr<IDetector> controller(new Keyboard(argc, argv));
+	#ifdef GTK_UI
+	std::unique_ptr<IDetector> controller(new Keyboard(argc, argv));
+	#else
 	std::unique_ptr<IDetector> controller(new NCourseKeyboard());
+	#endif
 #endif
 
 	std::unique_ptr<FXList> fxList(new FXList());
@@ -66,25 +47,41 @@ int main( int argc, char * argv[] )
 	fxList->addFX(new SimpleOverdriveFx(controller.get()));
 	fxList->addFX(new ToneStackEq(controller.get()));
 
-	std::unique_ptr<TerminalGui> termGui(new TerminalGui());
-
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
-//	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
-//	std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), controller.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
-	std::unique_ptr<NcAdapter> adapter(new NcAdapter(fxList.get(), controller.get()));
+	std::this_thread::sleep_for (std::chrono::milliseconds(500));
 
-//	std::thread guiThread(&ViewGtk::poolForView, view.get());
+	std::unique_ptr<ViewGtk> view(new ViewGtk(argc, argv));
+	std::this_thread::sleep_for (std::chrono::milliseconds(500));
+
+	#ifdef GTK_UI
+		std::unique_ptr<Adapter> adapter(new Adapter(fxList.get(), controller.get(), view->getFxGtkList(), view->getFxGtkView(), argc, argv));
+	#else
+		std::unique_ptr<NcAdapter> adapter(new NcAdapter(fxList.get(), controller.get()));
+	#endif
+	std::this_thread::sleep_for (std::chrono::milliseconds(500));
+
+	std::thread guiThread(&ViewGtk::poolForView, view.get());
+	std::this_thread::sleep_for (std::chrono::milliseconds(500));
+
 	std::thread controllerInputThread(&IDetector::pollForEvents, controller.get());
-//	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
+	std::this_thread::sleep_for (std::chrono::milliseconds(500));
+
+	#ifdef GTK_UI
+	std::thread handleUserInputThread(&Adapter::handleUserInput, adapter.get());
+	#else
 	std::thread handleUserInputThread(&NcAdapter::handleUserInput, adapter.get());
+	#endif
+	std::this_thread::sleep_for (std::chrono::milliseconds(500));
 
-	std::this_thread::sleep_for (std::chrono::seconds(60*4));
+	while(1){
+		std::this_thread::sleep_for(std::chrono::seconds(60 * 60));
+	}
 
-//	guiThread.~thread();
+	guiThread.~thread();
 	controllerInputThread.~thread();
 	handleUserInputThread.~thread();
 
-//	view.reset();
+	view.reset();
 	input.reset();
 	fxList.reset();
 	controller.reset();

@@ -14,7 +14,7 @@ FxGtkView::FxGtkView():
 	fxNameLabel(Gtk::manage(new Gtk::Label()))
 {
 	gridFxValues->set_row_spacing(40);
-	gridFxValues->set_column_spacing(200);
+	gridFxValues->set_column_spacing(120);
 
 	//fxNameFrame->set_shadow_type(Gtk::SHADOW_IN);
 	//fxNameFrame->override_background_color(Gdk::RGBA("green"));
