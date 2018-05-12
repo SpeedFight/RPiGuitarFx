@@ -10,6 +10,9 @@
 
 #include "effect.hpp"
 
+//caps
+#include "Reverb.h"
+
 class Reverb: public IFX{
 public:
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs);
@@ -21,6 +24,8 @@ public:
 
 private:
 	 static const std::string nameFx;
+
+	 std::unique_ptr<JVRev> jvReverb;
 
 };
 

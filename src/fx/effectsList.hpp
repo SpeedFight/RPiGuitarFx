@@ -13,6 +13,7 @@
 #include "playbackFx.hpp"
 #include "simpleOverdriveFX.hpp"
 #include "toneStackEq.hpp"
+#include "reverb.hpp"
 
 class AvaibleFxList{
 public:

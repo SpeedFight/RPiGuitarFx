@@ -37,9 +37,10 @@ int main( int argc, char * argv[] )
 
 	std::unique_ptr<FXList> fxList(new FXList());
 
-	fxList->addFX(new PlaybackFx(controller.get()));
-	fxList->addFX(new SimpleOverdriveFx(controller.get()));
-	fxList->addFX(new ToneStackEq(controller.get()));
+//	fxList->addFX(new PlaybackFx(controller.get()));
+//	fxList->addFX(new SimpleOverdriveFx(controller.get()));
+//	fxList->addFX(new ToneStackEq(controller.get()));
+	fxList->addFX(new Reverb(controller.get()));
 
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 	std::this_thread::sleep_for (std::chrono::milliseconds(500));

@@ -1,5 +1,7 @@
-List of libs to put here
-git clone
+List of used libs
 
 1)	rotaryEncoder
 	https://github.com/F6HQZ/rotary-encoder-lib-for-raspberry-pi
+	
+2)	CAPS
+	http://quitte.de/dsp/caps.html#
