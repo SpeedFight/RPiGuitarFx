@@ -18,16 +18,17 @@ Encoder::Encoder(){
     wiringPiSetup () ;
 
 	struct encoder_type *encoder =
-			setupencoder ("ENC1",0,2,	YES,YES,YES,		-512,512,0,	200000,40000,25000,10000,1,1,1) ;
-			setupencoder ("ENC2",3,4,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
-			setupencoder ("ENC3",27,26,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
-			setupencoder ("ENC4",5,23,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
+			setupencoder ("ENC1",26,23,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
+			setupencoder ("ENC2",5,6,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
+			setupencoder ("ENC3",7,21,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
+			setupencoder ("ENC4",0,2,	YES,YES,YES,		-512,512,0,	200000,40000,25000,10000,1,1,1) ;
+
 
 	struct button *button =
-	setupbutton("BTN1",7,1) ;
-	setupbutton("BTN2",15,1) ;
-	setupbutton("BTN3",6,1) ;
-	setupbutton("BTN4",22,1) ;
+		setupbutton("BTN1",27,1) ;
+		setupbutton("BTN2",22,1) ;
+		setupbutton("BTN3",4,1) ;
+		setupbutton("BTN4",3,1) ;
 }
 
 int *Encoder::getInputHandler(ControllerInput controllerInput){
