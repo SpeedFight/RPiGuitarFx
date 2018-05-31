@@ -68,11 +68,11 @@ ToneStackEq::ToneStackEq(IDetector *newUserInput):
 	R2 = 1e6; // lowR
 	R3 = 25e3; // midR
 	R4 = 56e3;
-	fs = 44.1e3;
+//	fs = 44.1e3;
 
 	numCoeff = {0, 0, 0, 0};
 	denomCoeff = {0, 0, 0, 0};
-	c = 2*fs;
+	c = 2 * audioSettings::fs;
 }
 
 void ToneStackEq::calculateNewCoef(float b, float m, float t){

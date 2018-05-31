@@ -46,6 +46,11 @@ namespace fxDialogListColor{
 }
 
 
+namespace audioSettings{
+	const unsigned int fs = 44100;
+}
+
+
 enum ControllerInput{
 	pot1,
 	pot2,
