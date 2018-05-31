@@ -116,7 +116,7 @@ void Interrupt4 (void) { updateOneEncoder(4) ; }
 void Interrupt5 (void) { updateOneEncoder(5) ; }
 void Interrupt6 (void) { updateOneEncoder(6) ; }
 void Interrupt7 (void) { updateOneEncoder(7) ; }
-void Interrupt10 (void) { updateOneEncoder(10) ; }   //extended
+void Interrupt11 (void) { updateOneEncoder(11) ; }   //extended
 void Interrupt15 (void) { updateOneEncoder(15) ; }   //extended
 void Interrupt16 (void) { updateOneEncoder(16) ; }   //extended
 void Inter0 (void) { updateOneButton(0) ; }
@@ -127,7 +127,7 @@ void Inter4 (void) { updateOneButton(4) ; }
 void Inter5 (void) { updateOneButton(5) ; }
 void Inter6 (void) { updateOneButton(6) ; }
 void Inter7 (void) { updateOneButton(7) ; }
-void Inter10 (void) { updateOneButton(10) ; }	//extended
+void Inter11 (void) { updateOneButton(11) ; }	//extended
 void Inter15 (void) { updateOneButton(15) ; } //extended
 void Inter16 (void) { updateOneButton(16) ; } //extended
 // these following GPIO exist on Rapsi 2 and B+ only !

@@ -18,17 +18,17 @@ Encoder::Encoder(){
     wiringPiSetup () ;
 
 	struct encoder_type *encoder =
-			setupencoder ("ENC1",26,23,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
-			setupencoder ("ENC2",5,6,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
-			setupencoder ("ENC3",7,21,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
-			setupencoder ("ENC4",0,2,	YES,YES,YES,		-512,512,0,	200000,40000,25000,10000,1,1,1) ;
+			setupencoder ("ENC1", 23, 27,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
+			setupencoder ("ENC2", 21, 22,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
+			setupencoder ("ENC3", 4, 5,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
+			setupencoder ("ENC4", 0, 2,	YES,YES,YES,		-512,512,0,	200000,40000,25000,10000,1,1,1) ;
 
 
 	struct button *button =
-		setupbutton("BTN1",27,1) ;
-		setupbutton("BTN2",22,1) ;
-		setupbutton("BTN3",4,1) ;
-		setupbutton("BTN4",3,1) ;
+		setupbutton("BTN1", 25, 1) ;
+		setupbutton("BTN2", 26, 1) ;
+		setupbutton("BTN3", 6, 1) ;
+		setupbutton("BTN4", 3, 1) ;
 }
 
 int *Encoder::getInputHandler(ControllerInput controllerInput){
@@ -68,21 +68,21 @@ void Encoder::pollForEvents(){
 
 		// and if any value modified, then display the new value (and all others too)
 		if (print){
-//			std::cout<<"pot1val: "<<controllerValues[ControllerInput::pot1]<<std::endl;
-//			std::cout<<"pot2val: "<<controllerValues[ControllerInput::pot2]<<std::endl;
-//			std::cout<<"pot3val: "<<controllerValues[ControllerInput::pot3]<<std::endl;
-//			std::cout<<"pot4val: "<<controllerValues[ControllerInput::pot4]<<std::endl;
-//			std::cout<<"pot5val: "<<controllerValues[ControllerInput::pot5]<<std::endl;
-//			std::cout<<"pot6val: "<<controllerValues[ControllerInput::pot6]<<std::endl;
-//			std::cout<<"pot7val: "<<controllerValues[ControllerInput::pot7]<<std::endl;
-//			std::cout<<"pot8val: "<<controllerValues[ControllerInput::pot8]<<std::endl;
-//			std::cout<<"btn1val: "<<controllerValues[ControllerInput::btn1]<<std::endl;
-//			std::cout<<"btn2val: "<<controllerValues[ControllerInput::btn2]<<std::endl;
-//			std::cout<<"btn3val: "<<controllerValues[ControllerInput::btn3]<<std::endl;
-//			std::cout<<"btn4val: "<<controllerValues[ControllerInput::btn4]<<std::endl;
-//			std::cout<<"foot1val: "<<controllerValues[ControllerInput::foot1]<<std::endl;
-//			std::cout<<"foot2val: "<<controllerValues[ControllerInput::foot2]<<std::endl;
-//			std::cout<<"foot3val: "<<controllerValues[ControllerInput::foot3]<<std::endl;
+			std::cout<<"pot1val: "<<controllerValues[ControllerInput::pot1]<<std::endl;
+			std::cout<<"pot2val: "<<controllerValues[ControllerInput::pot2]<<std::endl;
+			std::cout<<"pot3val: "<<controllerValues[ControllerInput::pot3]<<std::endl;
+			std::cout<<"pot4val: "<<controllerValues[ControllerInput::pot4]<<std::endl;
+			std::cout<<"pot5val: "<<controllerValues[ControllerInput::pot5]<<std::endl;
+			std::cout<<"pot6val: "<<controllerValues[ControllerInput::pot6]<<std::endl;
+			std::cout<<"pot7val: "<<controllerValues[ControllerInput::pot7]<<std::endl;
+			std::cout<<"pot8val: "<<controllerValues[ControllerInput::pot8]<<std::endl;
+			std::cout<<"btn1val: "<<controllerValues[ControllerInput::btn1]<<std::endl;
+			std::cout<<"btn2val: "<<controllerValues[ControllerInput::btn2]<<std::endl;
+			std::cout<<"btn3val: "<<controllerValues[ControllerInput::btn3]<<std::endl;
+			std::cout<<"btn4val: "<<controllerValues[ControllerInput::btn4]<<std::endl;
+			std::cout<<"foot1val: "<<controllerValues[ControllerInput::foot1]<<std::endl;
+			std::cout<<"foot2val: "<<controllerValues[ControllerInput::foot2]<<std::endl;
+			std::cout<<"foot3val: "<<controllerValues[ControllerInput::foot3]<<std::endl;
 		}
 	}
 }
