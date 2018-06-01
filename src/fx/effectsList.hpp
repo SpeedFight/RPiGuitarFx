@@ -14,6 +14,7 @@
 #include "simpleOverdriveFX.hpp"
 #include "toneStackEq.hpp"
 #include "reverb.hpp"
+#include "delay.hpp"
 
 class AvaibleFxList{
 public:

@@ -12,6 +12,7 @@ AvaibleFxList::AvaibleFxList(IDetector *newUserInput){
 	fxlist.push_back(std::unique_ptr<IFX>(new SimpleOverdriveFx(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new ToneStackEq(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new Reverb(newUserInput)));
+	fxlist.push_back(std::unique_ptr<IFX>(new Delay(newUserInput)));
 }
 
 
@@ -22,6 +23,7 @@ IFX *FxFactory::createFx(int fxNum, IDetector *newUserInput){
 		case 1: return new SimpleOverdriveFx(newUserInput); break;
 		case 2: return new ToneStackEq(newUserInput); break;
 		case 3: return new Reverb(newUserInput); break;
+		case 4: return new Delay(newUserInput); break;
 		default: return nullptr; break;
 	}
 }

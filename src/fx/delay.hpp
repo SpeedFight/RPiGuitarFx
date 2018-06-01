@@ -8,7 +8,10 @@
 #ifndef DELAY_HPP_
 #define DELAY_HPP_
 
+#include "config.hpp"
 #include "effect.hpp"
+
+#include "dsp/delayLine.hpp"
 
 class Delay: public IFX{
 public:
@@ -21,6 +24,8 @@ public:
 
 private:
 	 static const std::string nameFx;
+
+	 std::unique_ptr<DelayLine> delayLine;
 };
 
 
