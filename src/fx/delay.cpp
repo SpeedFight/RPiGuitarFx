@@ -68,11 +68,11 @@ void Delay::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inB
 
 Delay::Delay(IDetector *newUserInput):
 		IFX(newUserInput),
-		delayLine(new DelayLine(19))
+		delayLine(new DelayLine(18))
 		{
 	settings = std::vector<Setting>{
 		Setting("time ms", userInput->getInputHandler(ControllerInput::pot2), 1, 1, 100),
-		Setting("100x time ms", userInput->getInputHandler(ControllerInput::pot3), 4, 0, 118),
+		Setting("100x time ms", userInput->getInputHandler(ControllerInput::pot3), 4, 0, 50),
 		Setting("mix", userInput->getInputHandler(ControllerInput::pot4), 10, 0, 20),
 		Setting("intense", userInput->getInputHandler(ControllerInput::pot6), 5, 0, 20),
 		Setting("feedback", userInput->getInputHandler(ControllerInput::pot7), 5, 0, 20),

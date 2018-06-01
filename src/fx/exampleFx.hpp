@@ -9,6 +9,7 @@
 #define EXAMPLEFX_HPP_
 
 #include "effect.hpp"
+#include "config.hpp"
 
 class ExampleFx: public IFX{
 public:

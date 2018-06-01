@@ -28,7 +28,29 @@ float* DelayLine::getPrevious(unsigned int previousSampleIndex){
 		return &ringBuffer[maxIndex + prevIndex];
 	}
 }
-float* DelayLine::getPreviousFract(float previousSample){
+float* DelayLine::getPreviousFract(float previousSampleIndex){
+	static float ya_alt, output;
+	unsigned int x1Index, x2Index;
+	float frac, x1Val, x2Val;
 
+	int prevIndex = currentIndex - (int)previousSampleIndex;
+	x1Index = prevIndex;
+	x2Index = prevIndex + 1;
+	frac = (float)x2Index - previousSampleIndex;
+
+	if (x1Index > 0){
+		x1Val = ringBuffer[x1Index];
+	}else{
+		x1Val = ringBuffer[maxIndex + x1Index];
+	}
+
+	if (x2Index > 0){
+		x2Val = ringBuffer[x2Index];
+	}else{
+		x2Val = ringBuffer[maxIndex + x2Index];
+	}
+
+	output = (x2Val+(1.0-frac)*x2Val - (1.0-frac)*ya_alt);
+	return &output;
 }
 
