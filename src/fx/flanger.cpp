@@ -38,7 +38,7 @@ void Flanger::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector i
 		float xh;
 		xh = inBufs[0][i]+ FB * delay;
 		delayLine->toBuffer(xh);
-		outBufs[0][i] = FF * delay + BL * xh * 0.95;
+		outBufs[0][i] = FF * delay + BL * xh * 0.98;
 //		outBufs[0][i] = tmp;
 	}
 

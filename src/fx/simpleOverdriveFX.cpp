@@ -20,7 +20,7 @@ void SimpleOverdriveFx::process(jack_nframes_t nframes, JackCpp::AudioIO::audioB
 			}else{
 				sign = -1;
 			}
-		outBufs[0][i] = sign * (1-exp(-std::abs(q))) * 0.97;
+		outBufs[0][i] = sign * (1-exp(-std::abs(q))) * 0.98;
 	}
 }
 

@@ -50,7 +50,7 @@ void Delay::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inB
 			delayLine->toBuffer(FB * delay);
 		}
 
-		outBufs[0][i] = FF * delay + BL * xh;
+		outBufs[0][i] = (FF * delay + BL * xh) * 0.98;
 
 	}
 }

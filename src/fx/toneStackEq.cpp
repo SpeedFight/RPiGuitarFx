@@ -139,7 +139,7 @@ void ToneStackEq::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVect
 			  y += numCoeff[k] * reg[k];
 			 }
 
-			outBufs[0][j] = y;
+			outBufs[0][j] = y * 0.98;
 		   }
 
 
