@@ -12,6 +12,7 @@
 #include "config.hpp"
 
 #include "dsp/delayLine.hpp"
+#include "dsp/lfo.hpp"
 #include "dsp/sinGen.hpp"
 #include "dsp/triangleGen.hpp"
 

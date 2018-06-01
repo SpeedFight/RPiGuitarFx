@@ -9,7 +9,7 @@
 #define SINGEN_HPP_
 
 #include "config.hpp"
-#include "lfo.hpp"
+#include "dsp/lfo.hpp"
 
 class SinGen: public Lfo{
 public:

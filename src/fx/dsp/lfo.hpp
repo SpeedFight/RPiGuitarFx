@@ -10,6 +10,7 @@
 
 #include "config.hpp"
 
+
 class Lfo{
 public:
 	Lfo(){};
