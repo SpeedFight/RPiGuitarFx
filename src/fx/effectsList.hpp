@@ -16,6 +16,7 @@
 #include "reverb.hpp"
 #include "delay.hpp"
 #include "flanger.hpp"
+#include "chorus.hpp"
 
 class AvaibleFxList{
 public:

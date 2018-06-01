@@ -14,6 +14,7 @@ AvaibleFxList::AvaibleFxList(IDetector *newUserInput){
 	fxlist.push_back(std::unique_ptr<IFX>(new Reverb(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new Delay(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new Flanger(newUserInput)));
+	fxlist.push_back(std::unique_ptr<IFX>(new Chorus(newUserInput)));
 }
 
 
@@ -26,6 +27,7 @@ IFX *FxFactory::createFx(int fxNum, IDetector *newUserInput){
 		case 3: return new Reverb(newUserInput); break;
 		case 4: return new Delay(newUserInput); break;
 		case 5: return new Flanger(newUserInput); break;
+		case 6: return new Chorus(newUserInput); break;
 		default: return nullptr; break;
 	}
 }

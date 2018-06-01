@@ -72,5 +72,3 @@ const std::string *Flanger::getName(){
 std::vector<Setting> *Flanger::getSettings(){
 
 }
-
-

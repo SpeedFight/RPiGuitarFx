@@ -21,7 +21,7 @@ void TriangleGen::setToStart(float newFrequency, float newPhase){
 	phase = newPhase;
 	output = newPhase;
 
-	diff = 4/audioSettings::fs * frequency;
+	diff = 4.0/audioSettings::fs * frequency;
 
 }
 
@@ -33,11 +33,11 @@ void TriangleGen::changeFrequency(float newFrequency){
 
 float TriangleGen::getSample(){
 
-	output = output + diff;
-	if (output >= 1){
+	output += diff;
+	if (output >= 1.0){
 	    diff = -diff;
 	   	output += diff;
-	}else if (output <= -1){
+	}else if (output <= -1.0){
 	    diff = -diff;
 	   output += diff;
 	}
