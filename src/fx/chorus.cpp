@@ -26,7 +26,9 @@ void Chorus::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector in
 		maxVariationDelayTimeInSamples = meanDelayTimeInSamples - 2;
 	}
 
-	triangleGen1->changeFrequency(frequency);
+	gen1->changeFrequency(frequency);
+	gen2->changeFrequency(frequency * 0.3);
+	gen3->changeFrequency(frequency * 0.7);
 
 	for(unsigned int i = 0; i <= nframes; ++i){
 //		std::cout<<"meanDelayTimeInSamples "<<meanDelayTimeInSamples<<std::endl;
@@ -34,9 +36,9 @@ void Chorus::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector in
 //		std::cout<<"sinGen "<<tmp<<std::endl;
 		float xh;
 
-		float delay1 = *delayLine->getPreviousFract(meanDelayTimeInSamples + maxVariationDelayTimeInSamples * triangleGen1->getSample()) * 0.30;
-		float delay2 = *delayLine->getPreviousFract(meanDelayTimeInSamples + maxVariationDelayTimeInSamples * triangleGen2->getSample()) * 0.30;
-		float delay3 = *delayLine->getPreviousFract(meanDelayTimeInSamples + maxVariationDelayTimeInSamples * triangleGen3->getSample()) * 0.30;
+		float delay1 = *delayLine->getPreviousFract(meanDelayTimeInSamples + maxVariationDelayTimeInSamples * gen1->getSample()) * 0.30;
+		float delay2 = *delayLine->getPreviousFract(meanDelayTimeInSamples + maxVariationDelayTimeInSamples * gen2->getSample()) * 0.30;
+		float delay3 = *delayLine->getPreviousFract(meanDelayTimeInSamples + maxVariationDelayTimeInSamples * gen3->getSample()) * 0.30;
 //		float delay3 = 0;
 		float delay = (delay1 + delay2 + delay3);
 		xh = inBufs[0][i]+ FB * delay;
@@ -54,9 +56,9 @@ void Chorus::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector in
 Chorus::Chorus(IDetector *newUserInput):
 		IFX(newUserInput),
 		delayLine(new DelayLine(13)),
-		triangleGen1(new SinGen()),
-		triangleGen2(new SinGen()),
-		triangleGen3(new TriangleGen())
+		gen1(new SinGen()),
+		gen2(new SinGen()),
+		gen3(new TriangleGen())
 		{
 	settings = std::vector<Setting>{
 		Setting("mix", userInput->getInputHandler(ControllerInput::pot2), 17, 0, 20),
@@ -65,9 +67,9 @@ Chorus::Chorus(IDetector *newUserInput):
 		Setting("frequency x0.1 Hz", userInput->getInputHandler(ControllerInput::pot6), 24, 1, 100)// max 10Hz
 	};
 
-	triangleGen1->setToStart(0.25, 0);
-	triangleGen2->setToStart(0.25, -3);
-	triangleGen3->setToStart(0.25, 1.4);
+	gen1->setToStart(0.25, 0);
+	gen2->setToStart(0.25, -3);
+	gen3->setToStart(0.25, 1.4);
 }
 
 Chorus::~Chorus(){

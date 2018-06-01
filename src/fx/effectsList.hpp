@@ -17,6 +17,7 @@
 #include "delay.hpp"
 #include "flanger.hpp"
 #include "chorus.hpp"
+#include "vibrato.hpp"
 
 class AvaibleFxList{
 public:

@@ -1,27 +1,25 @@
 /*
- * chorus.hpp
+ * vibrato.hpp
  *
  *  Created on: 1 cze 2018
  *      Author: SF
  */
 
-#ifndef CHORUS_HPP_
-#define CHORUS_HPP_
+#ifndef VIBRATO_HPP_
+#define VIBRATO_HPP_
 
 #include "effect.hpp"
 #include "config.hpp"
 
 #include "dsp/delayLine.hpp"
-#include "dsp/lfo.hpp"
 #include "dsp/sinGen.hpp"
-#include "dsp/triangleGen.hpp"
 
 
-class Chorus: public IFX{
+class Vibrato: public IFX{
 public:
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs);
-	Chorus(IDetector *newUserInput);
-	~Chorus();
+	Vibrato(IDetector *newUserInput);
+	~Vibrato();
 
 	const std::string *getName();
 	std::vector<Setting> *getSettings();
@@ -30,12 +28,8 @@ private:
 	 static const std::string nameFx;
 
 	 std::unique_ptr<DelayLine> delayLine;
-	 std::unique_ptr<Lfo> gen1;
-	 std::unique_ptr<Lfo> gen2;
-	 std::unique_ptr<Lfo> gen3;
-
+	 std::unique_ptr<SinGen> sinGen;
 };
 
 
-
-#endif /* CHORUS_HPP_ */
+#endif /* VIBRATO_HPP_ */
