@@ -46,7 +46,7 @@ float* DelayLine::getPreviousFract(float previousSampleIndex){
 	x1Val = *getPrevious(x1Index);
 	x2Val = *getPrevious(x2Index);
 
-	output = (x1Val+frac*x2Val - frac*ya_alt);
+	output = (x2Val+frac*x1Val - frac*ya_alt);
 //	output = x1Val*frac + x2Val*frac;
 	ya_alt = output;
 	return &output;

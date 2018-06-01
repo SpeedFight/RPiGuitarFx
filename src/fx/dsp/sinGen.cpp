@@ -22,7 +22,7 @@ void SinGen::setToStart(float newFrequency, float newPhase){
 	phase = newPhase;
 
 	phaseDiff = 1.0/audioSettings::fs;
-	freqencyPeriod = 1.0/frequency;
+	freqencyPeriod = 1.0/frequency * M_PI;
 
 }
 
