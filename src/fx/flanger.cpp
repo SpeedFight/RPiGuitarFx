@@ -14,7 +14,6 @@ void Flanger::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector i
 	static float FF = 0.7;
 	static float FB = -0.7;
 
-
 	float BL = (1.0 - settings.at(0).getValue()/20.0);
 	float time = settings.at(1).getValue()/10000.0; //delay time in s, 0.0001 -> 0.005 s
 	float depth = settings.at(2).getValue()/10000.0; //depth time in s 0.0001 -> 0.005 s
@@ -39,7 +38,6 @@ void Flanger::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector i
 		xh = inBufs[0][i]+ FB * delay;
 		delayLine->toBuffer(xh);
 		outBufs[0][i] = FF * delay + BL * xh * 0.98;
-//		outBufs[0][i] = tmp;
 	}
 
 }
