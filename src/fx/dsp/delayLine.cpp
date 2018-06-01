@@ -19,7 +19,7 @@ void DelayLine::toBuffer(float newSample){
 	currentIndex++;
 	currentIndex = currentIndex & maxIndex;
 }
-float* DelayLine::getPrevious(unsigned int previousSampleIndex){
+inline float* DelayLine::getPrevious(unsigned int previousSampleIndex){
 	int prevIndex = currentIndex - previousSampleIndex;
 
 	if (prevIndex > 0){
@@ -30,27 +30,25 @@ float* DelayLine::getPrevious(unsigned int previousSampleIndex){
 }
 float* DelayLine::getPreviousFract(float previousSampleIndex){
 	static float ya_alt, output;
-	unsigned int x1Index, x2Index;
+	int x1Index, x2Index;
 	float frac, x1Val, x2Val;
 
-	int prevIndex = currentIndex - (int)previousSampleIndex;
-	x1Index = prevIndex;
-	x2Index = prevIndex + 1;
-	frac = (float)x2Index - previousSampleIndex;
+	x1Index = previousSampleIndex;
+	x2Index = x1Index + 1;
 
-	if (x1Index > 0){
-		x1Val = ringBuffer[x1Index];
-	}else{
-		x1Val = ringBuffer[maxIndex + x1Index];
-	}
+	frac = 0.5;
 
-	if (x2Index > 0){
-		x2Val = ringBuffer[x2Index];
-	}else{
-		x2Val = ringBuffer[maxIndex + x2Index];
-	}
+//	std::cout<<"x1Index "<<x1Index<<std::endl;
+//	std::cout<<"x2Index "<<x2Index<<std::endl;
+//	std::cout<<"frac "<<frac<<std::endl;
+//	std::cout<<"previousSampleIndex "<<previousSampleIndex<<std::endl;
 
-	output = (x2Val+(1.0-frac)*x2Val - (1.0-frac)*ya_alt);
+	x1Val = *getPrevious(x1Index);
+	x2Val = *getPrevious(x2Index);
+
+	output = (x1Val+frac*x2Val - frac*ya_alt);
+//	output = x1Val*frac + x2Val*frac;
+	ya_alt = output;
 	return &output;
 }
 

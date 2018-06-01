@@ -15,6 +15,7 @@
 #include "toneStackEq.hpp"
 #include "reverb.hpp"
 #include "delay.hpp"
+#include "flanger.hpp"
 
 class AvaibleFxList{
 public:

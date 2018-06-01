@@ -17,7 +17,7 @@ freqencyPeriod(1)
 
 }
 
-void SinGen::setToStart(unsigned int newFrequency, float newPhase){
+void SinGen::setToStart(float newFrequency, float newPhase){
 	frequency = newFrequency;
 	phase = newPhase;
 
@@ -26,7 +26,7 @@ void SinGen::setToStart(unsigned int newFrequency, float newPhase){
 
 }
 
-void SinGen::changeFrequency(unsigned int newFrequency){
+void SinGen::changeFrequency(float newFrequency){
 	frequency = newFrequency;
 }
 

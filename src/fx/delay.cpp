@@ -40,7 +40,7 @@ void Delay::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inB
 //		yhold = FF * delay + BL * xh;
 //		outBufs[0][i] = yhold;
 
-		xh = inBufs[0][i] + FB * delay; //no filter
+//		xh = inBufs[0][i] + FB * delay; //no filter
 
 		if(!loop){ //no loop
 			xh = inBufs[0][i] + FB * delay; //no filter
@@ -53,7 +53,6 @@ void Delay::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inB
 		outBufs[0][i] = FF * delay + BL * xh;
 
 	}
-	std::cout<<"end"<<std::endl;
 }
 
 //max delay 2**17 samples

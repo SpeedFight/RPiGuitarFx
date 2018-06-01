@@ -14,14 +14,14 @@
 class SinGen: public Lfo{
 public:
 	SinGen();
-	void setToStart(unsigned int newFrequency, float newPhase);
-	void changeFrequency(unsigned int newFrequency);
+	void setToStart(float newFrequency, float newPhase);
+	void changeFrequency(float newFrequency);
 	float getSample();
 
 	virtual ~SinGen();
 
 private:
-	unsigned int frequency;
+	float frequency;
 	float phase;
 	float phaseDiff;
 	float output;

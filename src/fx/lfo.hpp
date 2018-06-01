@@ -13,8 +13,8 @@
 class Lfo{
 public:
 	Lfo(){};
-	virtual void setToStart(unsigned int newFrequency, float newPhase) = 0;
-	virtual void changeFrequency(unsigned int newFrequency) = 0;
+	virtual void setToStart(float newFrequency, float newPhase) = 0;
+	virtual void changeFrequency(float newFrequency) = 0;
 	virtual float getSample() = 0;
 
 	virtual ~Lfo() {};
