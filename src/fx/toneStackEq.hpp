@@ -24,16 +24,8 @@ private:
 
 	 static const std::string nameFx;
 	 float C1, C2, C3, R1, R2, R3, R4;
-//	 float fs;
-	 float c;
 
-		struct {
-				double a1, a2, a3;
-				double b1, b2, b3;
-		} acoef; // analog coefficients
 
-	std::array<float,4> numCoeff = {0, 0, 0, 0};
-	std::array<float,4> denomCoeff = {0, 0, 0, 0};
 };
 
 
