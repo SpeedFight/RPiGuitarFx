@@ -48,6 +48,13 @@ namespace fxDialogListColor{
 
 namespace audioSettings{
 	const unsigned int fs = 44100;
+	const unsigned int buffSize = 256;
+
+	enum SamplingMultiplier{
+			x2 = 2,
+			x4 = 4,
+			x8 = 8
+	};
 }
 
 

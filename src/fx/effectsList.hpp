@@ -18,6 +18,7 @@
 #include "flanger.hpp"
 #include "chorus.hpp"
 #include "vibrato.hpp"
+#include "tube.hpp"
 
 class AvaibleFxList{
 public:

@@ -11,21 +11,21 @@
 #include "config.hpp"
 #include <jackaudioio.hpp>
 
-enum SamplingMultiplier{
-		x2 = 2,
-		x4 = 4,
-		x8 = 8
-};
+//enum SamplingMultiplier{
+//		x2 = 2,
+//		x4 = 4,
+//		x8 = 8
+//};
 
 class UpDownSample{
 public:
-	UpDownSample(SamplingMultiplier mult, unsigned int inputBufferSize);
-	JackCpp::AudioIO::audioBufVector* up(JackCpp::AudioIO::audioBufVector inBufs);
-	void down(JackCpp::AudioIO::audioBufVector inBufs);
+	UpDownSample(audioSettings::SamplingMultiplier mult, unsigned int inputBufferSize);
+	std::vector<float> up(JackCpp::AudioIO::audioBufVector inBufs);
+	void down(JackCpp::AudioIO::audioBufVector outBufs);
 private:
-	SamplingMultiplier mult;
+	audioSettings::SamplingMultiplier mult;
 	unsigned int bufferSize;
-	JackCpp::AudioIO::audioBufVector output;
+	std::vector<float> output;
 };
 
 #endif /* UPSAMPLE_HPP_ */

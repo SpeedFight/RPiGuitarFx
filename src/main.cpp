@@ -43,8 +43,9 @@ int main( int argc, char * argv[] )
 //	fxList->addFX(new Reverb(controller.get()));
 //	fxList->addFX(new Delay(controller.get()));
 //	fxList->addFX(new Flanger(controller.get()));
-	fxList->addFX(new Chorus(controller.get()));
+//	fxList->addFX(new Chorus(controller.get()));
 //	fxList->addFX(new Vibrato(controller.get()));
+	fxList->addFX(new Tube(controller.get()));
 
 	std::unique_ptr<Audio> input(new Audio(fxList.get()));
 	std::this_thread::sleep_for (std::chrono::milliseconds(500));
