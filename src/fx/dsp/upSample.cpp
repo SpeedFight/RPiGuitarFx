@@ -34,9 +34,7 @@ void UpDownSample::down(JackCpp::AudioIO::audioBufVector outBufs){
 	for (int i = 0; i < bufferSize / mult ; i) {
 		outBufs[0][i++] = output[k];
 		k += mult ;
-
 	}
-	std::cout<<"k "<<k<<std::endl;
 }
 
 
