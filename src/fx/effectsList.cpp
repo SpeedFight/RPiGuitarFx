@@ -9,8 +9,8 @@
 
 AvaibleFxList::AvaibleFxList(IDetector *newUserInput){
 	fxlist.push_back(std::unique_ptr<IFX>(new PlaybackFx(newUserInput)));
-	fxlist.push_back(std::unique_ptr<IFX>(new Fuzz(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new Clipper(newUserInput)));
+	fxlist.push_back(std::unique_ptr<IFX>(new Fuzz(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new ToneStackEq(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new Delay(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new Flanger(newUserInput)));

@@ -68,21 +68,21 @@ void Encoder::pollForEvents(){
 
 		// and if any value modified, then display the new value (and all others too)
 		if (print){
-			std::cout<<"pot1val: "<<controllerValues[ControllerInput::pot1]<<std::endl;
-			std::cout<<"pot2val: "<<controllerValues[ControllerInput::pot2]<<std::endl;
-			std::cout<<"pot3val: "<<controllerValues[ControllerInput::pot3]<<std::endl;
-			std::cout<<"pot4val: "<<controllerValues[ControllerInput::pot4]<<std::endl;
-			std::cout<<"pot5val: "<<controllerValues[ControllerInput::pot5]<<std::endl;
-			std::cout<<"pot6val: "<<controllerValues[ControllerInput::pot6]<<std::endl;
-			std::cout<<"pot7val: "<<controllerValues[ControllerInput::pot7]<<std::endl;
-			std::cout<<"pot8val: "<<controllerValues[ControllerInput::pot8]<<std::endl;
-			std::cout<<"btn1val: "<<controllerValues[ControllerInput::btn1]<<std::endl;
-			std::cout<<"btn2val: "<<controllerValues[ControllerInput::btn2]<<std::endl;
-			std::cout<<"btn3val: "<<controllerValues[ControllerInput::btn3]<<std::endl;
-			std::cout<<"btn4val: "<<controllerValues[ControllerInput::btn4]<<std::endl;
-			std::cout<<"foot1val: "<<controllerValues[ControllerInput::foot1]<<std::endl;
-			std::cout<<"foot2val: "<<controllerValues[ControllerInput::foot2]<<std::endl;
-			std::cout<<"foot3val: "<<controllerValues[ControllerInput::foot3]<<std::endl;
+//			std::cout<<"pot1val: "<<controllerValues[ControllerInput::pot1]<<std::endl;
+//			std::cout<<"pot2val: "<<controllerValues[ControllerInput::pot2]<<std::endl;
+//			std::cout<<"pot3val: "<<controllerValues[ControllerInput::pot3]<<std::endl;
+//			std::cout<<"pot4val: "<<controllerValues[ControllerInput::pot4]<<std::endl;
+//			std::cout<<"pot5val: "<<controllerValues[ControllerInput::pot5]<<std::endl;
+//			std::cout<<"pot6val: "<<controllerValues[ControllerInput::pot6]<<std::endl;
+//			std::cout<<"pot7val: "<<controllerValues[ControllerInput::pot7]<<std::endl;
+//			std::cout<<"pot8val: "<<controllerValues[ControllerInput::pot8]<<std::endl;
+//			std::cout<<"btn1val: "<<controllerValues[ControllerInput::btn1]<<std::endl;
+//			std::cout<<"btn2val: "<<controllerValues[ControllerInput::btn2]<<std::endl;
+//			std::cout<<"btn3val: "<<controllerValues[ControllerInput::btn3]<<std::endl;
+//			std::cout<<"btn4val: "<<controllerValues[ControllerInput::btn4]<<std::endl;
+//			std::cout<<"foot1val: "<<controllerValues[ControllerInput::foot1]<<std::endl;
+//			std::cout<<"foot2val: "<<controllerValues[ControllerInput::foot2]<<std::endl;
+//			std::cout<<"foot3val: "<<controllerValues[ControllerInput::foot3]<<std::endl;
 		}
 	}
 }
