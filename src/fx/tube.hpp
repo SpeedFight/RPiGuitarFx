@@ -12,6 +12,7 @@
 #include "config.hpp"
 
 #include "dsp/upSample.hpp"
+#include "dsp/IIR.hpp"
 
 
 class Tube: public IFX{
@@ -27,7 +28,6 @@ private:
 	 static const std::string nameFx;
 
 	 std::unique_ptr<UpDownSample> upSampler;
-
 };
 
 

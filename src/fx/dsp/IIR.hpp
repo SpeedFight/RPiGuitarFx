@@ -15,7 +15,8 @@ class IIR{
 public:
 	IIR(float *aa0, float *aa1, float *aa2, float *bb0, float *bb1, float *bb2, unsigned short newOrder, unsigned int newInputSize);
 	void filter(JackCpp::AudioIO::audioBufVector input, JackCpp::AudioIO::audioBufVector output);
-	void filter(std::array<float,1024>* input, std::array<float,1024>* output);
+	void filter(float* input, float* output);
+	void setNewParams(float *aa0, float *aa1, float *aa2, float *bb0, float *bb1, float *bb2, unsigned short newOrder);
 
 
 private:

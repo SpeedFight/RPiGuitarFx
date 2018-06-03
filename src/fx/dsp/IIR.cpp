@@ -36,17 +36,27 @@ void IIR::filter(JackCpp::AudioIO::audioBufVector input, JackCpp::AudioIO::audio
 	  }
 }
 
-void IIR::filter(std::array<float,1024>* input, std::array<float,1024>* output){
+void IIR::filter(float* input, float* output){
 	 float y;
 	 unsigned int j, k;
 
 	 for(j=0; j < inputSize; j++){
-	   y = sectCalcForm1(0, input->at(j));
+	   y = sectCalcForm1(0, input[j]);
 	   for(k=1; k<order; k++){
 		 y = sectCalcForm1(k, y);
 		}
-	   output->at(j) = y;
+	   output[j] = y;
 	  }
+}
+
+void IIR::setNewParams(float *aa0, float *aa1, float *aa2, float *bb0, float *bb1, float *bb2, unsigned short newOrder){
+	a0 = aa0;
+	a1 = aa1;
+	a2 = aa2;
+	b0 = bb0;
+	b1 = bb1;
+	b2 = bb2;
+	order = newOrder;
 }
 
 inline float IIR::sectCalcForm1(unsigned short k, float x)

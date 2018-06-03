@@ -26,7 +26,6 @@ UpDownSample::UpDownSample(audioSettings::SamplingMultiplier mult, unsigned int 
 }
 
 std::array<float,1024> *UpDownSample::up(JackCpp::AudioIO::audioBufVector inBufs){
-	std::cout<<"output.size()"<<output.size()<<std::endl;
 
 	unsigned int k = 0;
 	for (unsigned int i = 0; i < bufferSize;){
@@ -38,14 +37,14 @@ std::array<float,1024> *UpDownSample::up(JackCpp::AudioIO::audioBufVector inBufs
 		}
 	}
 
-	interpolationFilter->filter(&output, &output);
+	interpolationFilter->filter(output.data(), output.data());
 
 	return &output;
 }
 
 void UpDownSample::down(JackCpp::AudioIO::audioBufVector outBufs){
 
-	antiAliasingFilter-> filter(&output, &output);
+	antiAliasingFilter-> filter(output.data(), output.data());
 
 	unsigned int k = 0;
 	for (int i = 0; i < bufferSize / mult ;) {
