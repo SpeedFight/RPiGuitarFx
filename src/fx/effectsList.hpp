@@ -8,6 +8,7 @@
 #ifndef EFFECTSLIST_HPP_
 #define EFFECTSLIST_HPP_
 
+#include <clipper.hpp>
 #include "config.hpp"
 
 #include "playbackFx.hpp"
@@ -18,7 +19,6 @@
 #include "flanger.hpp"
 #include "chorus.hpp"
 #include "vibrato.hpp"
-#include "tube.hpp"
 
 class AvaibleFxList{
 public:

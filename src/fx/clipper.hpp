@@ -5,8 +5,8 @@
  *      Author: SF
  */
 
-#ifndef TUBE_HPP_
-#define TUBE_HPP_
+#ifndef CLIPPER_HPP_
+#define CLIPPER_HPP_
 
 #include "effect.hpp"
 #include "config.hpp"
@@ -15,11 +15,11 @@
 #include "dsp/IIR.hpp"
 
 
-class Tube: public IFX{
+class Clipper: public IFX{
 public:
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs);
-	Tube(IDetector *newUserInput);
-	~Tube();
+	Clipper(IDetector *newUserInput);
+	~Clipper();
 
 	const std::string *getName();
 	std::vector<Setting> *getSettings();
@@ -31,4 +31,4 @@ private:
 };
 
 
-#endif /* TUBE_HPP_ */
+#endif /* CLIPPER_HPP_ */

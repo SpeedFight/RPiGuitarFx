@@ -5,11 +5,11 @@
  *      Author: SF
  */
 
-#include "tube.hpp"
+#include <clipper.hpp>
 
-const std::string Tube::nameFx("Tube");
+const std::string Clipper::nameFx("Clipper");
 
-void Tube::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs){
+void Clipper::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs){
 
 	float gain = settings.at(0).getValue();
 	float threshold = settings.at(1).getValue()/10.0;
@@ -48,7 +48,7 @@ void Tube::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBu
 
 }
 
-Tube::Tube(IDetector *newUserInput):
+Clipper::Clipper(IDetector *newUserInput):
 		IFX(newUserInput),
 		upSampler(new UpDownSample(audioSettings::x4, audioSettings::buffSize))
 		{
@@ -61,14 +61,14 @@ Tube::Tube(IDetector *newUserInput):
 	};
 }
 
-Tube::~Tube(){
+Clipper::~Clipper(){
 }
 
-const std::string *Tube::getName(){
-	return &Tube::nameFx;
+const std::string *Clipper::getName(){
+	return &Clipper::nameFx;
 }
 
-std::vector<Setting> *Tube::getSettings(){
+std::vector<Setting> *Clipper::getSettings(){
 
 }
 

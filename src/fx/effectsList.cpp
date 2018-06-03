@@ -16,7 +16,7 @@ AvaibleFxList::AvaibleFxList(IDetector *newUserInput){
 	fxlist.push_back(std::unique_ptr<IFX>(new Flanger(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new Chorus(newUserInput)));
 	fxlist.push_back(std::unique_ptr<IFX>(new Vibrato(newUserInput)));
-	fxlist.push_back(std::unique_ptr<IFX>(new Tube(newUserInput)));
+	fxlist.push_back(std::unique_ptr<IFX>(new Clipper(newUserInput)));
 
 }
 
@@ -32,7 +32,7 @@ IFX *FxFactory::createFx(int fxNum, IDetector *newUserInput){
 		case 5: return new Flanger(newUserInput); break;
 		case 6: return new Chorus(newUserInput); break;
 		case 7: return new Vibrato(newUserInput); break;
-		case 8: return new Tube(newUserInput); break;
+		case 8: return new Clipper(newUserInput); break;
 		default: return nullptr; break;
 	}
 }
