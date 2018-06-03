@@ -7,32 +7,49 @@
 
 #include <dsp/upSample.hpp>
 
+ float a0[] ={1.0, 1.0, 1.0, 1.0};
+ float a1[] ={-1.532549527556315460, -1.541912931587635870, -1.559137102169563250, -1.590986719096086690};
+ float a2[] ={0.605547144169744089, 0.725814082622104006, 0.859941060548118696, 0.958632517575690013};
+ float b0[] ={0.181020514440805469,  0.379032383743673040, 0.378063621232366420, 0.176513391010764381};
+ float b1[] ={-0.258929154747165324, -0.498297487151820151, -0.331230357683883037, 0.166286711453722286};
+ float b2[] ={0.181020514440805469, 0.379032383743673040, 0.378063621232366420, 0.176513391010764381};
+
+ unsigned short order = 4;
 
 UpDownSample::UpDownSample(audioSettings::SamplingMultiplier mult, unsigned int inputBufferSize):
 	mult(mult),
-	bufferSize(mult * inputBufferSize)
+	bufferSize(mult * inputBufferSize),
+	interpolationFilter(new IIR(a0, a1, a2, b0, b1, b2, order,bufferSize)),
+	antiAliasingFilter(new IIR(a0, a1, a2, b0, b1, b2, order,bufferSize))
 {
-		output.reserve(bufferSize);
+		std::fill(output.begin(), output.end(), 0.0);
 }
 
-std::vector<float> UpDownSample::up(JackCpp::AudioIO::audioBufVector inBufs){
+std::array<float,1024> *UpDownSample::up(JackCpp::AudioIO::audioBufVector inBufs){
+	std::cout<<"output.size()"<<output.size()<<std::endl;
 
 	unsigned int k = 0;
-	for (unsigned int i = 0; i < bufferSize;) {
+	for (unsigned int i = 0; i < bufferSize;){
+
 		output[i++] = inBufs[0][k++];
-		for (int j = 0; j < mult - 1; ++j) {
+
+		for (int j = 0; j < mult - 1; ++j){
 			output[i++] = 0.0;
 		}
 	}
 
-	return output;
+	interpolationFilter->filter(&output, &output);
+
+	return &output;
 }
 
 void UpDownSample::down(JackCpp::AudioIO::audioBufVector outBufs){
 
+	antiAliasingFilter-> filter(&output, &output);
+
 	unsigned int k = 0;
-	for (int i = 0; i < bufferSize / mult ; i) {
-		outBufs[0][i++] = output[k];
+	for (int i = 0; i < bufferSize / mult ;) {
+		outBufs[0][i++] = output[k]*0.123; //compensate gain
 		k += mult ;
 	}
 }

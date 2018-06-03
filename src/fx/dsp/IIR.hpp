@@ -13,14 +13,17 @@
 
 class IIR{
 public:
-	IIR(float *aa0, float *aa1, float *aa2, float *bb0, float *bb1, float *bb2, unsigned short newOrder);
+	IIR(float *aa0, float *aa1, float *aa2, float *bb0, float *bb1, float *bb2, unsigned short newOrder, unsigned int newInputSize);
 	void filter(JackCpp::AudioIO::audioBufVector input, JackCpp::AudioIO::audioBufVector output);
+	void filter(std::array<float,1024>* input, std::array<float,1024>* output);
+
 
 private:
 	float sectCalcForm1(unsigned short k, float x);
 
 	 float *a0, *a1,  *a2,  *b0,  *b1,  *b2;
 	 unsigned short order;
+	 unsigned int inputSize;
 	 std::array<float,18> regX1;
 	 std::array<float,18> regX2;
 	 std::array<float,18> regY1;

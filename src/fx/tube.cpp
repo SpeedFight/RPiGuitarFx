@@ -41,6 +41,7 @@ void Tube::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBu
 //		% mix - mix of original and distorted sound, 1=only distorted
 
 		auto upsampledInput = upSampler->up(inBufs);
+
 		upSampler->down(outBufs);
 
 
@@ -93,7 +94,7 @@ void Tube::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBu
 //if fs = 48000, then this time is 0.085 s
 Tube::Tube(IDetector *newUserInput):
 		IFX(newUserInput),
-		upSampler(new UpDownSample(audioSettings::x8, audioSettings::buffSize))
+		upSampler(new UpDownSample(audioSettings::x4, audioSettings::buffSize))
 		{
 	settings = std::vector<Setting>{
 		Setting("gain", userInput->getInputHandler(ControllerInput::pot2), 5, 1, 50),
