@@ -22,7 +22,7 @@ void Clipper::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector i
 		for(unsigned int i = 0; i < nframes * 4; ++i){
 			upsampledInput[0][i] = (upsampledInput[0][i] + Q) * gain;
 
-			float absVal = abs(upsampledInput[0][i]);
+			float absVal = std::abs(upsampledInput[0][i]);
 			if (absVal < threshold){
 				upsampledInput[0][i] = 2.0 * upsampledInput[0][i];
 			} else if (absVal >= threshold){
