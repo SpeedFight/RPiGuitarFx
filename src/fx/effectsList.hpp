@@ -9,10 +9,10 @@
 #define EFFECTSLIST_HPP_
 
 #include <clipper.hpp>
+#include <fuzz.hpp>
 #include "config.hpp"
 
 #include "playbackFx.hpp"
-#include "simpleOverdriveFX.hpp"
 #include "toneStackEq.hpp"
 #include "reverb.hpp"
 #include "delay.hpp"

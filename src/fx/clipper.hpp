@@ -12,7 +12,6 @@
 #include "config.hpp"
 
 #include "dsp/upSample.hpp"
-#include "dsp/IIR.hpp"
 
 
 class Clipper: public IFX{

@@ -5,25 +5,29 @@
  *      Author: SF
  */
 
-#ifndef SIMPLEOVERDRIVEFX_HPP_
-#define SIMPLEOVERDRIVEFX_HPP_
+#ifndef FUZZ_HPP_
+#define FUZZ_HPP_
 
 #include "effect.hpp"
 
-class SimpleOverdriveFx: public IFX{
+#include "dsp/upSample.hpp"
+
+class Fuzz: public IFX{
 public:
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs);
-	SimpleOverdriveFx(IDetector *newUserInput);
-	~SimpleOverdriveFx();
+	Fuzz(IDetector *newUserInput);
+	~Fuzz();
 
 	const std::string *getName();
 	std::vector<Setting> *getSettings();
 
 private:
 	 static const std::string nameFx;
+
+	 std::unique_ptr<UpDownSample> upSampler;
 };
 
 
 
 
-#endif /* SIMPLEOVERDRIVEFX_HPP_ */
+#endif /* FUZZ_HPP_ */

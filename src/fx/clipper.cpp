@@ -33,9 +33,9 @@ void Clipper::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector i
 					}
 			} else if (absVal > 2 * threshold){
 				if(upsampledInput[0][i] > 0){
-					upsampledInput[0][i] = 1.0;
+					upsampledInput[0][i] = 0.99;
 				}else{
-					upsampledInput[0][i] = -1.0;
+					upsampledInput[0][i] = -0.99;
 				}
 			}
 		}
