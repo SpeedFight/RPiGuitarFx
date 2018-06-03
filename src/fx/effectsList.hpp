@@ -8,13 +8,13 @@
 #ifndef EFFECTSLIST_HPP_
 #define EFFECTSLIST_HPP_
 
-#include <clipper.hpp>
-#include <fuzz.hpp>
+
 #include "config.hpp"
 
 #include "playbackFx.hpp"
+#include <clipper.hpp>
+#include <fuzz.hpp>
 #include "toneStackEq.hpp"
-#include "reverb.hpp"
 #include "delay.hpp"
 #include "flanger.hpp"
 #include "chorus.hpp"
