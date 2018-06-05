@@ -9,6 +9,36 @@
 
 const std::string Fuzz::nameFx("Fuzz");
 
+float diodeClipper(float x, float y){
+	static float R = 1.2e3;
+	static float C = 0.1e-6;
+	static float tau = R * C; //C * R
+	static float Is = 10e-12;
+	static float Vt = 14e-3;
+
+	return (-1.0/tau * (y + x) - 2.0 * Is/C * std::sinh(y/Vt));
+
+	//diode clipper test
+//	static float lastOut;
+//	static float dt = 1.0/audioSettings::fs;
+//
+//		for(unsigned int i = 0; i < nframes; ++i){
+//
+//			lastOut = lastOut + diodeClipper(inBufs[0][i] * gain, lastOut) * dt;
+//			outBufs[0][i] = lastOut;
+//			if(lastOut > 1){
+//				lastOut = 0;
+//				outBufs[0][i] = 0;
+//			} else if (lastOut < -1){
+//				lastOut = 0;
+//				outBufs[0][i] = 0;
+//			}
+//		}
+
+}
+
+
+
 void Fuzz::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs){
 	float gain = settings.at(0).getValue()*1.5;
 	float bias = settings.at(1).getValue()/11.00;

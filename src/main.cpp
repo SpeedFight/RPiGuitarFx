@@ -38,10 +38,9 @@ int main( int argc, char * argv[] )
 	std::unique_ptr<FXList> fxList(new FXList());
 
 //	fxList->addFX(new PlaybackFx(controller.get()));
-	fxList->addFX(new Fuzz(controller.get()));
-//	fxList->addFX(new ToneStackEq(controller.get()));
-//	fxList->addFX(new Reverb(controller.get()));
 //	fxList->addFX(new Delay(controller.get()));
+	fxList->addFX(new Fuzz(controller.get()));
+	fxList->addFX(new ToneStackEq(controller.get()));
 //	fxList->addFX(new Flanger(controller.get()));
 //	fxList->addFX(new Chorus(controller.get()));
 //	fxList->addFX(new Vibrato(controller.get()));
