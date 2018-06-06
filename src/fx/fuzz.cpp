@@ -38,12 +38,24 @@ float diodeClipper(float x, float y){
 }
 
 
-
 void Fuzz::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs){
 	float gain = settings.at(0).getValue()*1.5;
 	float bias = settings.at(1).getValue()/11.00;
 	float mix = settings.at(2).getValue()/20.0;
 
+
+#ifdef __arm__
+	for(unsigned int i = 0; i < nframes ; ++i){
+			float q = ((inBufs[0][i]+ bias) * gain);
+			float sign;
+				if (q > 0){
+					sign = 1;
+				}else{
+					sign = -1;
+				}
+				outBufs[0][i] = sign * (1-exp(-std::abs(q))) * 0.98;
+		}
+#else
 	auto upsampledInput = upSampler->up(inBufs);
 
 
@@ -59,6 +71,8 @@ void Fuzz::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBu
 	}
 
 	upSampler->down(outBufs);
+#endif
+
 
 	for(unsigned int i = 0; i <= nframes; ++i){
 		outBufs[0][i] = outBufs[0][i] * mix + inBufs[0][i] * (1.0 - mix);
@@ -66,8 +80,11 @@ void Fuzz::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBu
 }
 
 Fuzz::Fuzz(IDetector *newUserInput):
-		IFX(newUserInput),
+		IFX(newUserInput)
+#ifndef __arm__
+		,
 		upSampler(new UpDownSample(audioSettings::x4, audioSettings::buffSize))
+#endif
 		{
 	settings = std::vector<Setting>{
 		Setting("gain", userInput->getInputHandler(ControllerInput::pot2), 2, 1, 25),

@@ -24,7 +24,9 @@ public:
 private:
 	 static const std::string nameFx;
 
+#ifndef __arm__
 	 std::unique_ptr<UpDownSample> upSampler;
+#endif
 };
 
 

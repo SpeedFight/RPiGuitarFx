@@ -17,30 +17,53 @@ void Clipper::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector i
 	float Q = settings.at(1).getValue()/10.0;
 	float mix = settings.at(2).getValue()/20.0;
 
-		auto upsampledInput = upSampler->up(inBufs);
+#ifdef __arm__
+	for(unsigned int i = 0; i < nframes; ++i){
+		outBufs[0][i] = (outBufs[0][i] + Q) * gain;
 
-		for(unsigned int i = 0; i < nframes * 4; ++i){
-			upsampledInput[0][i] = (upsampledInput[0][i] + Q) * gain;
-
-			float absVal = std::abs(upsampledInput[0][i]);
-			if (absVal < th){
-				upsampledInput[0][i] = 2.0 * upsampledInput[0][i];
-			} else if (absVal >= th){
-				if(upsampledInput[0][i] > 0){
-					upsampledInput[0][i] = (3.0-powf( 2.0-upsampledInput[0][i]*3.0 , 2.0))/3.0;
-					}else{
-						upsampledInput[0][i] = -(3.0-powf(2.0-absVal*3, 2.0))/3.0;
-					}
-			} else if (absVal > 2 * th){
-				if(upsampledInput[0][i] > 0){
-					upsampledInput[0][i] = 0.99;
+		float absVal = std::abs(outBufs[0][i]);
+		if (absVal < th){
+			outBufs[0][i] = 2.0 * outBufs[0][i];
+		} else if (absVal >= th){
+			if(outBufs[0][i] > 0){
+				outBufs[0][i] = (3.0-powf( 2.0-outBufs[0][i]*3.0 , 2.0))/3.0;
 				}else{
-					upsampledInput[0][i] = -0.99;
+					outBufs[0][i] = -(3.0-powf(2.0-absVal*3, 2.0))/3.0;
 				}
+		} else if (absVal > 2 * th){
+			if(outBufs[0][i] > 0){
+				outBufs[0][i] = 0.99;
+			}else{
+				outBufs[0][i] = -0.99;
 			}
 		}
+	}
+#else
+	auto upsampledInput = upSampler->up(inBufs);
 
-		upSampler->down(outBufs);
+	for(unsigned int i = 0; i < nframes * 4; ++i){
+		upsampledInput[0][i] = (upsampledInput[0][i] + Q) * gain;
+
+		float absVal = std::abs(upsampledInput[0][i]);
+		if (absVal < th){
+			upsampledInput[0][i] = 2.0 * upsampledInput[0][i];
+		} else if (absVal >= th){
+			if(upsampledInput[0][i] > 0){
+				upsampledInput[0][i] = (3.0-powf( 2.0-upsampledInput[0][i]*3.0 , 2.0))/3.0;
+				}else{
+					upsampledInput[0][i] = -(3.0-powf(2.0-absVal*3, 2.0))/3.0;
+				}
+		} else if (absVal > 2 * th){
+			if(upsampledInput[0][i] > 0){
+				upsampledInput[0][i] = 0.99;
+			}else{
+				upsampledInput[0][i] = -0.99;
+			}
+		}
+	}
+
+	upSampler->down(outBufs);
+#endif
 
 		for(unsigned int i = 0; i <= nframes; ++i){
 			outBufs[0][i] = outBufs[0][i] * mix + inBufs[0][i] * (1.0 - mix);
@@ -49,8 +72,11 @@ void Clipper::process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector i
 }
 
 Clipper::Clipper(IDetector *newUserInput):
-		IFX(newUserInput),
+		IFX(newUserInput)
+#ifndef __arm__
+		,
 		upSampler(new UpDownSample(audioSettings::x4, audioSettings::buffSize))
+#endif
 		{
 	settings = std::vector<Setting>{
 		Setting("gain", userInput->getInputHandler(ControllerInput::pot2), 5, 1, 50),
