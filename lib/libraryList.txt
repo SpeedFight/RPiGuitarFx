@@ -3,5 +3,21 @@ List of used libs
 1)	rotaryEncoder
 	https://github.com/F6HQZ/rotary-encoder-lib-for-raspberry-pi
 	
-2)	CAPS
-	http://quitte.de/dsp/caps.html#
+
+Dynamic libs dep:
+  libgtkmm-3.0.so.1
+  libatkmm-1.6.so.1
+  libgdkmm-3.0.so.1
+  libgiomm-2.4.so.1
+  libglibmm-2.4.so.1
+  libsigc-2.0.so.0
+  libjack.so.0
+  libncurses.so.5
+  libtinfo.so.5
+  libpanel.so.5
+  libmenu.so.5
+  libstdc++.so.6
+  libm.so.6
+  libgcc_s.so.1
+  libpthread.so.0
+  libc.so.6
