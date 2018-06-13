@@ -64,8 +64,12 @@ protected:
 
 };
 
-class FXList{
 
+/**
+ * @description List for actual effect list in audio loop with add/move/delete mechanism. This is basically core of guitar multieffect.
+ * Contain 2 fx list (for non blocking edit, but this mechanism currently don't work)
+ */
+class FXList{
 public:
 	FXList();
 	const std::vector<std::shared_ptr<IFX>>  *getCurrentFXList();

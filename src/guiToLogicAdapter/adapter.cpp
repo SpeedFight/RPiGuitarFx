@@ -115,8 +115,9 @@ void Adapter::setSelectedFxNum(int newSelectedFxNum){
 }
 
 
-/*
- * change current active to edit settings fx
+/**
+ * @description main logic function.
+ * It connect gui with fx list
  */
 void Adapter::handleUserInput(){
 	userInput->getInputHandler(ControllerInput::pot1);

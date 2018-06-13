@@ -35,6 +35,9 @@ Encoder::Encoder(){
 	controllerValues.fill(0);
     wiringPiSetup () ;
 
+    /**
+     * set pin connected to encoders
+     */
 	struct encoder_type *encoder =
 			setupencoder ("ENC1", 23, 27,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;
 			setupencoder ("ENC2", 21, 22,	YES,YES,YES,	-512,512,0,	200000,40000,25000,10000,5,10,20) ;

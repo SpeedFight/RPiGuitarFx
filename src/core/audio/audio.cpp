@@ -70,6 +70,13 @@ Audio::Audio(FXList *newFxList) : JackCpp::AudioIO("RPiGuitarFX", 2,2), fxList(n
 
 }
 //TODO fix buffers
+/**
+ * @brief Audio loop
+ * @param nframes amount of samples in buffers
+ * @param inBufs
+ * @param outBufs
+ * @return
+ */
 int Audio::audioCallback(jack_nframes_t nframes, audioBufVector inBufs, audioBufVector outBufs){
 
 //			auto start_audio_calback = std::chrono::steady_clock::now();

@@ -36,7 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cmath>
 #include <vector>
 
-/*
+
+
+/**
+ * This file contain global settings for project, besides encoder defines (look at encoder.cpp Encoder::Encoder())
+ */
+
+/**
  * keyboard windows is only graphics thread
  */
 //#define GTK_KEYBOARD_LOOP
@@ -46,21 +52,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	#define ROTARY_ENCODER
 #endif
 
-/*
+/**
  * choose between UI in GTK or ncurses
  */
 #define GTK_UI
 
 const unsigned int DEFAULT_RESERVED_FX_LIST_SIZE = 8;
 
-/*
+/**
  * color for fx list dialog
  */
 namespace fxDialogListColor{
 	const std::string selectedButtonCollor 		= "yellow";
 	const std::string unselectedButtonCollor 	= "white";
 }
-
 
 namespace audioSettings{
 	const unsigned int fs = 44100;

@@ -29,13 +29,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "effect.hpp"
 #include "config.hpp"
 
+
+/**
+ * example of "how to add new effect"
+ * 1. use this .hpp .cpp file
+ * 2. make new effect
+ * 3. include new effect in effectsList.hpp
+ * 4. edit effectsList.cpp to make it available
+ * 5. ROCK!
+ */
 class ExampleFx: public IFX{
 public:
 	virtual void process(jack_nframes_t nframes, JackCpp::AudioIO::audioBufVector inBufs, JackCpp::AudioIO::audioBufVector outBufs);
 	ExampleFx(IDetector *newUserInput);
 	~ExampleFx();
 
-	const std::string *getName();
+	const std::string *getName();	/** UGH terrible way to get name, need rework  */
 	std::vector<Setting> *getSettings();
 
 private:

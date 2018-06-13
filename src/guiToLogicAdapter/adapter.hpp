@@ -34,6 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <gtkmm.h>
 
+/**
+ * It is like MVC template
+ * Adapter is controller
+ */
 class Adapter{
 public:
 	Adapter(FXList *newFxList, IDetector *newUserInput, FxGtkList *newFxGtkList, FxGtkView *newFxGtkView, int argc, char * argv[]);

@@ -33,6 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MIN(x,y) ((x) < (y) ? (x) : (y))
 
+/**
+ * Connect to jack audio server and process audio effecs
+ */
 class Audio: public JackCpp::AudioIO {
 	public:
 		// Your audio callback. All audio processing goes in this function.

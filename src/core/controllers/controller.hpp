@@ -32,9 +32,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * defined controllers
  * 4 potentiometers (encoder)
  * 4 buttons (each encoder is also button)
- * 2 buttons as footswitch
+ * 2 buttons as footswitch (not implemented)
  */
 
+/**
+ * Interface for keyboard / encoders
+ */
 class IDetector{
 public:
 	virtual void pollForEvents(void) {};
