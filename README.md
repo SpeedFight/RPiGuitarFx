@@ -1,5 +1,4 @@
-![Project logo](description/images/RPiGuitarFx_Logoxcf.png)
-<img src="description/images/RPiGuitarFx_Logoxcf.png" width="88">
+<img src="description/images/RPiGuitarFx_Logoxcf.png" align="center" width="400">
 
 
 # RPiGuitarFx
@@ -11,7 +10,8 @@ I implement:
 * flanger
 * vibrato
 * tonestack (3-band eq from guitar amp)
-* simple fuzz / distortion 
+* simple fuzz / distortion
+
 If you're interested how it works check also http://www.dafx.de/ and http://quitte.de/dsp/caps.html
 
 Also theres's used:
@@ -24,6 +24,11 @@ Also theres's used:
 Project main problem is stability, ussualy program fails from memory corruption. It happend because there should be applied more multithreads mehanism like mutex, semaphores etc.\ 
 It was not oryginally done because raal time situations like audio processing need more attention.
 Also GTK is not great when is used with encoders... Probably it should be rewritten in QT.
+
+
+There's two way of use this multieffect:
+1. PC with linux. Use keyboard to manipulate effects (how? see pictures bellow)
+2. On Raspberry Pi, but you need encoders (see code to get info about pin configutarion)
 
 I use Eclipse CDT to build project on PC, and not preapred any special build files besides this.\
 To use with raspberry Pi, copy projekt and use make.
@@ -53,24 +58,27 @@ go to /Debug then:
 * start multieffect program
 
 ## gui
-![Project logo](description/images/g1.png)
-![Project logo](description/images/g3.png)
-![Project logo](description/images/g2.png)
+
+
+<img src="description/images/g1.png" align="center" width="600">
+<img src="description/images/g3.png" align="center" width="600">
+<img src="description/images/g2.png" align="center" width="600">
+
 
 ## multieffect pictures
 
-![Project logo](description/images/1.jpg)
-![Project logo](description/images/2.jpg)
-![Project logo](description/images/3.jpg)
+<img src="description/images/1.jpg" align="center" width="600">
+<img src="description/images/2.jpg" align="center" width="600">
+<img src="description/images/3.jpg" align="center" width="600">
 
-## how it works diagrams
+## how it works
 
-![Project logo](description/images/mvc.png)
-![Project logo](description/images/encoder_control_gui.png)
-![Project logo](description/images/window_in_project.png)
+<img src="description/images/mvc.png" align="center" width="600">
+<img src="description/images/encoder_control_gui.png" align="center" width="600">
+<img src="description/images/window_in_project.png" align="center" width="600">
+<img src="description/images/klawiatura_emuluje_enkoder.png" align="center" width="600">
+<img src="description/images/encoder_connected_with_code.png" align="center" width="600">
 
-![Project logo](description/images/klawiatura_emuluje_enkoder.png)
-![Project logo](description/images/encoder_connected_with_code.png)
 
 RPiGuitarFx
 Copyright (C) 2018  SpeedFight
